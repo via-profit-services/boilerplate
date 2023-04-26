@@ -1,0 +1,7 @@
+/scripts/**
+/src/@types/**
+/src/__generated__/**
+/dist/**
+/build/**
+/src/**/*.d.ts
+/node_modules/

@@ -1,0 +1,35 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to debugger",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "sourceMaps": true,
+      "restart": true,
+      "localRoot": "${workspaceRoot}/src/index.ts",
+      "remoteRoot": "${workspaceRoot}/build/index.js",
+      "cwd": "${workspaceRoot}",
+      "sourceMapPathOverrides": {
+        "webpack://graphql-boilerplate/./src/*": "${workspaceRoot}/src/*"
+      }
+    },
+    {
+      "type": "node",
+      "name": "vscode-jest-tests",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceRoot}",
+      "sourceMapPathOverrides": {
+        "webpack://graphql-boilerplate/./src/*": "${workspaceRoot}/src/*"
+      },
+      "args": [
+        "test",
+        "--runInBand",
+        "--watchAll=false"
+      ]
+    }
+  ]
+}

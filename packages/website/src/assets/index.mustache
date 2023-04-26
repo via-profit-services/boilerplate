@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html {{{helmet.htmlAttributes}}}>
+  <head>
+    <!-- index.mustache -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <!-- end of index.mustache -->
+    
+    {{{helmet.title}}}
+    {{{helmet.base}}}
+    {{{helmet.meta}}}
+    {{{helmet.link}}}
+    {{{helmet.noscript}}}
+    {{{helmet.style}}}
+    {{{helmet.script}}}
+    {{{extractor.linkTags}}}
+    {{{extractor.styleTags}}}
+    {{{styleTags}}}
+  </head>
+  <body {{{helmet.bodyAttributes}}}>
+    <div id="app">{{{htmlContent}}}</div>
+    <!-- __PRELOADED_STATES__ must be before application scripts -->
+    <script>window.__PRELOADED_STATES__ = '{{{preloadedStatesBase64}}}';</script>
+    {{{extractor.scriptTags}}}
+  </body>
+</html>

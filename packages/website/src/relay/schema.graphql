@@ -1,0 +1,1058 @@
+"""
+A GraphQL `FileUpload` scalar as specified GraphQL multipart request specification: https://github.com/jaydenseric/graphql-multipart-request-spec#graphql-multipart-request-specification
+"""
+scalar FileUpload
+
+"""Analogue of Date object"""
+scalar Date
+
+"""Analogue of Date object"""
+scalar DateTime
+
+"""
+A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.
+"""
+scalar EmailAddress
+
+"Money type.\nThe value is stored in the smallest monetary unit (kopecks, cents, etc.)\nReal type - Int\ne.g. For 250 USD this record returns value as 250000 (250$ * 100¢)\n"
+scalar Money
+
+"""Time string"""
+scalar Time
+
+"""Represents NULL values"""
+scalar Void
+
+"""
+A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt.
+"""
+scalar URL
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+input BetweenDate {
+  start: Date!
+  end: Date!
+}
+
+input BetweenDateTime {
+  start: DateTime!
+  end: DateTime!
+}
+
+input BetweenInt {
+  start: Int!
+  end: Int!
+}
+
+input BetweenMoney {
+  start: Money!
+  end: Money!
+}
+
+input BetweenTime {
+  start: Time!
+  end: Time!
+}
+
+"""GraphQL Connection spec. interface"""
+interface Connection {
+  pageInfo: PageInfo!
+  edges: [Edge]!
+}
+
+"""Standart ordering options"""
+enum OrderDirection {
+  """Sort the query results in a top to bottom style (e.g.: A->Z)"""
+  ASC
+
+  """Sort the query results in a bottom to top style (e.g.: Z->A)"""
+  DESC
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+"""GraphQL Edge spec. interface"""
+interface Edge {
+  node: Node!
+  cursor: String!
+}
+
+interface Error {
+  """Error name. Can be short error message"""
+  name: String!
+
+  """Error detail message string"""
+  msg: String!
+}
+
+"""GraphQL Node spec. interface"""
+interface Node {
+  id: ID!
+}
+
+type Query {
+  authentification: AuthentificationQuery!
+  clients: ClientsQuery!
+  deals: DealsQuery!
+  files: FilesQuery!
+  funnels: FunnelsQuery!
+  users: UsersQuery!
+  pages: PagesQuery!
+  blog: BlogQuery!
+  version: String!
+  me: Me!
+}
+
+type AuthentificationQuery {
+  """Verify your Access token"""
+  verifyToken(
+    """Access token"""
+    accessToken: String!
+  ): TokenVerificationResponse!
+}
+
+union TokenVerificationResponse = TokenVerificationSuccess | TokenVerificationError
+
+type TokenVerificationSuccess {
+  payload: AccessTokenPayload!
+}
+
+"""Access token payload"""
+type AccessTokenPayload {
+  id: ID!
+  auid: ID!
+  uuid: ID!
+  exp: Int!
+  iss: String
+  roles: [AccountRole!]!
+  privileges: [String!]!
+  type: TokenType!
+}
+
+enum AccountRole {
+  DEVELOPER
+  ADMINISTRATOR
+  VIEWER
+  OPTIMIZATOR
+  COPYWRITER
+}
+
+enum TokenType {
+  """Access token type"""
+  ACCESS
+
+  """Refresh token type"""
+  REFRESH
+}
+
+type TokenVerificationError implements Error {
+  name: String!
+  msg: String!
+}
+
+type ClientsQuery {
+  client(id: ID!): Client
+  list(first: Int, last: Int, after: String, before: String, id: [ID!], status: [ClientStatus!], orderBy: [ClientsOrderBy!], search: [ClientsFilterSearch!]): ClientsConnection!
+}
+
+type Client implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  comment: String
+  status: ClientStatus!
+  persons: [Person!]
+}
+
+enum ClientStatus {
+  ACTIVE
+  INACTIVE
+}
+
+type Person implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  heldPost: String!
+  comment: String
+  client: Client!
+}
+
+type ClientsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [ClientEdge!]!
+}
+
+type ClientEdge implements Edge {
+  cursor: String!
+  node: Client!
+}
+
+input ClientsOrderBy {
+  field: ClientsOrderField!
+  direction: OrderDirection!
+}
+
+enum ClientsOrderField {
+  NAME
+}
+
+input ClientsFilterSearch {
+  field: ClientsFilterSearchField!
+  query: String!
+}
+
+enum ClientsFilterSearchField {
+  NAME
+  COMMENT
+}
+
+type DealsQuery {
+  deal(id: ID!): Deal
+  list(first: Int, last: Int, after: String, before: String, orderBy: [DealsOrderBy!], search: [DealsFilterSearch!], filter: DealsFilter): DealsConnection!
+}
+
+type Deal implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  label: String!
+  amount: Money!
+  comment: String
+  step: FunnelStep!
+  funnel: Funnel!
+  clients: [Client!]
+}
+
+type FunnelStep implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  label: String!
+  color: String!
+  order: Int!
+  type: FunnelStepType!
+  funnel: Funnel!
+  deals: DealsConnection!
+}
+
+enum FunnelStepType {
+  STANDARD
+  UNPROCESSED
+  CANCELED
+  FINISHED
+}
+
+type Funnel implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  label: String!
+  comment: String
+  steps(first: Int, last: Int, after: String, before: String, filter: FunnelStepsFilter, search: [FunnelStepsFilterSearch!], orderBy: [FunnelStepsOrderBy!]): FunnelStepsConnection!
+  deals(first: Int, last: Int, after: String, before: String): DealsConnection!
+}
+
+type FunnelStepsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [FunnelStepsEdge!]!
+}
+
+type FunnelStepsEdge implements Edge {
+  cursor: String!
+  node: FunnelStep!
+}
+
+input FunnelStepsFilter {
+  id: [ID!]
+  order: [Int!]
+  type: [FunnelStepType!]
+}
+
+input FunnelStepsFilterSearch {
+  field: FunnelStepsFilterSearchField!
+  query: String!
+}
+
+enum FunnelStepsFilterSearchField {
+  LABEL
+}
+
+input FunnelStepsOrderBy {
+  field: FunnelStepsOrderField!
+  direction: OrderDirection!
+}
+
+enum FunnelStepsOrderField {
+  ORDER
+}
+
+type DealsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [DealEdge!]!
+}
+
+type DealEdge implements Edge {
+  cursor: String!
+  node: Deal!
+}
+
+input DealsOrderBy {
+  field: DealsOrderField!
+  direction: OrderDirection!
+}
+
+enum DealsOrderField {
+  CREATED_AT
+  UPDATED_AT
+}
+
+input DealsFilterSearch {
+  field: DealsFilterSearchField!
+  query: String!
+}
+
+enum DealsFilterSearchField {
+  LABEL
+}
+
+input DealsFilter {
+  id: [ID!]
+}
+
+type FilesQuery {
+  file(id: ID!): File
+}
+
+type File implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  """File owner ID"""
+  owner: ID!
+  mimeType: String!
+
+  """File display name"""
+  name: String!
+  description: String
+
+  """File type: Avatar; Document, ...etc."""
+  type: FileType!
+  pseudoPath: String
+  meta: JSON
+  access: FileAccess!
+  url: URL!
+  transform(input: [ImageTransform!]!): TransformedFile
+}
+
+enum FileType {
+  AVATAR
+  MEDIA
+  DOCUMENT
+}
+
+type FileAccess {
+  read: [AccountRole!]
+  write: [AccountRole!]
+  del: [AccountRole!]
+}
+
+type TransformedFile implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  owner: ID!
+  mimeType: String!
+  type: FileType!
+  description: String!
+  meta: JSON!
+  access: FileAccess!
+  url: URL!
+  reference: File!
+}
+
+input ImageTransform {
+  resize: ImageTransformResize
+  cover: ImageTransformCover
+  contain: ImageTransformContain
+  crop: ImageTransformCrop
+  format: ImageTransformFormat
+  blur: Int
+  greyscale: Boolean
+}
+
+input ImageTransformResize {
+  w: Int!
+  h: Int!
+}
+
+input ImageTransformCover {
+  w: Int!
+  h: Int!
+}
+
+input ImageTransformContain {
+  w: Int!
+  h: Int!
+}
+
+input ImageTransformCrop {
+  w: Int!
+  h: Int!
+  x: Int!
+  y: Int!
+}
+
+input ImageTransformFormat {
+  type: ImageTransformFormatType!
+  quality: Int!
+}
+
+enum ImageTransformFormatType {
+  PNG
+  JPEG
+  WEBP
+}
+
+type FunnelsQuery {
+  funnel(id: ID!): Funnel
+  list(first: Int, last: Int, after: String, before: String, orderBy: [FunnelsOrderBy!], search: [FunnelsFilterSearch!], filter: FunnelsFilter): FunnelsConnection!
+}
+
+type FunnelsConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [FunnelEdge!]!
+}
+
+type FunnelEdge implements Edge {
+  cursor: String!
+  node: Funnel!
+}
+
+input FunnelsOrderBy {
+  field: FunnelsOrderField!
+  direction: OrderDirection!
+}
+
+enum FunnelsOrderField {
+  CREATED_AT
+}
+
+input FunnelsFilterSearch {
+  field: FunnelsFilterSearchField!
+  query: String!
+}
+
+enum FunnelsFilterSearchField {
+  LABEL
+}
+
+input FunnelsFilter {
+  id: [ID!]
+}
+
+type UsersQuery {
+  list(first: Int, last: Int, after: String, before: String, search: [UsersSearch!], orderBy: [UserOrderBy!], account: [ID!], id: [ID!]): UsersConnection!
+  user(id: ID!): User
+}
+
+type UsersConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [UserEdge!]!
+}
+
+type UserEdge implements Edge {
+  cursor: String!
+  node: User!
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  avatar: File
+  files(first: Int, last: Int, after: String, before: String, account: [ID!], type: [FileType!], id: [ID!]): FilesConnection!
+  account: Account
+}
+
+type FilesConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [FileEdge!]!
+}
+
+type FileEdge implements Edge {
+  cursor: String!
+  node: File!
+}
+
+type Account {
+  id: ID!
+  login: String!
+  password: String!
+  status: AccountStatus!
+  privileges: [String!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  roles: [AccountRole!]!
+  user: User
+}
+
+enum AccountStatus {
+  ALLOWED
+  FORBIDDEN
+}
+
+input UsersSearch {
+  field: UserSearchField!
+  query: String!
+}
+
+enum UserSearchField {
+  NAME
+}
+
+input UserOrderBy {
+  field: UserOrderField!
+  direction: OrderDirection!
+}
+
+enum UserOrderField {
+  NAME
+  CREATED_AT
+  UPDATED_AT
+}
+
+type PagesQuery {
+  list(first: Int, last: Int, after: String, before: String, search: [PagesSearch!], orderBy: [PageOrderBy!], account: [ID!], id: [ID!]): PagesConnection!
+  menu(first: Int, last: Int, after: String, before: String, search: [PageMenuSearch!], orderBy: [PageMenuOrderBy!], id: [ID!]): PagesMenuConnection!
+  menuItems(first: Int, last: Int, after: String, before: String, search: [PageMenuItemSearch!], orderBy: [PageMenuItemOrderBy!], menu: [ID!], pid: [ID!], page: [ID!], id: [ID!]): PagesMenuItemConnection!
+
+  """
+  Resolve the web page. Page will be resolved only if status code of the page equal 200, otherwise Fallback 404 will return
+  """
+  resolve(
+    """Page iD if you know it"""
+    id: ID
+
+    """Web page pathname, eg.: «/path/to»"""
+    path: String
+  ): Page!
+}
+
+type PagesConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [PageEdge!]!
+}
+
+type PageEdge implements Edge {
+  cursor: String!
+  node: Page!
+}
+
+type Page implements Node {
+  id: ID!
+  template: PageTemplate
+  contentBlocks: [ContentBlock!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  """Page address. Not to be confused with the URL"""
+  path: String!
+
+  """The page name is not shown anywhere except the admin panel"""
+  name: String!
+  order: Int!
+  meta: PageMeta!
+  statusCode: Int!
+  parent: Page
+  childs: [Page!]
+}
+
+union PageTemplate = TemplateHomePage | TemplateSecondPage | TemplateFallbackPage | TemplateBlogPostPage | TemplateBlogPage
+
+type TemplateHomePage implements PageTemplateInterface {
+  id: ID!
+  name: TemplateName!
+  displayName: String!
+  page: Page!
+
+  """Page H1 heading"""
+  heading: ContentBlockPlainText
+  payments: Payments
+  slider: Slider
+}
+
+interface PageTemplateInterface {
+  id: ID!
+  name: TemplateName!
+  displayName: String!
+
+  """Template active page"""
+  page: Page!
+}
+
+enum TemplateName {
+  TEMPLATE_HOME_PAGE
+  TEMPLATE_SECOND_PAGE
+  TEMPLATE_FALLBACK_PAGE
+  TEMPLATE_BLOG_PAGE
+  TEMPLATE_BLOGPOST_PAGE
+}
+
+type ContentBlockPlainText implements ContentBlockInterface & Node {
+  id: ID!
+  type: ContentBlockType!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  page: Page
+  template: PageTemplate
+  text: String!
+}
+
+interface ContentBlockInterface implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: ContentBlockType!
+  page: Page
+  template: PageTemplate
+}
+
+enum ContentBlockType {
+  IMAGE
+  PLAIN_TEXT
+  FORMATTED_TEXT
+}
+
+type Payments {
+  id: ID!
+  icons: [PaymentIcon!]!
+  title: ContentBlockPlainText
+  subtitle: ContentBlockPlainText
+  content: ContentBlockLexical
+}
+
+type PaymentIcon {
+  id: ID!
+  color: String!
+}
+
+type ContentBlockLexical implements ContentBlockInterface & Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: ContentBlockType!
+  name: String!
+  page: Page
+  template: PageTemplate
+  lexical: JSONObject!
+}
+
+type Slider {
+  id: ID!
+  slides: [Slide!]!
+}
+
+type Slide {
+  id: ID!
+  image: ContentBlockImage
+}
+
+type ContentBlockImage implements ContentBlockInterface & Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: ContentBlockType!
+  name: String!
+  page: Page
+  template: PageTemplate
+  alt: String
+  title: String
+  file: File!
+}
+
+type TemplateSecondPage implements PageTemplateInterface {
+  id: ID!
+  name: TemplateName!
+  displayName: String!
+  page: Page!
+
+  """Page H1 heading"""
+  heading: ContentBlockPlainText
+
+  """Page content"""
+  content: ContentBlockLexical
+}
+
+type TemplateFallbackPage implements PageTemplateInterface {
+  id: ID!
+  name: TemplateName!
+  displayName: String!
+  page: Page!
+
+  """Page H1 heading"""
+  heading: ContentBlockPlainText
+
+  """Page content"""
+  content: ContentBlockLexical
+}
+
+type TemplateBlogPostPage implements PageTemplateInterface {
+  id: ID!
+  name: TemplateName!
+  displayName: String!
+  page: Page!
+
+  """H1 heading"""
+  heading: ContentBlockPlainText
+
+  """Post image"""
+  image: ContentBlockImage
+}
+
+type TemplateBlogPage implements PageTemplateInterface {
+  id: ID!
+  name: TemplateName!
+  displayName: String!
+  page: Page!
+
+  """H1 heading"""
+  heading: ContentBlockPlainText
+  posts(first: Int, last: Int, after: String, before: String, orderBy: [BlogPostOrderBy!]): BlogPostConnection!
+}
+
+type BlogPostConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [BlogPostEdge!]!
+}
+
+type BlogPostEdge implements Edge {
+  cursor: String!
+  node: BlogPost!
+}
+
+type BlogPost implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  publishedAt: DateTime!
+  page: Page
+}
+
+input BlogPostOrderBy {
+  field: BlogPostOrderField!
+  direction: OrderDirection!
+}
+
+enum BlogPostOrderField {
+  PUBLISHED_AT
+}
+
+union ContentBlock = ContentBlockPlainText | ContentBlockLexical | ContentBlockImage
+
+"""Web page meta data"""
+type PageMeta {
+  id: ID!
+
+  """Web page locale and the HTML attribute <html lang="...">"""
+  locale: String!
+
+  """Meta tag <title>...</title>"""
+  title: String
+
+  """Meta tag <meta name="description" content="...">"""
+  description: String
+
+  """Meta tag <meta name="keywords" content="...">"""
+  keywords: String @deprecated(reason: "Google and other search engines no longer consider the keywords meta tag")
+  page: Page!
+}
+
+input PagesSearch {
+  field: PageSearchField!
+  query: String!
+}
+
+enum PageSearchField {
+  NAME
+}
+
+input PageOrderBy {
+  field: PageOrderField!
+  direction: OrderDirection!
+}
+
+enum PageOrderField {
+  ORDER
+  NAME
+  CREATED_AT
+  UPDATED_AT
+}
+
+type PagesMenuConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [PageMenuEdge!]!
+}
+
+type PageMenuEdge implements Edge {
+  cursor: String!
+  node: PageMenu!
+}
+
+type PageMenu implements Node {
+  id: ID!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  items: [PageMenuItem!]
+}
+
+type PageMenuItem implements Node {
+  id: ID!
+  order: Int!
+  visible: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  target: PageWindowTarget!
+  url: URL
+  name: String
+  parent: PageMenuItem
+  menu: PageMenu
+  page: Page
+  childs: [PageMenuItem!]
+}
+
+enum PageWindowTarget {
+  """Value for the «target» attribute, e.g.: <a target="_self"></a>"""
+  SELF
+
+  """Value for the «target» attribute, e.g.: <a target="_blank"></a>"""
+  BLANK
+}
+
+input PageMenuSearch {
+  field: PageMenuSearchField!
+  query: String!
+}
+
+enum PageMenuSearchField {
+  NAME
+}
+
+input PageMenuOrderBy {
+  field: PageMenuOrderField!
+  direction: OrderDirection!
+}
+
+enum PageMenuOrderField {
+  ORDER
+  CREATED_AT
+  UPDATED_AT
+}
+
+type PagesMenuItemConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [PageMenuItemEdge!]!
+}
+
+type PageMenuItemEdge implements Edge {
+  cursor: String!
+  node: PageMenuItem!
+}
+
+input PageMenuItemSearch {
+  field: PageMenuItemSearchField!
+  query: String!
+}
+
+enum PageMenuItemSearchField {
+  NAME
+}
+
+input PageMenuItemOrderBy {
+  field: PageMenuItemOrderField!
+  direction: OrderDirection!
+}
+
+enum PageMenuItemOrderField {
+  ORDER
+  CREATED_AT
+  UPDATED_AT
+}
+
+type BlogQuery {
+  posts(first: Int, last: Int, after: String, before: String, id: [ID!], orderBy: [BlogPostOrderBy!]): BlogPostConnection!
+}
+
+union Me = User
+
+type Mutation {
+  authentification: AuthentificationMutation!
+  users: UsersMutation!
+  pages: PagesMutation!
+}
+
+type AuthentificationMutation {
+  """Create «Access» and «Refresh» tokens pair"""
+  create(login: String!, password: String!): TokenRegistrationResponse!
+
+  """Exchange a «Refresh» token to new «Access» and «Refresh» tokens pair"""
+  refresh(refreshToken: String!): TokenRegistrationResponse!
+  revoke(tokenID: ID!): Void
+}
+
+union TokenRegistrationResponse = TokenRegistrationSuccess | TokenRegistrationError
+
+type TokenRegistrationSuccess {
+  payload: TokenBag!
+  query: Query!
+}
+
+"""Tokens pair (Access and Refresh)"""
+type TokenBag {
+  accessToken: AccessToken!
+  refreshToken: RefreshToken!
+}
+
+"""Access token package"""
+type AccessToken {
+  token: String!
+  payload: AccessTokenPayload!
+}
+
+"""Refresh token package"""
+type RefreshToken {
+  token: String!
+  payload: RefreshTokenPayload!
+}
+
+"""Refresh token payload"""
+type RefreshTokenPayload {
+  id: ID!
+  auid: ID!
+  uuid: ID!
+  exp: Int!
+  iss: String
+  type: TokenType!
+  associated: AccessTokenPayload!
+}
+
+type TokenRegistrationError implements Error {
+  name: String!
+  msg: String!
+}
+
+type UsersMutation {
+  update(id: ID!, input: UserUpdateInput!): UserUpdateResponse!
+}
+
+union UserUpdateResponse = UserUpdateSuccess | UserUpdateError
+
+type UserUpdateSuccess {
+  user: User!
+  query: Query!
+}
+
+type UserUpdateError implements Error {
+  name: String!
+  msg: String!
+}
+
+input UserUpdateInput {
+  name: String
+  avatar: FileUpload
+  files: [FileUpload!]
+  filesInfo: [UserFileInfo!]
+}
+
+input UserFileInfo {
+  id: ID
+  type: FileType!
+  name: String!
+  description: String
+  meta: JSONObject
+}
+
+type PagesMutation {
+  createContentBlockPlainText(input: ContentBlockPlaintTextInputCreate): ContentBlockMutationPayload!
+  createContentBlockFormattedText(input: ContentBlockFormattedTextInputCreate): ContentBlockMutationPayload!
+  createContentBlockImage(input: ContentBlockImageInputCreate): ContentBlockMutationPayload!
+  updateContentBlockPlainText(id: ID!, text: String!, name: String, page: String, template: String): ContentBlockMutationPayload!
+  updateContentBlockFormattedText(id: ID!, lexical: String!, name: String, page: String, template: String): ContentBlockMutationPayload!
+  updateContentBlockImage(id: ID!, alt: String, title: String, file: FileUpload, name: String, page: String, template: String): ContentBlockMutationPayload!
+  createPage(statusCode: Int, path: String!, name: String!, id: ID, pid: ID, template: ID, order: Int): PageMutationPayload!
+  updatePage(id: ID!, statusCode: Int, path: String, pid: ID, template: ID, name: String, order: Int): PageMutationPayload!
+}
+
+union ContentBlockMutationPayload = ContentBlockMutationSuccess | ContentBlockMutationError
+
+type ContentBlockMutationSuccess {
+  contentBlock: ContentBlock!
+}
+
+type ContentBlockMutationError implements Error {
+  name: String!
+  msg: String!
+}
+
+input ContentBlockPlaintTextInputCreate {
+  id: ID
+  page: ID
+  template: ID
+  name: String!
+  text: String!
+}
+
+input ContentBlockFormattedTextInputCreate {
+  id: ID
+  page: ID
+  template: ID
+  name: String!
+  lexical: JSONObject!
+}
+
+input ContentBlockImageInputCreate {
+  id: ID
+  page: ID
+  template: ID
+  name: String!
+  alt: String
+  title: String
+  file: FileUpload!
+}
+
+union PageMutationPayload = PageMutationSuccess | PageMutationError
+
+type PageMutationSuccess {
+  page: Page!
+}
+
+type PageMutationError implements Error {
+  name: String!
+  msg: String!
+}
+
+type Subscription {
+  userWasUpdated: User!
+}

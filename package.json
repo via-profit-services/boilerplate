@@ -1,0 +1,23 @@
+{
+  "name": "mono",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently --raw 'npm run start:graphql-server' 'npm run start:website' 'npm run start:web-admin'",
+    "start:graphql-server": "npm run start --workspace ./packages/graphql-server",
+    "start:website": "npm run start --workspace ./packages/website",
+    "start:web-admin": "npm run start --workspace ./packages/web-admin"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/website",
+    "packages/graphql-server",
+    "packages/web-admin"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "chrome://newtab",
+      "port": 9228
+    },
+    {
+      "name": "Debug Website (Launch Chrome at first)",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9228,
+      "webRoot": "${workspaceFolder}/packages/website",
+      "sourceMaps": true
+    },
+    {
+      "name": "Debug WebAdmin (Launch Chrome at first)",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9228,
+      "webRoot": "${workspaceFolder}/packages/web-admin",
+      "sourceMaps": true
+    },
+    {
+      "name": "Debug GraphQL Server",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "sourceMaps": true,
+      "restart": true,
+      "localRoot": "${workspaceRoot}/packages/graphql-server/src/index.ts",
+      "remoteRoot": "${workspaceRoot}/packages/graphql-server/build/index.js",
+      "cwd": "${workspaceRoot}/packages/graphql-server"
+    }
+  ]
+}

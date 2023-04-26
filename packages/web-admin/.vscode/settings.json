@@ -1,0 +1,22 @@
+{
+  "eslint.alwaysShowStatus": false,
+  "eslint.run": "onType",
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/__generated__": true,
+    "**/relay": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#321236",
+    "statusBar.foreground": "#ffffff"
+  }
+}

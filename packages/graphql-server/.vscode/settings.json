@@ -1,0 +1,8 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true,
+    "**/node_modules/*": true
+  },
+  "todo-tree.filtering.excludeGlobs": ["/.yarn", "/.knex", "/build/", "/dist/", "/node_modules/"]
+}

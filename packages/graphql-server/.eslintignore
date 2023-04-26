@@ -1,0 +1,6 @@
+/src/@types/**
+/dist/**
+/.knex/**
+/build/**
+src/**/*.d.ts
+/node_modules/**

@@ -1,0 +1,18 @@
+/node_modules/
+/log
+/sandbox.js
+
+/build
+/dist
+
+
+# relay artifacts
+/src/relay/artifacts/*
+
+.env
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

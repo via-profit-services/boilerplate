@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "declaration": false,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "sourceMap": true,
+    "target": "es6",
+    "types": [
+      "node", "jest"
+    ],
+    "paths": {
+      "~/*": [
+        "./*"
+      ]
+    },
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

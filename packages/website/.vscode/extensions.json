@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "stylelint.vscode-stylelint",
+    "GraphQL.vscode-graphql-syntax",
+    "meta.relay"
+  ]
+}

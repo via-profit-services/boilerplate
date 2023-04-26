@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html {{{helmet.htmlAttributes}}}>
+  <head>
+    {{{helmet.title}}}
+    {{{helmet.base}}}
+    {{{helmet.meta}}}
+    {{{helmet.link}}}
+    {{{helmet.noscript}}}
+    {{{helmet.style}}}
+    {{{helmet.script}}}
+    {{{extractor.linkTags}}}
+    {{{extractor.styleTags}}}
+    {{{styleTags}}}
+  </head>
+  <body {{{helmet.bodyAttributes}}}>
+    <div id="app">{{{htmlContent}}}</div>
+    {{{extractor.scriptTags}}}
+    <script>window.__PRELOADED_STATES__ = '{{{preloadedStatesBase64}}}';</script>
+  </body>
+</html>
