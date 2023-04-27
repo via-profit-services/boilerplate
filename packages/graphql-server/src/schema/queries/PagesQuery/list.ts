@@ -22,7 +22,6 @@ const list: GraphQLFieldConfig<unknown, Context, GetPagesConnectionProps> = {
     before: { type: GraphQLString },
     search: { type: new GraphQLList(new GraphQLNonNull(PagesSearch)) },
     orderBy: { type: new GraphQLList(new GraphQLNonNull(PageOrderBy)) },
-    account: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
     id: { type: new GraphQLList(new GraphQLNonNull(GraphQLID)) },
   },
   resolve: async (_parent, args, context) => {

@@ -10,8 +10,10 @@ import CompressionPlugin = require('compression-webpack-plugin');
 import LoadablePlugin from '@loadable/webpack-plugin';
 import { Configuration, DefinePlugin, ProgressPlugin, HotModuleReplacementPlugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin';
 import 'webpack-dev-server';
 
+// import relayStoreRecords from '../src/relay/default-store-records.json';
 
 dotenv.config();
 const isDev = process.env.NODE_ENV === 'development';

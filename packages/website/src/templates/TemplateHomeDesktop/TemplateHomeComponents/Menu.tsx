@@ -70,6 +70,11 @@ const MenuElement: React.FC = () => {
     return list;
   }, [itemsLength]);
 
+  const isArrayOfItems = (item: Item | readonly Item[]): item is Item[] =>
+    isMultiple && Array.isArray(item);
+  const isNotArrayOfItems = (item: Item | readonly Item[]): item is Item =>
+    !isMultiple && !Array.isArray(item);
+
   return (
     <div>
       <Button onClick={() => setItemsLength(4)}>Set 4 items only</Button>
@@ -126,14 +131,16 @@ const MenuElement: React.FC = () => {
         renderItem={({ item }) => <>{item.name}</>}
         getOptionSelected={({ item, value }) => item.id === value.id}
         onSelectItem={item => {
-          if (isMultiple && Array.isArray(item)) {
+          if (isArrayOfItems(item)) {
             setSelectedItems(item);
           }
 
-          if (!isMultiple && !Array.isArray(item)) {
+          if (isNotArrayOfItems(item)) {
             setAnchorElement(null);
             anchorElement?.focus();
-            setSelectedItems([item as Item]);
+            if (typeof item === 'object') {
+              setSelectedItems([item]);
+            }
           }
         }}
         onRequestClose={() => {

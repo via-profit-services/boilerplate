@@ -304,6 +304,7 @@ const Menu = React.forwardRef(
       return [...idx];
     }, [getOptionSelected, items, value]);
 
+    const [domLoaded, setDomLoaded] = React.useState(false);
     const [menuIsOpen, setMenuOpen] = React.useState(Boolean(isOpen));
     const [currentAnchorElement, setAnchorElement] = React.useState(anchorElement);
     const isOpenRef = React.useRef(menuIsOpen);
@@ -326,6 +327,13 @@ const Menu = React.forwardRef(
       popperElement,
       popperOptions || options,
     );
+
+    /**
+     * Client render detection
+     */
+    React.useEffect(() => {
+      setDomLoaded(true);
+    }, []);
 
     /**
      * Scroll to first of selected item
@@ -730,7 +738,7 @@ const Menu = React.forwardRef(
       }
     }, [value, getSelectedIndexes]);
 
-    return typeof window === 'undefined'
+    return !domLoaded
       ? null
       : ReactDOM.createPortal(
           <div

@@ -1,5 +1,5 @@
-import path from 'node:path';
-import NodemonPlugin from 'nodemon-webpack-plugin';
+import path = require('node:path');
+import NodemonPlugin = require('nodemon-webpack-plugin');
 import { Configuration, DefinePlugin } from 'webpack';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -68,7 +68,7 @@ const webpackBaseConfig: Configuration = {
         [
           new NodemonPlugin({
             watch: ['./build'],
-            exec: 'node --inspect=9229 ./build/index.js',
+            exec: 'node --inspect=9223 ./build/index.js',
           }),
         ]
       : /**

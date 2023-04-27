@@ -184,7 +184,11 @@ const renderHTML = async (props: Props): Promise<RenderHTMLPayload> => {
           <ReduxProvider>
             <RelayProvider storeRecords={preloadedStates.RELAY}>
               <CSSCacheProvider value={cssCache}>
-                <StaticRouterProvider router={router} context={routerContext} nonce="the-nonce" />
+                <StaticRouterProvider
+                  router={router}
+                  context={routerContext}
+                  hydrate={process.env.NODE_ENV === 'developemnt'}
+                />
               </CSSCacheProvider>
             </RelayProvider>
           </ReduxProvider>

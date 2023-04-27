@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { graphql, useFragment } from 'react-relay';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import styled from '@emotion/styled';
 
 import fragmentSpec, { PageRowFragment$key } from '~/relay/artifacts/PageRowFragment.graphql';
@@ -23,7 +23,11 @@ const PageRow: React.FC<PageRowProps> = props => {
   const { pageFragment, index, style, setRowHeight, sizesMap } = props;
   const { id, template, name } = useFragment(fragmentSpec, pageFragment);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
-  const linkPath = React.useMemo(() => `/pages/edit/${id}`, [id]);
+  const linkEditPath = React.useMemo(() => generatePath(`/pages/:id/edit-template`, { id }), [id]);
+  const linkContentPath = React.useMemo(
+    () => generatePath(`/pages/:id/content-blocks`, { id }),
+    [id],
+  );
 
   React.useEffect(() => {
     if (containerRef.current && !sizesMap.has(index)) {
@@ -38,7 +42,12 @@ const PageRow: React.FC<PageRowProps> = props => {
           Page <b>{name}</b>
         </p>
         <p>Template {template?.__typename}</p>
-        <Link to={linkPath}>Edit</Link>
+        <p>
+          <Link to={linkEditPath}>Edit template</Link>
+        </p>
+        <p>
+          <Link to={linkContentPath}>Content blocks list</Link>
+        </p>
       </PageContainer>
     </div>
   );

@@ -44,7 +44,7 @@ interface Resolver {
 
 const File = new GraphQLObjectType<FilesTableRecord, Context>({
   name: 'File',
-  interfaces: [NodeInterfaceType],
+  interfaces: () => [NodeInterfaceType],
   fields: () => {
     const fields: Record<keyof Resolver, GraphQLFieldConfig<FilesTableRecord, Context>> = {
       id: { type: new GraphQLNonNull(GraphQLID) },

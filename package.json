@@ -5,10 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --raw 'npm run start:graphql-server' 'npm run start:website' 'npm run start:web-admin'",
-    "start:graphql-server": "npm run start --workspace ./packages/graphql-server",
-    "start:website": "npm run start --workspace ./packages/website",
-    "start:web-admin": "npm run start --workspace ./packages/web-admin"
+    "start": "concurrently --raw 'npm run start --workspace packages/graphql-server' 'npm run start --workspace packages/website' 'npm run start --workspace packages/web-admin'",
+    "start:dist": "concurrently --raw 'npm run start:dist --workspace packages/graphql-server' 'npm run start:dist --workspace packages/website' 'npm run start:dist --workspace packages/web-admin'",
+    "build:dist": "concurrently --raw 'npm run build:dist --workspace packages/graphql-server' 'npm run build:dist --workspace packages/website' 'npm run build:dist --workspace packages/web-admin'",
+    "migrate:latest": "npm run migrate:latest --workspace packages/graphql-server",
+    "migrate:up": "npm run migrate:up --workspace packages/graphql-server",
+    "migrate:down": "npm run migrate:down --workspace packages/graphql-server",
+    "migrate:make": "npm run migrate:make --workspace packages/graphql-server",
+    "migrate:list": "npm run migrate:list --workspace packages/graphql-server",
+    "migrate:check": "npm run migrate:check --workspace packages/graphql-server"
   },
   "author": "",
   "license": "ISC",

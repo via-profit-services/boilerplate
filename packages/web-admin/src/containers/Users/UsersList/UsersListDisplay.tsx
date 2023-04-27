@@ -106,8 +106,8 @@ const UsersListDisplay: React.FC<Props> = props => {
             innerRef={listInnerRef}
             outerRef={listOuterRef}
             itemCount={edges.length}
-            height={height}
-            width={width}
+            width={width || '100%'}
+            height={height || '100%'}
             itemSize={index => sizeMapRef.current.get(index) || defaultItemHeightRef.current}
             estimatedItemSize={defaultItemHeightRef.current}
             onScroll={onScroll}

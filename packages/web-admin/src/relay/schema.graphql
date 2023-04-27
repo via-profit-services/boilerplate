@@ -504,7 +504,7 @@ type FileEdge implements Edge {
   node: File!
 }
 
-type Account {
+type Account implements Node {
   id: ID!
   login: String!
   password: String!
@@ -542,7 +542,8 @@ enum UserOrderField {
 }
 
 type PagesQuery {
-  list(first: Int, last: Int, after: String, before: String, search: [PagesSearch!], orderBy: [PageOrderBy!], account: [ID!], id: [ID!]): PagesConnection!
+  blocks(first: Int, last: Int, after: String, before: String, orderBy: [BlocksOrderBy!], name: [String!], type: [ContentBlockType!], page: [ID!], id: [ID!]): BlocksConnection!
+  list(first: Int, last: Int, after: String, before: String, search: [PagesSearch!], orderBy: [PageOrderBy!], id: [ID!]): PagesConnection!
   menu(first: Int, last: Int, after: String, before: String, search: [PageMenuSearch!], orderBy: [PageMenuOrderBy!], id: [ID!]): PagesMenuConnection!
   menuItems(first: Int, last: Int, after: String, before: String, search: [PageMenuItemSearch!], orderBy: [PageMenuItemOrderBy!], menu: [ID!], pid: [ID!], page: [ID!], id: [ID!]): PagesMenuItemConnection!
 
@@ -558,14 +559,48 @@ type PagesQuery {
   ): Page!
 }
 
-type PagesConnection implements Connection {
+type BlocksConnection implements Connection {
   pageInfo: PageInfo!
-  edges: [PageEdge!]!
+  edges: [BlockEdge!]!
 }
 
-type PageEdge implements Edge {
+type BlockEdge implements Edge {
   cursor: String!
-  node: Page!
+  node: Block!
+}
+
+type Block implements Node {
+  """Is a not real Block ID"""
+  id: ID!
+  contentBlock: ContentBlock!
+}
+
+union ContentBlock = ContentBlockPlainText | ContentBlockLexical | ContentBlockImage
+
+type ContentBlockPlainText implements ContentBlockInterface & Node {
+  id: ID!
+  type: ContentBlockType!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  page: Page
+  template: PageTemplate
+  text: String!
+}
+
+interface ContentBlockInterface implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: ContentBlockType!
+  page: Page
+  template: PageTemplate
+}
+
+enum ContentBlockType {
+  IMAGE
+  PLAIN_TEXT
+  FORMATTED_TEXT
 }
 
 type Page implements Node {
@@ -616,32 +651,6 @@ enum TemplateName {
   TEMPLATE_FALLBACK_PAGE
   TEMPLATE_BLOG_PAGE
   TEMPLATE_BLOGPOST_PAGE
-}
-
-type ContentBlockPlainText implements ContentBlockInterface & Node {
-  id: ID!
-  type: ContentBlockType!
-  name: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  page: Page
-  template: PageTemplate
-  text: String!
-}
-
-interface ContentBlockInterface implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  type: ContentBlockType!
-  page: Page
-  template: PageTemplate
-}
-
-enum ContentBlockType {
-  IMAGE
-  PLAIN_TEXT
-  FORMATTED_TEXT
 }
 
 type Payments {
@@ -738,10 +747,10 @@ type TemplateBlogPage implements PageTemplateInterface {
 
   """H1 heading"""
   heading: ContentBlockPlainText
-  posts(first: Int, last: Int, after: String, before: String, orderBy: [BlogPostOrderBy!]): BlogPostConnection!
+  posts(first: Int, last: Int, after: String, before: String, orderBy: [BlogPostOrderBy!]): BlogPostsConnection!
 }
 
-type BlogPostConnection implements Connection {
+type BlogPostsConnection implements Connection {
   pageInfo: PageInfo!
   edges: [BlogPostEdge!]!
 }
@@ -769,8 +778,6 @@ enum BlogPostOrderField {
   PUBLISHED_AT
 }
 
-union ContentBlock = ContentBlockPlainText | ContentBlockLexical | ContentBlockImage
-
 """Web page meta data"""
 type PageMeta {
   id: ID!
@@ -787,6 +794,28 @@ type PageMeta {
   """Meta tag <meta name="keywords" content="...">"""
   keywords: String @deprecated(reason: "Google and other search engines no longer consider the keywords meta tag")
   page: Page!
+}
+
+input BlocksOrderBy {
+  field: BlockOrderField!
+  direction: OrderDirection!
+}
+
+enum BlockOrderField {
+  NAME
+  TYPE
+  CREATED_AT
+  UPDATED_AT
+}
+
+type PagesConnection implements Connection {
+  pageInfo: PageInfo!
+  edges: [PageEdge!]!
+}
+
+type PageEdge implements Edge {
+  cursor: String!
+  node: Page!
 }
 
 input PagesSearch {
@@ -902,7 +931,7 @@ enum PageMenuItemOrderField {
 }
 
 type BlogQuery {
-  posts(first: Int, last: Int, after: String, before: String, id: [ID!], orderBy: [BlogPostOrderBy!]): BlogPostConnection!
+  posts(first: Int, last: Int, after: String, before: String, id: [ID!], orderBy: [BlogPostOrderBy!]): BlogPostsConnection!
 }
 
 union Me = User

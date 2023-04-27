@@ -251,7 +251,7 @@ declare module 'webpages' {
     readonly type?: readonly ContentBlockType[] | null;
     readonly orderBy?:
       | {
-          readonly field: 'name' | 'type' | 'createdAt' | 'updatedAt';
+          readonly field: 'name' | 'type' |  'createdAt' | 'updatedAt';
           readonly direction: 'asc' | 'desc';
         }[]
       | null;

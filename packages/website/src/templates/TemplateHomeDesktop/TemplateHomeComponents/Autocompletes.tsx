@@ -53,6 +53,11 @@ const AutocompleteElement: React.FC = () => {
   const autocompleteRef = React.useRef<AutocompleteRef<Item> | null>(null);
   const items = countries;
 
+  const isArrayOfItems = (item: Item | readonly Item[]): item is Item[] =>
+    isMultiple && Array.isArray(item);
+  const isNotArrayOfItems = (item: Item | readonly Item[]): item is Item =>
+    !isMultiple && !Array.isArray(item);
+
   return (
     <>
       <Button
@@ -84,13 +89,13 @@ const AutocompleteElement: React.FC = () => {
         }
         itemToString={item => item.name}
         onSelectItem={item => {
-          if (Array.isArray(item)) {
+          if (isArrayOfItems(item)) {
             setSelectedItems(item);
           }
 
-          if (!Array.isArray(item)) {
+          if (isNotArrayOfItems(item)) {
             anchorElementRef.current?.focus();
-            setSelectedItems([item as Item]);
+            setSelectedItems([item]);
             setOpen(false);
           }
         }}

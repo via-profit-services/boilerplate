@@ -6,7 +6,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import { Context, DateTimeScalarType } from '@via-profit-services/core';
+import { Context, DateTimeScalarType, NodeInterfaceType } from '@via-profit-services/core';
 
 import type { Account as Parent } from 'users';
 import User from '~/schema/types/User';
@@ -14,6 +14,7 @@ import AccountStatus from '~/schema/enums/AccountStatus';
 import AccountRole from '~/schema/enums/AccountRole';
 
 const Account = new GraphQLObjectType<Parent, Context>({
+  interfaces: () => [NodeInterfaceType],
   name: 'Account',
   fields: () => {
     const fields: Record<keyof Parent, GraphQLFieldConfig<Parent, Context>> = {

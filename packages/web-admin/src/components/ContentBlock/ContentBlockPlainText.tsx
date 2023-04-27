@@ -11,14 +11,16 @@ import updateSpec, {
 
 export interface ContentBlockPlainTextProps {
   readonly fragmentRef: ContentBlockPlainTextFragment$key | null;
+  readonly onUpdate: () => void;
 }
 
 const ContentBlockPlainText: React.FC<ContentBlockPlainTextProps> = props => {
-  const { fragmentRef } = props;
+  const { fragmentRef, onUpdate } = props;
   const fragment = useFragment(fragmentSpec, fragmentRef);
   const { text, name, id } = fragment || { id: '', text: '', name: '' };
   const [value, setValue] = React.useState(text);
   const lastSavedValueRef = React.useRef(value);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   const [updateMutation, isPending] = useMutation<ContentBlockPlainTextUpdateMutation>(updateSpec);
   const updateContentBlock = React.useCallback(() => {
@@ -35,6 +37,10 @@ const ContentBlockPlainText: React.FC<ContentBlockPlainTextProps> = props => {
     });
   }, [id, name, updateMutation, value]);
 
+  React.useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div>
       <p>
@@ -44,12 +50,14 @@ const ContentBlockPlainText: React.FC<ContentBlockPlainTextProps> = props => {
         <TextField
           label="Content"
           value={value}
+          inputRef={inputRef}
           readOnly={isPending}
           onChange={event => setValue(event.currentTarget.value)}
           onBlur={() => updateContentBlock()}
           onKeyDown={event => {
             if (['Enter', 'NumpadEnter'].includes(event.code)) {
               updateContentBlock();
+              onUpdate();
             }
           }}
         />

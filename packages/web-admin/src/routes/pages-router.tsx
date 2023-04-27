@@ -6,7 +6,8 @@ import LoadingIndicator from '~/components/LoadingIndicator';
 
 const NotFound = loadable(() => import('~/containers/NotFound/index'));
 const PagesList = loadable(() => import('~/containers/Pages/PagesList/index'));
-const PagesEdit = loadable(() => import('~/containers/Pages/PagesEdit/index'));
+const PagesEdit = loadable(() => import('~/containers/Pages/PagesEditTemplate/index'));
+const PagesListBlocks = loadable(() => import('~/containers/Pages/PagesListBlocks/index'));
 
 export const pagesRouter: RouteObject = {
   path: 'pages',
@@ -32,7 +33,16 @@ export const pagesRouter: RouteObject = {
       ),
     },
     {
-      path: 'edit/:id',
+      path: ':id/content-blocks',
+      caseSensitive: true,
+      element: (
+        <React.Suspense fallback={<LoadingIndicator />}>
+          <PagesListBlocks />
+        </React.Suspense>
+      ),
+    },
+    {
+      path: ':id/edit-template',
       caseSensitive: true,
       element: (
         <React.Suspense>

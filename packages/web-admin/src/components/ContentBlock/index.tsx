@@ -10,10 +10,11 @@ import ContentBlockImage from './ContentBlockImage';
 
 export interface ContentBlockProps {
   readonly fragmentRef: ContentBlockFragment$key | null;
+  readonly onUpdate: () => void;
 }
 
 const ContentBlock: React.FC<ContentBlockProps> = props => {
-  const { fragmentRef } = props;
+  const { fragmentRef, onUpdate } = props;
   const fragment = useFragment(fragmentSpec, fragmentRef);
 
   if (fragment === null) {
@@ -21,7 +22,7 @@ const ContentBlock: React.FC<ContentBlockProps> = props => {
   }
 
   if (fragment.__typename === 'ContentBlockPlainText') {
-    return <ContentBlockPlainText fragmentRef={fragment} />;
+    return <ContentBlockPlainText fragmentRef={fragment} onUpdate={onUpdate} />;
   }
   if (fragment.__typename === 'ContentBlockLexical') {
     return <ContentBlockLexical fragmentRef={fragment} />;

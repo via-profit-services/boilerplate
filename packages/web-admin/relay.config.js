@@ -7,6 +7,13 @@ module.exports = {
   src: './src',
   artifactDirectory: './src/relay/artifacts',
   schema: './src/relay/schema.graphql',
+  persistConfig:
+  process.env.USE_PERSISTENS_QUERIES === 'true'
+    ? {
+        url: process.env.GRAPHQL_PERSISTENS,
+        params: {},
+      }
+    : undefined,
   customScalars: {
     DateTime: 'string',
     Date: 'string',

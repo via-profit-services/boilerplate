@@ -106,8 +106,8 @@ const PagesListDisplay: React.FC<Props> = props => {
           <VariableSizeList
             ref={listRef}
             outerRef={listOuterRef}
-            width={width}
-            height={height}
+            width={width || '100%'}
+            height={height || '100%'}
             onScroll={onScroll}
             itemSize={getRowHeight}
             itemCount={edges.length}

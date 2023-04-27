@@ -3,8 +3,8 @@ import { PageInfoType, ConnectionInterfaceType } from '@via-profit-services/core
 
 import BlogPostEdge from '~/schema/connections/BlogPostEdge';
 
-const BlogPostConnection = new GraphQLObjectType({
-  name: 'BlogPostConnection',
+const BlogPostsConnection = new GraphQLObjectType({
+  name: 'BlogPostsConnection',
   interfaces: [ConnectionInterfaceType],
   fields: () => ({
     pageInfo: { type: new GraphQLNonNull(PageInfoType) },
@@ -12,4 +12,4 @@ const BlogPostConnection = new GraphQLObjectType({
   }),
 });
 
-export default BlogPostConnection;
+export default BlogPostsConnection;

@@ -59,7 +59,7 @@ export const contentBlockPlainTextFields: Record<
 
 export const ContentBlockPlainText = new GraphQLObjectType({
   name: 'ContentBlockPlainText',
-  interfaces: [ContentBlockInterface, NodeInterfaceType],
+  interfaces: () => [ContentBlockInterface, NodeInterfaceType],
   fields: () => {
     const fields: Record<string, GraphQLFieldConfig<Parent, Context>> = {
       id: { type: new GraphQLNonNull(GraphQLID) },

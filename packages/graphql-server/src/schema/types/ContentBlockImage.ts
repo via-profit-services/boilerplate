@@ -5,16 +5,15 @@ import {
   GraphQLID,
   GraphQLString,
 } from 'graphql';
-import { Context, DateTimeScalarType } from '@via-profit-services/core';
+import { Context, DateTimeScalarType, NodeInterfaceType } from '@via-profit-services/core';
 
 import { ContentBlockImagePayload, ContentBlockBase } from 'webpages';
-import ContentBlockPlainText, {
-  contentBlockPlainTextFields,
-} from '~/schema/types/ContentBlockPlainText';
+import { contentBlockPlainTextFields } from '~/schema/types/ContentBlockPlainText';
 import ContentBlockType from '~/schema/enums/ContentBlockType';
 import File from '~/schema/types/File';
 import Page from '~/schema/types/Page';
 import PageTemplate from '~/schema/types/PageTemplate';
+import ContentBlockInterface from '~/schema/interfaces/ContentBlockInterface';
 
 export interface ContentBlockImageContentPayload {
   readonly file: string;
@@ -26,7 +25,7 @@ type Parent = ContentBlockBase & ContentBlockImagePayload;
 
 const ContentBlockImage = new GraphQLObjectType({
   name: 'ContentBlockImage',
-  interfaces: ContentBlockPlainText.getInterfaces(),
+  interfaces: () => [ContentBlockInterface, NodeInterfaceType],
   fields: () => {
     const fields: Record<string, GraphQLFieldConfig<Parent, Context>> = {
       id: { type: new GraphQLNonNull(GraphQLID) },

@@ -41,8 +41,6 @@
         "@emotion/styled": "^11.10.6",
         "@formatjs/cli": "^6.1.0",
         "@hookform/resolvers": "^3.1.0",
-        "@lexical/plain-text": "^0.10.0",
-        "@lexical/rich-text": "^0.10.0",
         "@loadable/component": "^5.15.3",
         "@loadable/server": "^5.15.3",
         "@popperjs/core": "^2.11.7",

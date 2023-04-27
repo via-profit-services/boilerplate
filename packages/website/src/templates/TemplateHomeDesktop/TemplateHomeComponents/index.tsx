@@ -10,6 +10,8 @@ import Phones from './Phones';
 import Menu from './Menu';
 import Autocompletes from './Autocompletes';
 import Selects from './Selects';
+import Calendars from './Calendars';
+import MaskedFields from './MaskedFields';
 
 const InfoContainer = styled.div`
   padding: 0 ${props => props.theme.grid.frameGutter}px;
@@ -37,7 +39,9 @@ const TemplateHomeComponents: React.FC = () => (
   <ErrorBoundary>
     <InfoContainer>
       <Container>
-        <Title>Components KIT.</Title>
+        <Title>Components KIT</Title>
+        <MaskedFields />
+        <Calendars />
         <Selects />
         <Autocompletes />
         <Buttons />

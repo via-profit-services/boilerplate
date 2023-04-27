@@ -5,21 +5,25 @@ import {
   GraphQLID,
   GraphQLString,
 } from 'graphql';
-import { JSONObjectScalarType, Context, DateTimeScalarType } from '@via-profit-services/core';
+import {
+  JSONObjectScalarType,
+  Context,
+  DateTimeScalarType,
+  NodeInterfaceType,
+} from '@via-profit-services/core';
 
 import type { ContentBlockBase, ContentBlockFormattedPayload } from 'webpages';
-import ContentBlockPlainText, {
-  contentBlockPlainTextFields,
-} from '~/schema/types/ContentBlockPlainText';
+import { contentBlockPlainTextFields } from '~/schema/types/ContentBlockPlainText';
 import ContentBlockType from '~/schema/enums/ContentBlockType';
 import Page from '~/schema/types/Page';
 import PageTemplate from '~/schema/types/PageTemplate';
+import ContentBlockInterface from '~/schema/interfaces/ContentBlockInterface';
 
 type Parent = ContentBlockBase & ContentBlockFormattedPayload;
 
 const ContentBlockLexical = new GraphQLObjectType({
   name: 'ContentBlockLexical',
-  interfaces: ContentBlockPlainText.getInterfaces(),
+  interfaces: () => [ContentBlockInterface, NodeInterfaceType],
   fields: () => {
     const fields: Record<string, GraphQLFieldConfig<Parent, Context>> = {
       id: { type: new GraphQLNonNull(GraphQLID) },

@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import H3 from '~/components/Typography/H3';
 import SelectBox from '~/components/SelectBox';
-import Menu from '~/components/Menu';
 
 const Section = styled.section`
   display: flex;
@@ -18,10 +17,9 @@ type Item = {
 
 const Selects: React.FC = () => {
   const [selectedItems, setSelectedItems] = React.useState<readonly Item[]>([]);
-  const [multiple, setMultiple] = React.useState(false);
-  const [anchorElem, setAnchorElem] = React.useState<HTMLButtonElement | null>(null);
+  const [multiple] = React.useState(false);
   // const anchorElem = React.useRef<HTMLButtonElement | null>(null);
-  const [itemsLength, setItemsLength] = React.useState(1200);
+  const [itemsLength] = React.useState(1200);
   const [isOpen, setOpen] = React.useState(false);
 
   const items = React.useMemo(() => {
@@ -34,29 +32,13 @@ const Selects: React.FC = () => {
     return list;
   }, [itemsLength]);
 
+  const isArrayOfItems = (item: Item | readonly Item[]): item is Item[] => Array.isArray(item);
+  const isNotArrayOfItems = (item: Item | readonly Item[]): item is Item => !Array.isArray(item);
+
   return (
     <ErrorBoundary>
       <Section>
         <H3>Selects</H3>
-        {/* <button type="button" onClick={ev => setAnchorElem(ev.currentTarget)}>
-          anchorElem
-        </button>
-        <Menu
-          multiple={multiple}
-          items={items}
-          isOpen={Boolean(anchorElem)}
-          value={selectedItems}
-          anchorElement={anchorElem}
-          // itemToString={item => item.name}
-          renderItem={({ item }) => <>s{item.name}</>}
-          getOptionSelected={({ item, value }) => item.id === value.id}
-          onSelectItem={item => {
-            console.log('selected', item);
-          }}
-          onRequestClose={() => {
-            setAnchorElem(null);
-          }}
-        /> */}
         <SelectBox
           items={items}
           isOpen={isOpen}
@@ -67,15 +49,13 @@ const Selects: React.FC = () => {
           getOptionSelected={({ item, value }) => item.id === value.id}
           onRequestOpen={() => setOpen(true)}
           onSelectItem={item => {
-
-            console.log('onSelectItem', { item });
-            if (multiple && Array.isArray(item)) {
+            if (isArrayOfItems(item)) {
               setSelectedItems(item);
             }
 
-            if (!multiple && !Array.isArray(item)) {
+            if (isNotArrayOfItems(item)) {
               setOpen(false);
-              setSelectedItems([item as Item]);
+              setSelectedItems([item]);
             }
           }}
           onRequestClose={() => {
