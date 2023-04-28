@@ -1,5 +1,5 @@
 {
-  "name": "mono",
+  "name": "boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +13,8 @@
     "migrate:down": "npm run migrate:down --workspace packages/graphql-server",
     "migrate:make": "npm run migrate:make --workspace packages/graphql-server",
     "migrate:list": "npm run migrate:list --workspace packages/graphql-server",
-    "migrate:check": "npm run migrate:check --workspace packages/graphql-server"
+    "migrate:check": "npm run migrate:check --workspace packages/graphql-server",
+    "b": "npm run build:client:dev --workspace packages/website"
   },
   "author": "",
   "license": "ISC",

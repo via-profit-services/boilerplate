@@ -6,15 +6,20 @@
       "request": "launch",
       "type": "chrome",
       "url": "chrome://newtab",
-      "port": 9228
+      "port": 9228,
+      "cwd": "${workspaceRoot}"
     },
     {
       "name": "Debug Website (Launch Chrome at first)",
       "type": "chrome",
       "request": "attach",
       "port": 9228,
-      "webRoot": "${workspaceFolder}/packages/website",
-      "sourceMaps": true
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack://@boilerplate/website/*": "${webRoot}/packages/website/*",
+      },
+      
     },
     {
       "name": "Debug WebAdmin (Launch Chrome at first)",
@@ -22,7 +27,10 @@
       "request": "attach",
       "port": 9228,
       "webRoot": "${workspaceFolder}/packages/web-admin",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "webpack://@boilerplate/web-admin/*": "${webRoot}/*",
+      },
     },
     {
       "name": "Debug GraphQL Server",

@@ -95,24 +95,25 @@ export const usePhoneUtils = () => {
         }
 
         const char = inputValue[charIndex];
+        const template = mask[patternIndex];
 
         // If put +, but not first
         if (charIndex !== 0 && char === '+') {
           break;
         }
 
-        if (mask[patternIndex] instanceof RegExp && new RegExp(mask[patternIndex]).test(char)) {
+        if (template instanceof RegExp && new RegExp(template).test(char)) {
           data.text = `${data.text}${char}`;
           charIndex += 1;
         }
 
-        if (typeof mask[patternIndex] === 'string' && mask[patternIndex] === char) {
+        if (typeof template === 'string' && template === char) {
           data.text = `${data.text}${char}`;
           charIndex += 1;
         }
 
-        if (typeof mask[patternIndex] === 'string' && mask[patternIndex] !== char) {
-          data.text = `${data.text}${mask[patternIndex]}`;
+        if (typeof template === 'string' && template !== char) {
+          data.text = `${data.text}${template}`;
           if (charIndex < caret) {
             data.caret += 1;
           }

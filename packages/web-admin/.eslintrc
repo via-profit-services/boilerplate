@@ -110,6 +110,7 @@
       "warn",
       {
         "argsIgnorePattern": "_",
+        "destructuredArrayIgnorePattern": "^_",
         "ignoreRestSiblings": true
       }
     ],

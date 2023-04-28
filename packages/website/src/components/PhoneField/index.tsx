@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField, { TextFieldProps } from '~/components/TextField';
 import { usePhoneUtils } from './usePhoneUtils';
-import { CountryCode } from './templates';
+import templates, { CountryCode } from './templates';
 import CountryFlag from './CountryFlag';
 
 export interface PhoneFieldProps extends Omit<TextFieldProps, 'value' | 'onChange'> {
@@ -49,7 +49,7 @@ export interface PhonePayload {
   readonly isValid: boolean;
 }
 
-export { usePhoneUtils };
+export { usePhoneUtils, templates };
 
 const PhoneField: React.ForwardRefRenderFunction<HTMLDivElement, PhoneFieldProps> = (
   props,

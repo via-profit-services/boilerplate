@@ -1,5 +1,5 @@
 {
-    "name": "@mono/web-admin",
+    "name": "@boilerplate/web-admin",
     "version": "0.1.1",
     "description": "Admin panel web application",
     "repository": {
