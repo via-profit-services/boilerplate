@@ -2,27 +2,43 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Chrome",
-      "request": "launch",
+      "name": "Website Launch and Debug",
       "type": "chrome",
-      "url": "chrome://newtab",
+      "request": "launch",
       "port": 9228,
-      "cwd": "${workspaceRoot}"
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "url": "http://localhost:8080",
+      "preLaunchTask": "start-chrome",
+      "sourceMapPathOverrides": {
+        "webpack://@boilerplate/website/*": "${webRoot}/packages/website/*",
+      },
     },
     {
-      "name": "Debug Website (Launch Chrome at first)",
+      "name": "Website Attach",
       "type": "chrome",
-      "request": "attach",
+      "request": "launch",
       "port": 9228,
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
         "webpack://@boilerplate/website/*": "${webRoot}/packages/website/*",
       },
-      
     },
     {
-      "name": "Debug WebAdmin (Launch Chrome at first)",
+      "name": "WebAdmin Launch and Debug",
+      "type": "chrome",
+      "request": "launch",
+      "port": 9228,
+      "webRoot": "${workspaceFolder}/packages/web-admin",
+      "sourceMaps": true,
+      "url": "http://localhost:9000",
+      "sourceMapPathOverrides": {
+        "webpack://@boilerplate/web-admin/*": "${webRoot}/*",
+      },
+    },
+    {
+      "name": "WebAdmin Attach",
       "type": "chrome",
       "request": "attach",
       "port": 9228,
