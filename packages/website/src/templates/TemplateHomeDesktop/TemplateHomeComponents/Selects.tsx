@@ -16,9 +16,7 @@ type Item = {
 };
 
 const Selects: React.FC = () => {
-  const [selectedItems, setSelectedItems] = React.useState<readonly Item[]>([]);
   const [multiple] = React.useState(false);
-  // const anchorElem = React.useRef<HTMLButtonElement | null>(null);
   const [itemsLength] = React.useState(1200);
   const [isOpen, setOpen] = React.useState(false);
 
@@ -31,6 +29,7 @@ const Selects: React.FC = () => {
 
     return list;
   }, [itemsLength]);
+  const [selectedItems, setSelectedItems] = React.useState<readonly Item[]>([items[1]]);
 
   const isArrayOfItems = (item: Item | readonly Item[]): item is Item[] => Array.isArray(item);
   const isNotArrayOfItems = (item: Item | readonly Item[]): item is Item => !Array.isArray(item);
