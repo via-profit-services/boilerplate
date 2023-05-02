@@ -9,7 +9,6 @@
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "url": "http://localhost:8080",
-      "preLaunchTask": "start-chrome",
       "sourceMapPathOverrides": {
         "webpack://@boilerplate/website/*": "${webRoot}/packages/website/*",
       },

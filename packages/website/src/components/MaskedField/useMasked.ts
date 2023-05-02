@@ -29,6 +29,7 @@ export const useMasked = () => {
       .forEach((character, charIndex) => {
         const isMatch = mask.some(pattern => {
           if (typeof pattern === 'string') {
+            // return false;
             return character === pattern && character;
           }
 
@@ -105,7 +106,7 @@ export const useMasked = () => {
     const result: FormatParsedPayload = {
       text: data.text,
       caret: data.caret,
-      isValid: parsedValue.length >= mask.length,
+      isValid: data.text.length >= mask.length,
     };
 
     return result;

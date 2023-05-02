@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useMasked, Mask, FormatParsedPayload } from './useMasked';
+import { useMasked, Mask, FormatParsedPayload, ParseInput } from './useMasked';
+import TextField, { TextFieldProps } from '~/components/TextField';
 
 export type GetMask = (input: string) => Mask;
 
@@ -10,28 +11,72 @@ export interface Payload {
   readonly isValid: boolean;
 }
 
-export interface MaskedFieldProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+export interface MaskedFieldProps extends Omit<TextFieldProps, 'value' | 'onChange'> {
+  /**
+   * Field value
+   */
   readonly value: string | null;
+
+  /**
+   * An array of RegExp or a function that returns an array of RegExp
+   */
   readonly mask: Mask | GetMask;
+
+  /**
+   * Function will be called when field value was changed
+   */
   readonly onChange: (payload: FormatParsedPayload) => void;
+
+  /**
+   * If you are not using a simple mask, you can provide a function to analyze the input value
+   */
+  readonly parseInput?: ParseInput;
+
+  /**
+   * You can transform the output value before using it
+   */
+  readonly transform?: (value: string) => string;
 }
 
-const MaskedField: React.FC<MaskedFieldProps> = props => {
-  const { value: propValue, mask, onChange, ...nativeProps } = props;
+const MaskedField: React.ForwardRefRenderFunction<HTMLDivElement, MaskedFieldProps> = (
+  props,
+  ref,
+) => {
+  const { value: propValue, mask, parseInput, onChange, transform, ...nativeProps } = props;
   const textInputRef = React.useRef<HTMLInputElement | null>(null);
+  const decoratorsErrorDisplayed = React.useRef(false);
 
-  const { parseInput, formatParsedInput } = useMasked();
+  const masked = useMasked();
+  const parseInputFn = parseInput || masked.parseInput;
   const getMask = React.useCallback(
-    (input: string) => (typeof mask === 'function' ? mask(input) : mask),
-    [mask],
+    (input: string) => {
+      const currentMask = typeof mask === 'function' ? mask(input) : mask;
+      if (
+        !decoratorsErrorDisplayed.current &&
+        currentMask.find(
+          elem =>
+            typeof elem === 'string' &&
+            typeof parseInput === 'undefined' &&
+            elem.match(/[0-9a-zа-яё]/i),
+        )
+      ) {
+        decoratorsErrorDisplayed.current = true;
+        console.warn(
+          `[MaskedField component] You use symbols as decorators, which should be replaced with RegExp or provide the «parseInput» function instead`,
+        );
+      }
+
+      return currentMask;
+    },
+    [mask, parseInput],
   );
 
   const [inputValue, setInputValue] = React.useState(() => {
     const mask = getMask(propValue || '');
-    const parsed = parseInput(propValue || '', mask, textInputRef.current?.selectionStart || 0);
 
-    const { text } = formatParsedInput(parsed.text, mask, parsed.caret);
+    const parsed = parseInputFn(propValue || '', mask, textInputRef.current?.selectionStart || 0);
+
+    const { text } = masked.formatParsedInput(parsed.text, mask, parsed.caret);
 
     return text;
   });
@@ -39,32 +84,34 @@ const MaskedField: React.FC<MaskedFieldProps> = props => {
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> = React.useCallback(
     event => {
       const mask = getMask(event.currentTarget.value);
-      const parsed = parseInput(
+      const parsed = parseInputFn(
         event.currentTarget.value,
         mask,
         textInputRef.current?.selectionStart || 0,
       );
 
-      const { caret, isValid, text } = formatParsedInput(parsed.text, mask, parsed.caret);
+      const { caret, isValid, text } = masked.formatParsedInput(parsed.text, mask, parsed.caret);
+      const transformedText = transform ? transform(text) : text;
 
-      setInputValue(text);
+      setInputValue(transformedText);
       onChange({
         caret,
         isValid,
-        text,
+        text: transformedText,
       });
 
       setTimeout(() => {
         textInputRef.current?.setSelectionRange(caret, caret);
       }, 15);
     },
-    [formatParsedInput, parseInput, getMask, onChange],
+    [getMask, masked, transform, onChange, parseInputFn],
   );
 
   return (
-    <input
+    <TextField
+      ref={ref}
       {...nativeProps}
-      ref={textInputRef}
+      inputRef={textInputRef}
       type="text"
       value={inputValue}
       onChange={handleOnChange}
@@ -72,4 +119,4 @@ const MaskedField: React.FC<MaskedFieldProps> = props => {
   );
 };
 
-export default MaskedField;
+export default React.forwardRef(MaskedField);
