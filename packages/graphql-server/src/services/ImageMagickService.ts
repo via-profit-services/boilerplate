@@ -17,6 +17,12 @@ interface ImageMagickServiceOptions {
    * Default: `magick`
    */
   bin?: string;
+
+  /**
+   * ImageMagick identify location\
+   * Default: `identify`
+   */
+  identify?: string;
 }
 
 type Colorspace =
@@ -104,6 +110,7 @@ class ImageMagickService {
   #sourceFilename: string;
   #outputFilename: string;
   #bin = 'magick';
+  #identify = 'identify';
   #outFormat: ImageFormat = null;
   #pool: Action[] = [];
   #supportedFormats: ImageFormat[] = ['png', 'jpeg', 'webp'];
@@ -129,6 +136,10 @@ class ImageMagickService {
 
     if (typeof options?.bin === 'string') {
       this.#bin = options.bin;
+    }
+
+    if (typeof options?.identify === 'string') {
+      this.#identify = options.identify;
     }
 
     if (sourcefilename) {
@@ -432,7 +443,7 @@ class ImageMagickService {
     return new Promise((resolve, reject) => {
       const errorsBuffer: Buffer[] = [];
       const dataBuffer: Buffer[] = [];
-      const proc = spawn(this.#bin, ['identify', '-format', '%w:%h:%m', this.#sourceFilename]);
+      const proc = spawn(this.#identify, [this.#sourceFilename, '-format', '%w:%h:%m']);
 
       proc.stdout.on('data', chunk => {
         dataBuffer.push(chunk);
@@ -450,15 +461,14 @@ class ImageMagickService {
         if (code !== 0) {
           reject(new Error(Buffer.concat(errorsBuffer).toString()));
         } else {
-          const matches = Buffer.concat(dataBuffer)
-            .toString()
-            .match(/^([0-9]+):([0-9]+):([A-Z]+)$/);
+          const resultString = Buffer.concat(dataBuffer).toString();
+          const matches = resultString.match(/\s(webp|png|jpeg)\s([0-9]+)x([0-9]+)\s/i);
 
-          if (matches && matches.length >= 4) {
+          if (matches && matches.length >= 3) {
             resolve({
-              width: parseInt(matches[1], 10),
-              height: parseInt(matches[2], 10),
-              format: matches[3].toLowerCase() as ImageFormat,
+              format: matches[1].toLowerCase() as ImageFormat,
+              width: parseInt(matches[2], 10),
+              height: parseInt(matches[3], 10),
             });
 
             return;
