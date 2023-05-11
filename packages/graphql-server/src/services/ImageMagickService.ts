@@ -474,7 +474,7 @@ class ImageMagickService {
             return;
           }
 
-          reject(new Error('Failed to get image info'));
+          reject(new Error('Can not to get image info'));
         }
       });
     });
