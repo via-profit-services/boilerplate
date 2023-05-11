@@ -40,8 +40,8 @@ const TemplateHomeComponents: React.FC = () => (
     <InfoContainer>
       <Container>
         <Title>Components KIT</Title>
-        <MaskedFields />
         <Calendars />
+        <MaskedFields />
         <Selects />
         <Autocompletes />
         <Buttons />
