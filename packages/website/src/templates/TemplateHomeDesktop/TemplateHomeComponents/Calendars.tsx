@@ -40,50 +40,62 @@ const CalendarDay = styled.div<{ $notCurrentMonth?: boolean }>`
   opacity: ${({ $notCurrentMonth }) => ($notCurrentMonth ? 0.3 : 1)};
 `;
 
-type Item = {
-  readonly id: number;
-  readonly name: string;
-};
-
 type DayName = 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday';
 
 class Week {
-  #date: Date;
+  #days: Day[] = [];
   #weekNumber: number;
-  constructor(date: Date) {
-    this.#date = new Date(date);
-    this.#weekNumber = this.#calculateWeekNumber(this.#date);
+  constructor(days: Day[]) {
+    this.#days = days;
+    this.#weekNumber = this.#calculateWeekNumber(days[0].getDate());
   }
 
   public getWeekNumber() {
     return this.#weekNumber;
   }
 
-  public getDate() {
-    return new Date(this.#date);
+  public getDays() {
+    return this.#days;
   }
 
-  #calculateWeekNumber(date: Date) {
-    const onejan = new Date(date.getFullYear(), 0, 1);
-    const week = Math.ceil(
-      ((date.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7,
-    );
+  #calculateWeekNumber(dt: Date) {
+    const tdt = new Date(dt.valueOf());
+    const dayn = (dt.getDay() + 6) % 7;
+    tdt.setDate(tdt.getDate() - dayn + 3);
 
-    return week;
+    const firstThursday = tdt.valueOf();
+    tdt.setMonth(0, 1);
+    if (tdt.getDay() !== 4) {
+      tdt.setMonth(0, 1 + ((4 - tdt.getDay() + 7) % 7));
+    }
+
+    return 1 + Math.ceil((firstThursday - tdt.getTime()) / 604800000);
+  }
+}
+
+class Day {
+  #date: Date;
+
+  constructor(date: Date) {
+    this.#date = new Date(date);
+  }
+
+  public getDate() {
+    return new Date(this.#date);
   }
 }
 
 class HeadlessCalendar {
   #currentDate: Date;
   #startDay: DayName = 'monday';
-  #matrix: Date[][];
+  #weeks: Week[];
   constructor(currentDate: Date) {
     this.#currentDate = currentDate;
-    this.#matrix = this.#buildMatrix();
+    this.#weeks = this.#fillWeeks();
   }
 
-  public getMatrix() {
-    return this.#matrix;
+  public getWeeks() {
+    return this.#weeks;
   }
   #getDayNumberByName(dayName: DayName): number {
     const dayNames: Record<DayName, number> = {
@@ -98,8 +110,8 @@ class HeadlessCalendar {
 
     return dayNames[dayName];
   }
-  #buildMatrix() {
-    const matrix: Date[][] = [];
+  #fillWeeks() {
+    const weeks: Week[] = [];
     const startOfDate = new Date(this.#currentDate.getFullYear(), this.#currentDate.getMonth(), 1);
     const lastOfDate = new Date(
       this.#currentDate.getFullYear(),
@@ -116,7 +128,10 @@ class HeadlessCalendar {
 
       // if is start of the week then set a new week
       if (date.getDay() === startDayNum) {
-        matrix.push([...week]);
+        const days = [...week].map(day => new Day(day));
+        if (days.length) {
+          weeks.push(new Week(days));
+        }
         week.clear();
       }
 
@@ -124,69 +139,89 @@ class HeadlessCalendar {
 
       // if is last of iteration
       if (dateNum === lastOfDate.getDate()) {
-        matrix.push([...week]);
+        const days = [...week].map(day => new Day(day));
+        if (days.length) {
+          weeks.push(new Week(days));
+        }
+
         week.clear();
       }
     }
 
     // Fill the prev days
-    if (matrix[0].length < 7) {
-      const fillDays = 7 - matrix[0].length;
+    if (weeks[0].getDays().length < 7) {
+      const fillDays = 7 - weeks[0].getDays().length;
+      const days = weeks[0].getDays();
       for (let fillIndex = 0; fillIndex < fillDays; fillIndex++) {
-        matrix[0].unshift(new Date(startOfDate.getFullYear(), startOfDate.getMonth(), -fillIndex));
+        days.unshift(
+          new Day(new Date(startOfDate.getFullYear(), startOfDate.getMonth(), -fillIndex)),
+        );
       }
+      weeks[0] = new Week(days);
     }
 
     // fill the next days
-    if (matrix[matrix.length - 1].length < 7) {
-      const fillDays = 7 - matrix[matrix.length - 1].length;
+    if (weeks[weeks.length - 1].getDays().length < 7) {
+      const fillDays = 7 - weeks[weeks.length - 1].getDays().length;
+      const days = weeks[weeks.length - 1].getDays();
       for (let fillIndex = 0; fillIndex < fillDays; fillIndex++) {
-        matrix[matrix.length - 1].push(
-          new Date(lastOfDate.getFullYear(), lastOfDate.getMonth() + 1, fillIndex + 1),
+        days.push(
+          new Day(new Date(lastOfDate.getFullYear(), lastOfDate.getMonth() + 1, fillIndex + 1)),
         );
       }
+      weeks[weeks.length - 1] = new Week(days);
     }
 
-    // fill the empty weeks
-    // if (matrix.length === 4) {
-    //   const firstWeek = matrix[0];
-    //   const firstDate = new Date(firstWeek[0]);
-    //   const newWeek: Date[] = [];
-    //   for (let fillIndex = 0; fillIndex < 7; fillIndex++) {
-    //     // newWeek.unshift(
-    //     //   new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, -fillIndex - 1),
-    //     // );
-    //     newWeek.unshift(
-    //       new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() - fillIndex),
-    //     );
-    //   }
-    //   matrix.unshift(newWeek);
-    // }
+    // if weeks length is 4 only
+    // then prepend week
+    if (weeks.length === 4) {
+      const fillDays = 7;
+      const days: Day[] = [];
+      const firstWeek = weeks[0];
+      const firstDate = firstWeek.getDays()[0].getDate();
 
-    // append empty week to end
-    if (matrix.length === 5) {
-      const lastWeek = matrix[matrix.length - 1];
-      const lastDate = new Date(lastWeek[lastWeek.length - 1]);
-      const newWeek: Date[] = [];
+      for (let fillIndex = 0; fillIndex < fillDays; fillIndex++) {
+        days.unshift(
+          new Day(
+            new Date(
+              firstDate.getFullYear(),
+              firstDate.getMonth(),
+              firstDate.getDate() - fillIndex,
+            ),
+          ),
+        );
+      }
+      weeks.unshift(new Week(days));
+    }
+
+    // if weeks length is 5 only
+    // then append week
+    if (weeks.length === 5) {
+      const lastWeek = weeks[weeks.length - 1];
+      const lastDate = lastWeek.getDays()[lastWeek.getDays().length - 1].getDate();
+      const days: Day[] = [];
       for (let fillIndex = 0; fillIndex < 7; fillIndex++) {
-        newWeek.push(
-          new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + fillIndex + 1),
+        days.push(
+          new Day(
+            new Date(
+              lastDate.getFullYear(),
+              lastDate.getMonth(),
+              lastDate.getDate() + fillIndex + 1,
+            ),
+          ),
         );
       }
-      matrix.push(newWeek);
+      const newWeek = new Week(days);
+      weeks.push(newWeek);
     }
 
-    return matrix;
+    return weeks;
   }
 }
 
 const Calendars: React.FC = () => {
-  const [selectedItems, setSelectedItems] = React.useState<readonly Item[]>([]);
-  const [multiple, setMultiple] = React.useState(false);
   const [currentDate, setCurrentDate] = React.useState(new Date());
-
-  const c = new HeadlessCalendar(currentDate);
-  // console.log(c.getMatrix());
+  const calendar = new HeadlessCalendar(currentDate);
 
   return (
     <ErrorBoundary>
@@ -196,14 +231,14 @@ const Calendars: React.FC = () => {
         </H3>
 
         <CalendarContainer>
-          {c.getMatrix().map((week, index) => (
-            <CalendarWeek key={index.toString()}>
-              {week.map(day => (
+          {calendar.getWeeks().map(week => (
+            <CalendarWeek key={week.getWeekNumber().toString()}>
+              {week.getDays().map(day => (
                 <CalendarDay
-                  key={day.getTime()}
-                  $notCurrentMonth={day.getMonth() !== currentDate.getMonth()}
+                  key={day.getDate().getTime()}
+                  $notCurrentMonth={day.getDate().getMonth() !== currentDate.getMonth()}
                 >
-                  <FormattedDate value={day} day="2-digit" month="short" />
+                  <FormattedDate value={day.getDate()} day="2-digit" month="short" />
                 </CalendarDay>
               ))}
             </CalendarWeek>
