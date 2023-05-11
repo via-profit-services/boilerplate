@@ -46,19 +46,19 @@ $ mv ./jwtRS256.key ./packages/graphql-server/.keys/
 $ mv ./jwtRS256.key.pub ./packages/graphql-server/.keys/
 ```
 
-3. Build migrations.
+4. Build migrations.
 
 ```bash
 $ npm run build:migrations
 ```
 
-4. Apply migrations.
+5. Apply migrations.
 
 ```bash
 $ npm run migrate:latest
 ```
 
-7. Configure Relay artifacts
+6. Configure Relay artifacts
 
 Start the all projects.
 
@@ -69,7 +69,7 @@ $ npm run start
 $ npm run prepare:relay
 ```
 
-6. **(optional)** Apply the seeds.
+7. **(optional)** Apply the seeds.
 
 ```bash
 $ npm run seed:run
