@@ -14,7 +14,8 @@
     "migrate:make": "npm run migrate:make --workspace packages/graphql-server",
     "migrate:list": "npm run migrate:list --workspace packages/graphql-server",
     "migrate:check": "npm run migrate:check --workspace packages/graphql-server",
-    "b": "npm run build:client:dev --workspace packages/website"
+    "build:migrations": "npm run build:migrations --workspace packages/graphql-server",
+    "seed:run": "npm run seed:run --workspace packages/graphql-server"
   },
   "author": "",
   "license": "ISC",
