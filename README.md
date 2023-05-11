@@ -58,7 +58,18 @@ $ npm run build:migrations
 $ npm run migrate:latest
 ```
 
-5. (optional) Apply the seeds.
+7. Configure Relay artifacts
+
+Start the all projects.
+
+**Note:** _You see the errors after run `npm run start`. Just call the `npm run prepare:relay` command once_
+
+```bash
+$ npm run start
+$ npm run prepare:relay
+```
+
+6. **(optional)** Apply the seeds.
 
 ```bash
 $ npm run seed:run

@@ -8,6 +8,7 @@
 
 # relay artifacts
 /src/relay/artifacts/*
+!/src/relay/artifacts/.gitkeep
 
 .env
 
