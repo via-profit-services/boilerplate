@@ -3,19 +3,25 @@ import React from 'react';
 import HeadlessDayWeek from './HeadlessWeek';
 import HeadlessDayDay from './HeadlessDay';
 
+export type WeekDayName =
+  | 'sunday'
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday';
+
 export interface UseCalendarProps {
   readonly date?: Date;
-  readonly startDay?:
-    | 'sunday'
-    | 'monday'
-    | 'tuesday'
-    | 'wednesday'
-    | 'thursday'
-    | 'friday'
-    | 'saturday';
+  readonly minDate?: Date;
+  readonly maxDate?: Date;
+  readonly locale?: string;
+  readonly weekStartDay?: WeekDayName;
 }
 
 export const useCalendar = (props: UseCalendarProps) => {
+  const currentLocale = React.useMemo(() => props?.locale || 'en-US', [props?.locale]);
   const [year, month] = React.useMemo(() => {
     const passedDate = props?.date || new Date();
 
@@ -34,28 +40,22 @@ export const useCalendar = (props: UseCalendarProps) => {
     [isSameDay],
   );
 
-  const getDayNumberByName = React.useCallback(
-    (dayName: Exclude<UseCalendarProps['startDay'], undefined>) => {
-      const dayNames: Record<typeof dayName, number> = {
-        sunday: 0,
-        monday: 1,
-        tuesday: 2,
-        wednesday: 3,
-        thursday: 4,
-        friday: 5,
-        saturday: 6,
-      };
-
-      return dayNames[dayName];
-    },
+  const weekDaysMap: Record<WeekDayName, number> = React.useMemo(
+    () => ({
+      sunday: 0,
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6,
+    }),
     [],
   );
 
   const calendarDate = React.useMemo(() => new Date(year, month, 1, 0, 0, 0, 0), [year, month]);
-  const startDate = React.useMemo(
-    () => (typeof props?.startDay !== 'undefined' ? props.startDay : 'monday'),
-    [props?.startDay],
-  );
+
+  const weekStartDay = React.useMemo(() => props?.weekStartDay || 'monday', [props?.weekStartDay]);
 
   const weeks = React.useMemo(() => {
     const weeks: HeadlessDayWeek[] = [];
@@ -77,7 +77,7 @@ export const useCalendar = (props: UseCalendarProps) => {
       0,
     );
 
-    const startDayNum = getDayNumberByName(startDate);
+    const startDayNum = weekDaysMap[weekStartDay];
     const week = new Set<Date>();
     const date = new Date(calendarDate);
 
@@ -190,13 +190,14 @@ export const useCalendar = (props: UseCalendarProps) => {
     }
 
     return weeks;
-  }, [calendarDate, startDate, getDayNumberByName]);
+  }, [calendarDate, weekStartDay, weekDaysMap]);
 
   return {
-    getDayNumberByName,
     isSameDay,
     isToday,
+    weekStartDay,
     weeks,
+    locale: currentLocale,
   };
 };
 

@@ -7,7 +7,7 @@ import IconChevronLeft from '~/components/Icons/IconChevronLeft';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Button from '~/components/Button';
 import H3 from '~/components/Typography/H3';
-import { Calendar } from '~/components/DatePicker';
+import { Calendar, WeekDayName } from '~/components/DatePicker';
 
 const Section = styled.section`
   display: flex;
@@ -18,6 +18,8 @@ const Section = styled.section`
 const Calendars: React.FC = () => {
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const [selected, setSelected] = React.useState([new Date()]);
+  const [locale, setLocale] = React.useState('ru-RU');
+  const [weekStartDay, setWeekStartDay] = React.useState<WeekDayName>('monday');
 
   return (
     <ErrorBoundary>
@@ -27,12 +29,25 @@ const Calendars: React.FC = () => {
         </H3>
 
         <Calendar
-          locale="ru-RU"
+          locale={locale}
           date={currentDate}
+          weekStartDay={weekStartDay}
           onDateChange={setCurrentDate}
           onSelectDate={d => setSelected([d])}
           selected={selected}
         />
+        <p>
+          selected dates:{' '}
+          {selected
+            .map(d =>
+              new Intl.DateTimeFormat(locale, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              }).format(d),
+            )
+            .join(', ')}
+        </p>
         <div>
           <Button
             variant="accent"
@@ -55,6 +70,46 @@ const Calendars: React.FC = () => {
         </div>
         <div>
           <Button
+            onClick={() => {
+              const toSelect = [
+                new Date(
+                  currentDate.getFullYear(),
+                  Math.floor(Math.random() * 11),
+                  Math.floor(Math.random() * 28) + 1,
+                ),
+                new Date(
+                  currentDate.getFullYear(),
+                  Math.floor(Math.random() * 11),
+                  Math.floor(Math.random() * 28) + 1,
+                ),
+                new Date(
+                  currentDate.getFullYear(),
+                  Math.floor(Math.random() * 11),
+                  Math.floor(Math.random() * 28) + 1,
+                ),
+              ];
+              setSelected(toSelect);
+              setCurrentDate(toSelect[0]);
+            }}
+          >
+            Select three dates
+          </Button>
+          <Button
+            onClick={() => {
+              const toSelect = [
+                new Date(
+                  currentDate.getFullYear(),
+                  Math.floor(Math.random() * 11),
+                  Math.floor(Math.random() * 28) + 1,
+                ),
+              ];
+              setSelected(toSelect);
+              setCurrentDate(toSelect[0]);
+            }}
+          >
+            Select rundom date
+          </Button>
+          <Button
             variant="accent"
             onClick={() => {
               setCurrentDate(d => {
@@ -76,6 +131,42 @@ const Calendars: React.FC = () => {
             }}
           >
             Today
+          </Button>
+        </div>
+        <div>
+          <Button
+            variant="accent"
+            onClick={() => {
+              setLocale('ru-RU');
+            }}
+          >
+            Local ru-RU
+          </Button>
+          <Button
+            variant="accent"
+            onClick={() => {
+              setLocale('en-US');
+            }}
+          >
+            Local en-US
+          </Button>
+        </div>
+        <div>
+          <Button
+            variant="accent"
+            onClick={() => {
+              setWeekStartDay('monday');
+            }}
+          >
+            Week start day is monday
+          </Button>
+          <Button
+            variant="accent"
+            onClick={() => {
+              setWeekStartDay('sunday');
+            }}
+          >
+            Week start day is sunday
           </Button>
         </div>
       </Section>

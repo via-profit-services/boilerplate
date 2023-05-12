@@ -15,10 +15,9 @@ const Btn = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1em;
-  width: 2.25em;
-  height: 2.25em;
-  padding: 0;
+  font-size: 0.8em;
+  width: 3em;
+  height: 3em;
   margin: 0;
   min-width: 0;
   outline: none;

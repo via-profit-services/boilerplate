@@ -1,12 +1,13 @@
 import React from 'react';
 
-import useCalendar from './use-calendar';
+import useCalendar, { WeekDayName } from './use-calendar';
 import CalendarCell from './CalendarCell';
 import CalendarEmptyCell from './CalendarEmptyCell';
 import CalendarPaper from './CalendarPaper';
 import CalendarWeekRow from './CalendarWeekRow';
 import CalendarDateContainer from './CalendarDateContainer';
 import CalendarToolbar from './CalendarToolbar';
+import CalendarWeekDaysBar, { WeekNameLabelFormat } from './CalendarWeekDaysBar';
 
 export interface CalendarProps {
   readonly date: Date;
@@ -14,21 +15,41 @@ export interface CalendarProps {
   readonly selected?: Date[];
   readonly onSelectDate?: (date: Date) => void;
   readonly onDateChange?: (date: Date) => void;
+  readonly maxDate?: Date;
+  readonly minDate?: Date;
+  readonly weekStartDay?: WeekDayName;
+  readonly weekDayLabelFormat?: WeekNameLabelFormat;
 }
 
 const Calendar: React.FC<CalendarProps> = props => {
-  const { date, locale, selected, onDateChange, onSelectDate } = props;
+  const {
+    date,
+    locale,
+    selected,
+    maxDate,
+    minDate,
+    weekStartDay,
+    weekDayLabelFormat,
+    onDateChange,
+    onSelectDate,
+  } = props;
   const [selectedDates, setSelectedDates] = React.useState<Date[]>(selected || []);
   const [currentDate, setCurrentDate] = React.useState(date);
   const currentDateRef = React.useRef(currentDate);
-  const { weeks, isSameDay } = useCalendar({ date: currentDate, startDay: 'monday' });
+  const calendar = useCalendar({
+    weekStartDay,
+    date: currentDate,
+    minDate,
+    maxDate,
+    locale,
+  });
 
   React.useEffect(() => {
-    if (!isSameDay(currentDateRef.current, date)) {
+    if (!calendar.isSameDay(currentDateRef.current, date)) {
       currentDateRef.current = date;
       setCurrentDate(date);
     }
-  }, [date, isSameDay]);
+  }, [date, calendar]);
 
   React.useEffect(() => {
     setSelectedDates(selected || []);
@@ -38,7 +59,7 @@ const Calendar: React.FC<CalendarProps> = props => {
     <CalendarPaper>
       <CalendarToolbar
         date={currentDate}
-        locale={locale}
+        locale={calendar.locale}
         onDateChange={newDate => {
           setCurrentDate(newDate);
           if (typeof onDateChange === 'function') {
@@ -46,8 +67,13 @@ const Calendar: React.FC<CalendarProps> = props => {
           }
         }}
       />
+      <CalendarWeekDaysBar
+        locale={calendar.locale}
+        week={calendar.weeks[0]}
+        format={weekDayLabelFormat || 'short'}
+      />
       <CalendarDateContainer>
-        {weeks.map(week => (
+        {calendar.weeks.map(week => (
           <CalendarWeekRow key={week.getWeekNumber().toString()}>
             {week.getDays().map(day => {
               if (day.getDate().getMonth() === currentDate.getMonth()) {
@@ -55,7 +81,9 @@ const Calendar: React.FC<CalendarProps> = props => {
                   <CalendarCell
                     key={day.getDate().getTime()}
                     isToday={day.isToday()}
-                    isSelected={selectedDates.find(s => isSameDay(s, day.getDate())) !== undefined}
+                    isSelected={
+                      selectedDates.find(s => calendar.isSameDay(s, day.getDate())) !== undefined
+                    }
                     onClick={() =>
                       typeof onSelectDate === 'function' ? onSelectDate(day.getDate()) : void 0
                     }
