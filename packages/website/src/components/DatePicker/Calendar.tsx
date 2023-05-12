@@ -1,48 +1,76 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { FormattedDate } from 'react-intl';
 
 import useCalendar from './use-calendar';
-import CalendarDay from './CalendarDay';
+import CalendarCell from './CalendarCell';
+import CalendarEmptyCell from './CalendarEmptyCell';
+import CalendarPaper from './CalendarPaper';
+import CalendarWeekRow from './CalendarWeekRow';
+import CalendarDateContainer from './CalendarDateContainer';
+import CalendarToolbar from './CalendarToolbar';
 
 export interface CalendarProps {
   readonly date: Date;
+  readonly locale?: string;
+  readonly selected?: Date[];
+  readonly onSelectDate?: (date: Date) => void;
+  readonly onDateChange?: (date: Date) => void;
 }
 
-const CalendarContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-`;
-
-const CalendarWeek = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-`;
-
 const Calendar: React.FC<CalendarProps> = props => {
-  const { date } = props;
-  const { weeks } = useCalendar({ date, startDay: 'monday' });
+  const { date, locale, selected, onDateChange, onSelectDate } = props;
+  const [selectedDates, setSelectedDates] = React.useState<Date[]>(selected || []);
+  const [currentDate, setCurrentDate] = React.useState(date);
+  const currentDateRef = React.useRef(currentDate);
+  const { weeks, isSameDay } = useCalendar({ date: currentDate, startDay: 'monday' });
+
+  React.useEffect(() => {
+    if (!isSameDay(currentDateRef.current, date)) {
+      currentDateRef.current = date;
+      setCurrentDate(date);
+    }
+  }, [date, isSameDay]);
+
+  React.useEffect(() => {
+    setSelectedDates(selected || []);
+  }, [selected]);
 
   return (
-    <CalendarContainer>
-      {weeks.map(week => (
-        <CalendarWeek key={week.getWeekNumber().toString()}>
-          {week.getDays().map(day => (
-            <CalendarDay
-              key={day.getDate().getTime()}
-              isNotCurrentMonth={day.getDate().getMonth() !== date.getMonth()}
-              isToday={day.isToday()}
-            >
-              <FormattedDate value={day.getDate()} day="2-digit" month="short" />
-            </CalendarDay>
-          ))}
-        </CalendarWeek>
-      ))}
-    </CalendarContainer>
+    <CalendarPaper>
+      <CalendarToolbar
+        date={currentDate}
+        locale={locale}
+        onDateChange={newDate => {
+          setCurrentDate(newDate);
+          if (typeof onDateChange === 'function') {
+            onDateChange(newDate);
+          }
+        }}
+      />
+      <CalendarDateContainer>
+        {weeks.map(week => (
+          <CalendarWeekRow key={week.getWeekNumber().toString()}>
+            {week.getDays().map(day => {
+              if (day.getDate().getMonth() === currentDate.getMonth()) {
+                return (
+                  <CalendarCell
+                    key={day.getDate().getTime()}
+                    isToday={day.isToday()}
+                    isSelected={selectedDates.find(s => isSameDay(s, day.getDate())) !== undefined}
+                    onClick={() =>
+                      typeof onSelectDate === 'function' ? onSelectDate(day.getDate()) : void 0
+                    }
+                  >
+                    {day.getLabel()}
+                  </CalendarCell>
+                );
+              }
+
+              return <CalendarEmptyCell key={day.getDate().getTime()} />;
+            })}
+          </CalendarWeekRow>
+        ))}
+      </CalendarDateContainer>
+    </CalendarPaper>
   );
 };
 

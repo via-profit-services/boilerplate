@@ -4,7 +4,7 @@ import Color from 'color';
 
 import ButtonBase from './ButtonBase';
 
-export type ButtonStandardProps = React.HTMLAttributes<HTMLButtonElement> & {
+export type ButtonStandardProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   readonly startIcon?: JSX.Element;
   readonly endIcon?: JSX.Element;
 };

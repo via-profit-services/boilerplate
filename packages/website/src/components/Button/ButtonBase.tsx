@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-export type ButtonBaseProps = React.HTMLAttributes<HTMLButtonElement>;
+export type ButtonBaseProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button = styled.button`
   border-radius: ${({ theme }) => theme.shape.radiusFactor * 2}em;

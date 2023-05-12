@@ -12,10 +12,12 @@ import { Calendar } from '~/components/DatePicker';
 const Section = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 `;
 
 const Calendars: React.FC = () => {
   const [currentDate, setCurrentDate] = React.useState(new Date());
+  const [selected, setSelected] = React.useState([new Date()]);
 
   return (
     <ErrorBoundary>
@@ -24,7 +26,13 @@ const Calendars: React.FC = () => {
           <FormattedDate value={currentDate} month="long" year="numeric" />
         </H3>
 
-        <Calendar date={currentDate} />
+        <Calendar
+          locale="ru-RU"
+          date={currentDate}
+          onDateChange={setCurrentDate}
+          onSelectDate={d => setSelected([d])}
+          selected={selected}
+        />
         <div>
           <Button
             variant="accent"

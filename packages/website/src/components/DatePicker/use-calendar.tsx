@@ -16,7 +16,7 @@ export interface UseCalendarProps {
 }
 
 export const useCalendar = (props: UseCalendarProps) => {
-  const [year, month, day] = React.useMemo(() => {
+  const [year, month] = React.useMemo(() => {
     const passedDate = props?.date || new Date();
 
     return [passedDate.getFullYear(), passedDate.getMonth(), passedDate.getDate()];

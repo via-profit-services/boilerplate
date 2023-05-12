@@ -1,12 +1,30 @@
+export interface HeadlessDayProps {
+  readonly displayLeadingZero?: boolean;
+}
+
 class HeadlessDay {
   #date: Date;
+  #displayLeadingZero: boolean;
 
-  constructor(date: Date) {
+  constructor(date: Date, params?: HeadlessDayProps) {
+    const { displayLeadingZero } = params || {};
     this.#date = new Date(date);
+    this.#displayLeadingZero = Boolean(displayLeadingZero);
   }
 
   public getDate() {
     return new Date(this.#date);
+  }
+
+  public getLabel(): string {
+    const dateNum = this.#date.getDate();
+    if (!this.#displayLeadingZero) {
+      return dateNum.toString();
+    }
+
+    const numStr = `0${dateNum}`;
+
+    return numStr.substring(numStr.length - 2);
   }
 
   public isToday() {
