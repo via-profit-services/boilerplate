@@ -7,7 +7,7 @@ import IconChevronLeft from '~/components/Icons/IconChevronLeft';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Button from '~/components/Button';
 import H3 from '~/components/Typography/H3';
-import { Calendar, WeekDayName } from '~/components/DatePicker';
+import Calendar, { WeekDayName } from '~/components/Calendar';
 
 const Section = styled.section`
   display: flex;
@@ -30,23 +30,40 @@ const Calendars: React.FC = () => {
 
         <Calendar
           locale={locale}
+          displayLeadingZero={false}
           date={currentDate}
           weekStartDay={weekStartDay}
-          onDateChange={setCurrentDate}
+          onDateChange={d => setCurrentDate(d)}
           onSelectDate={d => setSelected([d])}
           selected={selected}
+          minDate={new Date(2022, 0, 1)}
+          maxDate={new Date(2023, 11, 31)}
         />
         <p>
           selected dates:{' '}
           {selected
             .map(d =>
-              new Intl.DateTimeFormat(locale, {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              }).format(d),
+              [
+                new Intl.DateTimeFormat(locale, {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                }).format(d),
+                `(${d.getTime()})`,
+              ].join(' '),
             )
             .join(', ')}
+        </p>
+        <p>
+          current date:{' '}
+          {[
+            new Intl.DateTimeFormat(locale, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            }).format(currentDate),
+            `(${currentDate.getTime()})`,
+          ].join(' ')}
         </p>
         <div>
           <Button
@@ -131,6 +148,15 @@ const Calendars: React.FC = () => {
             }}
           >
             Today
+          </Button>
+
+          <Button
+            variant="accent"
+            onClick={() => {
+              setCurrentDate(new Date(2022, 11 - 1, 1));
+            }}
+          >
+            November, 01, 2022
           </Button>
         </div>
         <div>

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 
 const CalendarDateContainer = styled.div`
@@ -6,4 +7,4 @@ const CalendarDateContainer = styled.div`
   justify-content: stretch;
 `;
 
-export default CalendarDateContainer;
+export default React.memo(CalendarDateContainer);

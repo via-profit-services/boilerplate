@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 
 const CalendarWeekRow = styled.div`
@@ -7,4 +8,4 @@ const CalendarWeekRow = styled.div`
   align-items: stretch;
 `;
 
-export default CalendarWeekRow;
+export default React.memo(CalendarWeekRow);

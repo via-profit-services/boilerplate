@@ -483,6 +483,7 @@ const Menu = React.forwardRef(
       const dimensions = { ...dimensionsRef.current };
       menuIsOpen;
       const MAX_HEIGHT = 360;
+      const MIN_WIDTH = 200;
       let size = 0;
       for (let index = 0; index < items.length; index++) {
         if (index > 60) {
@@ -497,7 +498,7 @@ const Menu = React.forwardRef(
       }
 
       if (currentAnchorElement) {
-        dimensions.width = currentAnchorElement.getBoundingClientRect().width;
+        dimensions.width = Math.max(currentAnchorElement.getBoundingClientRect().width, MIN_WIDTH);
       }
 
       dimensionsRef.current = dimensions;

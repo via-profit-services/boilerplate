@@ -23,4 +23,4 @@ const CalendarEmptyCell: React.ForwardRefRenderFunction<
   );
 };
 
-export default React.forwardRef(CalendarEmptyCell);
+export default React.memo(React.forwardRef(CalendarEmptyCell));

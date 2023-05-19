@@ -5,12 +5,13 @@ import Color from 'color';
 export interface CalendarCellProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   readonly isToday?: boolean;
   readonly isSelected?: boolean;
+  readonly isDisabled?: boolean;
 }
 
 const Btn = styled.button<{
-  $isNotCurrentMonth?: boolean;
-  $isToday?: boolean;
-  $isSelected?: boolean;
+  $isToday: boolean;
+  $isSelected: boolean;
+  $isDisabled: boolean;
 }>`
   display: flex;
   align-items: center;
@@ -21,12 +22,15 @@ const Btn = styled.button<{
   margin: 0;
   min-width: 0;
   outline: none;
-  cursor: pointer;
+  cursor: ${({ $isDisabled }) => ($isDisabled ? 'default' : 'pointer')};
   border: 1px solid transparent;
   background-color: ${({ theme, $isSelected }) =>
     $isSelected ? theme.colors.accentPrimary : theme.colors.backgroundPrimary};
   border-radius: ${({ theme }) => theme.shape.radiusFactor * 3}em;
-  color: ${({ $isToday, theme, $isSelected }) => {
+  color: ${({ $isToday, theme, $isSelected, $isDisabled }) => {
+    if ($isDisabled) {
+      return theme.colors.textSecondary;
+    }
     if ($isSelected) {
       return theme.colors.accentPrimaryContrast;
     }
@@ -44,22 +48,31 @@ const Btn = styled.button<{
         .string()};
   }
   &:focus-visible {
-    border-color: ${({ theme }) => theme.colors.accentPrimary};
+    border-color: ${({ theme, $isDisabled }) =>
+      $isDisabled ? 'transparent' : theme.colors.accentPrimary};
   }
-  opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
+  opacity: ${({ $isDisabled }) => ($isDisabled ? 0.4 : 1)};
 `;
 
 const CalendarCell: React.ForwardRefRenderFunction<HTMLButtonElement, CalendarCellProps> = (
   props,
   ref,
 ) => {
-  const { isToday, children, isSelected, ...restProps } = props;
+  const { isToday, children, isSelected, isDisabled, ...restProps } = props;
 
   return (
-    <Btn type="button" {...restProps} ref={ref} $isToday={isToday} $isSelected={isSelected}>
+    <Btn
+      type="button"
+      {...restProps}
+      ref={ref}
+      tabIndex={isDisabled ? -1 : restProps.tabIndex}
+      $isToday={Boolean(isToday)}
+      $isSelected={Boolean(isSelected)}
+      $isDisabled={Boolean(isDisabled)}
+    >
       {children}
     </Btn>
   );
 };
 
-export default React.forwardRef(CalendarCell);
+export default React.memo(React.forwardRef(CalendarCell));

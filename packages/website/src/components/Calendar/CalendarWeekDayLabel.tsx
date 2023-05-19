@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 
 const CalendarWeekDayLabel = styled.div`
@@ -10,4 +11,4 @@ const CalendarWeekDayLabel = styled.div`
   color: ${({ theme }) => theme.colors.textSecondary};
 `;
 
-export default CalendarWeekDayLabel;
+export default React.memo(CalendarWeekDayLabel);

@@ -1,6 +1,5 @@
-import Calendar from './Calendar';
+import React from 'react';
 
-export * from './Calendar';
-export * from './use-calendar';
+const DatePicker: React.FC = () => <>Date picker</>;
 
-export { Calendar };
+export default DatePicker;
