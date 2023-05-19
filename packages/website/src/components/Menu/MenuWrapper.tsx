@@ -58,6 +58,7 @@ const StyledMenuWrapper = styled.div<{ $isOpen: boolean }>`
 
 const MenuWrapperInner = styled.div<Pick<MenuWrapperProps, 'dimensions'>>`
   padding: 0.4em;
+  box-sizing: content-box;
   min-width: ${({ dimensions }) => dimensions.width}px;
   min-height: ${({ dimensions }) => dimensions.height}px;
 `;

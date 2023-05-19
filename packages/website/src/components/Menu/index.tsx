@@ -254,7 +254,7 @@ const Menu = React.forwardRef(
       items,
       value,
       isOpen,
-      estimatedItemSize = 50,
+      estimatedItemSize = 30,
       endThreshold = 10,
       thresholdPercent = 30,
       autofocusDelay = 250,
@@ -494,7 +494,7 @@ const Menu = React.forwardRef(
       }
 
       if (size > 0) {
-        dimensions.height = Math.min(MAX_HEIGHT, size);
+        dimensions.height = Math.min(size, MAX_HEIGHT);
       }
 
       if (currentAnchorElement) {
