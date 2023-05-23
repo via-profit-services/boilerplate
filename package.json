@@ -16,7 +16,8 @@
     "migrate:check": "npm run migrate:check --workspace packages/graphql-server",
     "build:migrations": "npm run build:migrations --workspace packages/graphql-server",
     "seed:run": "npm run seed:run --workspace packages/graphql-server",
-    "prepare:relay": "npm run download-schema --workspace packages/website && npm run download-schema --workspace packages/web-admin && npm run relay --workspace packages/website && npm run relay --workspace packages/web-admin"
+    "prepare:relay": "npm run download-schema --workspace packages/website && npm run download-schema --workspace packages/web-admin && npm run relay --workspace packages/website && npm run relay --workspace packages/web-admin",
+    "relay": "npm run relay --workspace packages/website && npm run relay --workspace packages/web-admin"
   },
   "author": "",
   "license": "ISC",

@@ -116,6 +116,7 @@ type Query {
   blog: BlogQuery!
   version: String!
   me: Me!
+  node(id: ID!): Node
 }
 
 type AuthentificationQuery {

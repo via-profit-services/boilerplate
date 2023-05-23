@@ -22,7 +22,7 @@ const TemplateBlogPage = new GraphQLObjectType<TemplateParent, Context>({
   fields: () => ({
     id: {
       type: new GraphQLNonNull(GraphQLID),
-      resolve: async parent => `fakeID:${parent.page}:${parent.id}`,
+      resolve: async parent => `fakeID:TemplateBlogPage:${parent.page}:${parent.id}`,
     },
     name: { type: new GraphQLNonNull(TemplateName) },
     displayName: { type: new GraphQLNonNull(GraphQLString) },

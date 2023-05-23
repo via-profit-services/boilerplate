@@ -75,8 +75,8 @@ const Page: React.FC = () => {
     path: pathname,
     isDesktop,
     isBlog,
-    firstPost: 10,
-    afterPost: null,
+    // firstPost: 10,
+    // afterPost: null,
   });
   const { template, ...fragmentRef } = pages.resolve;
 
@@ -142,14 +142,7 @@ const Page: React.FC = () => {
 export default Page;
 
 graphql`
-  query PageQuery(
-    $path: String!
-    $isDesktop: Boolean!
-    $firstPost: Int
-    $afterPost: String
-    $isBlog: Boolean!
-  ) {
-    ...TemplateBlogPostsPaginationFragment
+  query PageQuery($path: String!, $isDesktop: Boolean!, $isBlog: Boolean!) {
     pages {
       resolve(path: $path) {
         id

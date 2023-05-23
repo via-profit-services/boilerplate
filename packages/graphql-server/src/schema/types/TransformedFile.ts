@@ -6,7 +6,6 @@ import {
   GraphQLFieldConfig,
 } from 'graphql';
 import {
-  NodeInterfaceType,
   DateTimeScalarType,
   URLScalarType,
   JSONScalarType,
@@ -34,7 +33,6 @@ interface Resolver {
 
 const TransformedFile = new GraphQLObjectType<FilesTableRecord, Context>({
   name: 'TransformedFile',
-  interfaces: [NodeInterfaceType],
   fields: () => {
     const fields: Record<keyof Resolver, GraphQLFieldConfig<FilesTableRecord, Context>> = {
       id: { type: new GraphQLNonNull(GraphQLID) },

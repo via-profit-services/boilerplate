@@ -1,6 +1,5 @@
-import { GraphQLObjectType, GraphQLNonNull, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLNonNull } from 'graphql';
 
-import Me from '~/schema/unions/Me';
 import AuthentificationQuery from '~/schema/queries/AuthentificationQuery';
 import ClientsQuery from '~/schema/queries/ClientsQuery';
 import DealsQuery from '~/schema/queries/DealsQuery';
@@ -9,6 +8,9 @@ import FunnelsQuery from '~/schema/queries/FunnelsQuery';
 import UsersQuery from '~/schema/queries/UsersQuery';
 import PagesQuery from '~/schema/queries/PagesQuery';
 import BlogQuery from '~/schema/queries/BlogQuery';
+import me from '~/schema/queries/Query/me';
+import node from '~/schema/queries/Query/node';
+import version from '~/schema/queries/Query/version';
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -21,27 +23,9 @@ const Query = new GraphQLObjectType({
     users: { type: new GraphQLNonNull(UsersQuery), resolve: () => ({}) },
     pages: { type: new GraphQLNonNull(PagesQuery), resolve: () => ({}) },
     blog: { type: new GraphQLNonNull(BlogQuery), resolve: () => ({}) },
-    version: {
-      type: new GraphQLNonNull(GraphQLString),
-      resolve: () => process.env.WEBPACK_INJECT_APP_VERSION || '',
-    },
-    me: {
-      type: new GraphQLNonNull(Me),
-      resolve: async (_parent, _args, context) => {
-        const { dataloader, token } = context;
-
-        if (token.uuid) {
-          const user = await dataloader.users.load(token.uuid);
-
-          return {
-            __typename: 'User',
-            ...user,
-          };
-        }
-
-        return null;
-      },
-    },
+    version,
+    me,
+    node,
   }),
 });
 

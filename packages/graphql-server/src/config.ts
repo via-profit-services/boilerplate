@@ -130,6 +130,7 @@ const config: ApplicationConfig = {
       // FIXME: Uncomment line below to lock Mutations
       // 'Mutation.*': isAuthorized,
       'Query.version': permissions.allow(),
+      'Query.node': permissions.allow(),
       'Query.authentification': permissions.allow(),
       'AuthentificationQuery.*': isAuthorized,
       'AuthentificationQuery.verifyToken': permissions.allow(),
