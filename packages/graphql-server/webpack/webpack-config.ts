@@ -68,7 +68,7 @@ const webpackBaseConfig: Configuration = {
         [
           new NodemonPlugin({
             watch: ['./build'],
-            exec: 'node --inspect=9223 ./build/index.js',
+            exec: 'node --inspect=9229 ./build/index.js',
           }),
         ]
       : /**

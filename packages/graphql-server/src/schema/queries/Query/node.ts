@@ -1,7 +1,11 @@
 import { Context, NodeInterfaceType } from '@via-profit-services/core';
 import { GraphQLFieldConfig, GraphQLNonNull, GraphQLID } from 'graphql';
 
-const node: GraphQLFieldConfig<unknown, Context> = {
+type Args = {
+  readonly id: string;
+};
+
+const node: GraphQLFieldConfig<unknown, Context, Args> = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
@@ -23,7 +27,11 @@ const node: GraphQLFieldConfig<unknown, Context> = {
       };
     }
 
-    const row = await knex.select<any, { type: string }>(['type']).from('nodes').where(id).first();
+    const row = await knex
+      .select<any, { type: string }>(['type'])
+      .from('nodes')
+      .where({ id })
+      .first();
 
     if (!row) {
       return null;
