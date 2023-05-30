@@ -4,7 +4,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 
 import Meta from '~/components/Meta';
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 import ContentArea from '~/components/ContentArea';
 // import LexicalComponent from './LexicalEditor';
 

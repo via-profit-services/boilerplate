@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
-import H3 from '~/components/Typography/H3';
-import TextField from '~/components/TextField';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import TextField from '@boilerplate/ui-kit/src/TextField';
 import IconBell from '~/components/Icons/IconBell';
 import IconAir from '~/components/Icons/IconAir';
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 const Section = styled.section`
   display: flex;

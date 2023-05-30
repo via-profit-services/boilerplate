@@ -1,9 +1,9 @@
 import React from 'react';
 import { graphql, useFragment } from 'react-relay';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import SafeFrame from '~/components/SafeFrame';
-import H1 from '~/components/Typography/H1';
+import H1 from '@boilerplate/ui-kit/src/Typography/H1';
 import ContentBlockPlainText from '~/components/ContentBlock/ContentBlockPlainText';
 import fragmentSpec, {
   TemplateHomeHeadingFragment$key,

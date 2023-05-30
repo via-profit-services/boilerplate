@@ -4,8 +4,8 @@ import { graphql, useFragment } from 'react-relay';
 
 import ContentBlock from '~/components/ContentBlock';
 import SafeFrame from '~/components/SafeFrame';
-import H1 from '~/components/Typography/H1';
-import H3 from '~/components/Typography/H3';
+import H1 from '@boilerplate/ui-kit/src/Typography/H1';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
 
 import fragmentSpec, {
   PaymentsBlockFragment$key,

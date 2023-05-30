@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { uiActions } from '~/redux/slicers/ui';
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 const Container = styled.div`
   display: flex;

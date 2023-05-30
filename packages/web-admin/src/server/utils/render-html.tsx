@@ -21,7 +21,7 @@ import {
   StaticRouterProvider,
 } from 'react-router-dom/server';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import AuthProvider from '~/providers/AuthProvider/AuthorizationInner';
 import reduxDefaultState from '~/redux/reduxDefaultState';
 import relayFetch from '~/server/utils/relay-fetch';

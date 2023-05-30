@@ -4,10 +4,10 @@ import { FormattedDate } from 'react-intl';
 
 import IconChevronRight from '~/components/Icons/IconChevronRight';
 import IconChevronLeft from '~/components/Icons/IconChevronLeft';
-import ErrorBoundary from '~/components/ErrorBoundary';
-import Button from '~/components/Button';
-import H3 from '~/components/Typography/H3';
-import Calendar, { WeekDayName } from '~/components/Calendar';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import Button from '@boilerplate/ui-kit/src/Button';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import Calendar, { WeekDayName } from '@boilerplate/ui-kit/src/Calendar';
 
 const Section = styled.section`
   display: flex;
@@ -160,20 +160,10 @@ const Calendars: React.FC = () => {
           </Button>
         </div>
         <div>
-          <Button
-            variant="accent"
-            onClick={() => {
-              setLocale('ru-RU');
-            }}
-          >
+          <Button variant="accent" onClick={() => setLocale('ru-RU')}>
             Local ru-RU
           </Button>
-          <Button
-            variant="accent"
-            onClick={() => {
-              setLocale('en-US');
-            }}
-          >
+          <Button variant="accent" onClick={() => setLocale('en-US')}>
             Local en-US
           </Button>
         </div>

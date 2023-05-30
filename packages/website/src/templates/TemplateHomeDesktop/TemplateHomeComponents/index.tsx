@@ -2,8 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Color from 'color';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
-import H2 from '~/components/Typography/H2';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import H2 from '@boilerplate/ui-kit/src/Typography/H2';
 import Buttons from './Buttons';
 import TextFields from './TextFields';
 import Phones from './Phones';

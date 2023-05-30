@@ -4,7 +4,7 @@ import { Global, css, useTheme } from '@emotion/react';
 import ReactModal from 'react-modal';
 
 import CloseOutlineIcon from '~/components/Icons/CloseOutline';
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 export interface ModalDrawerProps extends ReactModal.Props {
   readonly children: React.ReactNode | React.ReactNode[];

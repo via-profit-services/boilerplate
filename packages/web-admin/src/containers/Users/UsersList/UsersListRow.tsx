@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { graphql, useFragment } from 'react-relay';
 
-import Base from '~/components/Typography/Base';
-import Button from '~/components/Button';
+import Base from '@boilerplate/ui-kit/src/Typography/Base';
+import Button from '@boilerplate/ui-kit/src/Button';
 import fragment, { UsersListRowFragment$key } from '~/relay/artifacts/UsersListRowFragment.graphql';
 
 type Props = {

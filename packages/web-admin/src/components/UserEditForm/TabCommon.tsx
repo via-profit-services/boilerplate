@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 
 import { FormSchema } from './useFormSchema';
-import TextField from '~/components/TextField';
+import TextField from '@boilerplate/ui-kit/src/TextField';
 import Card from '~/components/Card';
 
 const TabCommon: React.FC = () => {

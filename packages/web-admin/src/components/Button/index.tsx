@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import ButtonContained, { ButtonContainedProps } from '~/components/Button/ButtonContained';
-import ButtonOutlined, { ButtonOutlinedProps } from '~/components/Button/ButtonOutlined';
+import ButtonContained, { ButtonContainedProps } from '@boilerplate/ui-kit/src/Button/ButtonContained';
+import ButtonOutlined, { ButtonOutlinedProps } from '@boilerplate/ui-kit/src/Button/ButtonOutlined';
 
 interface BaseProps {
   readonly variant?: 'contained' | 'outlined';

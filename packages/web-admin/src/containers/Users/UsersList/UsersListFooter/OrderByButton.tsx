@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { usersListVariablesActions } from '~/redux/slicers/usersList';
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 const selector = createSelector(
   (store: ReduxStore) => store.usersListVariables.orderBy,

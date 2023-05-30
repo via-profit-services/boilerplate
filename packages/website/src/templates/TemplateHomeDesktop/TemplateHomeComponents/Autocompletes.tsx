@@ -2,11 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import countries from './countries.json';
-import ErrorBoundary from '~/components/ErrorBoundary';
-import H3 from '~/components/Typography/H3';
-import Button from '~/components/Button';
-import Autocomplete, { AutocompleteRef } from '~/components/Autocomplete';
-import TextField from '~/components/TextField';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import Button from '@boilerplate/ui-kit/src/Button';
+import Autocomplete, { AutocompleteRef } from '@boilerplate/ui-kit/src/Autocomplete';
+import TextField from '@boilerplate/ui-kit/src/TextField';
 
 const Section = styled.section`
   display: flex;

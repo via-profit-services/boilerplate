@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, useFragment, useMutation } from 'react-relay';
 
-import TextField from '~/components/TextField';
+import TextField from '@boilerplate/ui-kit/src/TextField';
 import fragmentSpec, {
   ContentBlockPlainTextFragment$key,
 } from '~/relay/artifacts/ContentBlockPlainTextFragment.graphql';

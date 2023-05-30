@@ -10,7 +10,7 @@ import routes from '~/routes';
 import readPreloadedState from '~/utils/readPreloadedState';
 import ReduxProvider from '~/providers/ReduxProvider';
 import RelayProvider from '~/providers/RelayProvider';
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import reduxDefaultState from '~/redux/reduxDefaultState';
 
 const bootstrap = async () => {

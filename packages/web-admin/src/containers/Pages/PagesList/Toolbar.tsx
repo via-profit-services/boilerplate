@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
-import TextField from '~/components/TextField';
+import TextField from '@boilerplate/ui-kit/src/TextField';
 import { pagesListVariablesActions } from '~/redux/slicers/pagesList';
 
 const ToolbarContainer = styled.div`

@@ -1,16 +1,13 @@
-import React from 'react';
-
-// import HeadlessWeek from './HeadlessWeek';
-// import HeadlessDay, { HeadlessDayProps } from './HeadlessDay';
+import React from "react";
 
 export type WeekDayName =
-  | 'sunday'
-  | 'monday'
-  | 'tuesday'
-  | 'wednesday'
-  | 'thursday'
-  | 'friday'
-  | 'saturday';
+  | "sunday"
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday";
 
 export type Day = {
   readonly date: Date;
@@ -32,45 +29,77 @@ export interface UseCalendarProps {
   readonly displayLeadingZero?: boolean;
 }
 
-// export interface UseCalendarPayload {
-//   readonly isSameDay: (a: Date, b: Date) => boolean;
-//   readonly isToday: (dateValue: Date) => boolean;
-//   readonly minDate: Date;
-//   readonly maxDate: Date;
-//   readonly weeks: Week[];
-//   readonly weekStartDay: WeekDayName;
-//   readonly locale: string;
-//   readonly displayLeadingZero: boolean;
-// }
+type CalendarState = {
+  readonly date: Date;
+  readonly minDate: Date;
+  readonly maxDate: Date;
+  readonly locale: string;
+  readonly weekStartDay: WeekDayName;
+  readonly displayLeadingZero: boolean;
+};
+
+type CalendarActionPartial = {
+  readonly type: "partial";
+  readonly payload: Partial<CalendarState>;
+};
+
+type CalendarActionDate = {
+  readonly type: "date";
+  readonly payload: Date;
+};
+
+type CalendarActions = CalendarActionPartial | CalendarActionDate;
+
+const calendarReducer: React.Reducer<CalendarState, CalendarActions> = (
+  state,
+  action
+) => {
+  switch (action.type) {
+    case "partial":
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    case "date": {
+      return {
+        ...state,
+        date: action.payload,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const calendarDefaults: CalendarState = {
+  date: new Date(),
+  minDate: new Date(new Date().getFullYear() - 100, 0, 1, 0, 0, 0),
+  maxDate: new Date(new Date().getFullYear() + 100, 0, 1, 0, 0, 0),
+  locale: "ru-RU",
+  weekStartDay: "monday",
+  displayLeadingZero: false,
+};
 
 export const useCalendar = (props: UseCalendarProps) => {
-  const [calendarDate, setCalendarDate] = React.useState(() => {
-    const date = props.date instanceof Date ? props.date : new Date();
-
-    return new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
+  const [state, dispatch] = React.useReducer(calendarReducer, {
+    ...calendarDefaults,
+    ...props,
   });
-  const [minDate, setMinDate] = React.useState(
-    props.minDate || new Date(calendarDate.getFullYear() - 100, 0, 1),
-  );
-  const [maxDate, setMaxDate] = React.useState(
-    props.maxDate || new Date(calendarDate.getFullYear() + 100, 11, 31),
-  );
-  const [weekStartDay, setWeekStartDay] = React.useState(props.weekStartDay || 'monday');
-  const [locale, setLocale] = React.useState(props.locale || 'ru-RU');
-  const [displayLeadingZero, setDisplayLeadingZero] = React.useState(
-    Boolean(props.displayLeadingZero),
-  );
+
+  const { date, minDate, maxDate, locale, weekStartDay, displayLeadingZero } =
+    state;
 
   const isSameDay = React.useCallback(
     (a: Date, b: Date) =>
       a.getFullYear() === b.getFullYear() &&
       a.getMonth() === b.getMonth() &&
       a.getDate() === b.getDate(),
-    [],
+    []
   );
   const isToday = React.useCallback(
     (dateValue: Date) => isSameDay(dateValue, new Date()),
-    [isSameDay],
+    [isSameDay]
   );
 
   const isDisabled = React.useCallback(
@@ -81,7 +110,7 @@ export const useCalendar = (props: UseCalendarProps) => {
 
       return current > max || current < min;
     },
-    [maxDate, minDate],
+    [maxDate, minDate]
   );
 
   const calculateWeekNumber = React.useCallback((dt: Date) => {
@@ -108,40 +137,40 @@ export const useCalendar = (props: UseCalendarProps) => {
       friday: 5,
       saturday: 6,
     }),
-    [],
+    []
   );
 
   const weeks = React.useMemo(() => {
     const list: Week[] = [];
     const startOfDate = new Date(
-      calendarDate.getFullYear(),
-      calendarDate.getMonth(),
+      date.getFullYear(),
+      date.getMonth(),
       1,
       0,
       0,
       0,
-      0,
+      0
     );
     const lastOfDate = new Date(
-      calendarDate.getFullYear(),
-      calendarDate.getMonth() + 1,
+      date.getFullYear(),
+      date.getMonth() + 1,
       0,
       0,
       0,
-      0,
+      0
     );
 
     const startDayNum = weekDaysMap[weekStartDay as WeekDayName];
 
     const week = new Set<Date>();
-    const date = new Date(calendarDate);
+    const d = new Date(date);
 
     for (let dateNum = 1; dateNum < lastOfDate.getDate() + 1; dateNum++) {
-      date.setDate(dateNum);
+      d.setDate(dateNum);
 
       // if is start of the week then set a new week
-      if (date.getDay() === startDayNum) {
-        const days: Day[] = [...week].map(day => ({
+      if (d.getDay() === startDayNum) {
+        const days: Day[] = [...week].map((day) => ({
           date: day,
           isToday: isToday(day),
           isDisabled: isDisabled(day),
@@ -155,11 +184,11 @@ export const useCalendar = (props: UseCalendarProps) => {
         week.clear();
       }
 
-      week.add(new Date(date));
+      week.add(new Date(d));
 
       // if is last of iteration
       if (dateNum === lastOfDate.getDate()) {
-        const days: Day[] = [...week].map(day => ({
+        const days: Day[] = [...week].map((day) => ({
           date: day,
           isToday: isToday(day),
           isDisabled: isDisabled(day),
@@ -188,7 +217,7 @@ export const useCalendar = (props: UseCalendarProps) => {
           0,
           0,
           0,
-          0,
+          0
         );
         days.unshift({
           date: day,
@@ -214,7 +243,7 @@ export const useCalendar = (props: UseCalendarProps) => {
           0,
           0,
           0,
-          0,
+          0
         );
         days.push({
           date: day,
@@ -244,9 +273,13 @@ export const useCalendar = (props: UseCalendarProps) => {
           0,
           0,
           0,
-          0,
+          0
         );
-        days.unshift({ date: day, isDisabled: isDisabled(day), isToday: isToday(day) });
+        days.unshift({
+          date: day,
+          isDisabled: isDisabled(day),
+          isToday: isToday(day),
+        });
       }
       list.unshift({
         days,
@@ -268,9 +301,13 @@ export const useCalendar = (props: UseCalendarProps) => {
           0,
           0,
           0,
-          0,
+          0
         );
-        days.push({ date: day, isDisabled: isDisabled(day), isToday: isToday(day) });
+        days.push({
+          date: day,
+          isDisabled: isDisabled(day),
+          isToday: isToday(day),
+        });
       }
       list.push({
         days,
@@ -279,24 +316,34 @@ export const useCalendar = (props: UseCalendarProps) => {
     }
 
     return list;
-  }, [calendarDate, weekDaysMap, weekStartDay, isToday, isDisabled, calculateWeekNumber]);
+  }, [
+    date,
+    weekDaysMap,
+    weekStartDay,
+    isToday,
+    isDisabled,
+    calculateWeekNumber,
+  ]);
+
+  const setDate = React.useCallback((value: Date) => {
+    dispatch({
+      type: "date",
+      payload: value,
+    });
+  }, []);
 
   return {
     isSameDay,
     isToday,
+    setDate,
+    dispatch,
     minDate,
-    setMinDate,
     maxDate,
-    setMaxDate,
     weeks,
     weekStartDay,
-    setWeekStartDay,
     locale,
-    setLocale,
     displayLeadingZero,
-    setDisplayLeadingZero,
-    calendarDate,
-    setCalendarDate,
+    date,
   };
 };
 

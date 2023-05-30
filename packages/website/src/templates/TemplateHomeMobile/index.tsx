@@ -4,15 +4,15 @@ import { Global, css, useTheme } from '@emotion/react';
 import { graphql, useFragment } from 'react-relay';
 
 import Header from '~/components/Header';
-import H1 from '~/components/Typography/H1';
-import H3 from '~/components/Typography/H3';
-import Paragraph from '~/components/Typography/Paragraph';
+import H1 from '@boilerplate/ui-kit/src/Typography/H1';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
 import fragment, {
   TemplateHomeMobileFragment$key,
 } from '~/relay/artifacts/TemplateHomeMobileFragment.graphql';
 import ContentBlock from '~/components/ContentBlock';
 import SafeFrame from '~/components/SafeFrame';
-import H2 from '~/components/Typography/H2';
+import H2 from '@boilerplate/ui-kit/src/Typography/H2';
 
 interface Props {
   readonly fragmentRef: TemplateHomeMobileFragment$key;

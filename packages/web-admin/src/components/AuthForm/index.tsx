@@ -7,9 +7,9 @@ import { graphql, useMutation } from 'react-relay';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import TextField from '~/components/TextField';
-import Paragraph from '~/components/Typography/Paragraph';
-import Button from '~/components/Button';
+import TextField from '@boilerplate/ui-kit/src/TextField';
+import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
+import Button from '@boilerplate/ui-kit/src/Button';
 import Logo from '~/components/Logo';
 import useFormSchema, { FormSchema } from '~/components/AuthForm/useFormSchema';
 import mutation, {

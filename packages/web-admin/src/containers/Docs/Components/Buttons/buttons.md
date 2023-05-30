@@ -20,7 +20,7 @@ _Пример использования:_
 ```tsx
 import * as React from 'react';
 
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 const ButtonContained: React.FC = () => (
   <Button variant="contained">Кнопка стиль «contained»</Button>
@@ -41,7 +41,7 @@ _Пример использования:_
 ```tsx
 import * as React from 'react';
 
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 const ButtonOutlined: React.FC = () => (
   <Button variant="outlined">Кнопка стиль «outlined»</Button>

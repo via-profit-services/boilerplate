@@ -1,12 +1,13 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import Color from 'color';
+import React from "react";
+import styled from "@emotion/styled";
+import Color from "color";
 
-import IconPrev from '../Icons/IconChevronLeft';
-import IconNext from '../Icons/IconChevronRight';
+import IconPrev from "./IconChevronLeft";
+import IconNext from "./IconChevronRight";
 
-export interface CalendarMonthControlProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  readonly displayIcon: 'prev' | 'next';
+export interface CalendarMonthControlProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  readonly displayIcon: "prev" | "next";
 }
 
 const Btn = styled.button`
@@ -43,7 +44,7 @@ const CalendarMonthControl: React.ForwardRefRenderFunction<
 
   return (
     <Btn type="button" {...restProps} ref={ref}>
-      {displayIcon === 'next' ? <IconNext /> : <IconPrev />}
+      {displayIcon === "next" ? <IconNext /> : <IconPrev />}
     </Btn>
   );
 };

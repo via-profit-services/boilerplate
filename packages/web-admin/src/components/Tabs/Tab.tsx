@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 
-import ButtonBase from '~/components/Button/ButtonBase';
+import ButtonBase from '@boilerplate/ui-kit/src/Button/ButtonBase';
 
 export interface TabProps extends React.HTMLAttributes<HTMLButtonElement> {
   readonly active?: boolean;

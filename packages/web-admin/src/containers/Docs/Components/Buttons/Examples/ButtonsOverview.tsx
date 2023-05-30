@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 import Card from '~/components/Card';
 
 const Grid = styled.div`

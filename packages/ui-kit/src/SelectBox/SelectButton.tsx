@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import Color from 'color';
 
-import IconChevronDown from '../Icons/IconChevronDown';
+import IconChevronDown from './IconChevronDown';
 
 export type SelectButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   readonly isOpen?: boolean;

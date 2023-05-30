@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
-import H3 from '~/components/Typography/H3';
-import Paragraph from '~/components/Typography/Paragraph';
-import Button from '~/components/Button';
-import Menu, { MenuRef } from '~/components/Menu';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
+import Button from '@boilerplate/ui-kit/src/Button';
+import Menu, { MenuRef } from '@boilerplate/ui-kit/src/Menu';
 import TestComp, { TestCompRef } from './TestComp';
 
 const Section = styled.section`

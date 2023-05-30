@@ -2,10 +2,10 @@ import React from 'react';
 import type ReactModal from 'react-modal';
 import { Global, css, useTheme } from '@emotion/react';
 
-import ModalStandard, { ModalStandardProps } from '~/components/Modal/ModalStandard';
-import ModalConfirmBox, { ModalConfirmBoxProps } from '~/components/Modal/ModalConfirmBox';
-import ModalMessageBox, { ModalMessageBoxProps } from '~/components/Modal/ModalMessageBox';
-import ModalCustom, { ModalCustomProps } from '~/components/Modal/ModalCustom';
+import ModalStandard, { ModalStandardProps } from '../Modal/ModalStandard';
+import ModalConfirmBox, { ModalConfirmBoxProps } from '../Modal/ModalConfirmBox';
+import ModalMessageBox, { ModalMessageBoxProps } from '../Modal/ModalMessageBox';
+import ModalCustom, { ModalCustomProps } from '../Modal/ModalCustom';
 
 export interface BaseProps {
   readonly variant?: 'standard' | 'message-box' | 'confirm-box' | 'custom';

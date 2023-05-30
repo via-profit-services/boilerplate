@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextField, { TextFieldProps } from '~/components/TextField';
+import TextField, { TextFieldProps } from '../TextField';
 import { usePhoneUtils } from './usePhoneUtils';
 import templates, { CountryCode } from './templates';
 import CountryFlag from './CountryFlag';

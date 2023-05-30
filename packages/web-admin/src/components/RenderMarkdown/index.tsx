@@ -4,16 +4,16 @@ import styled from '@emotion/styled';
 import Markdown, { MarkdownToJSX } from 'markdown-to-jsx';
 
 import OpenInNewIcon from '~/components/Icons/OpenOutline';
-import H1 from '~/components/Typography/H1';
-import H2 from '~/components/Typography/H2';
-import H3 from '~/components/Typography/H3';
-import H4 from '~/components/Typography/H4';
-import H5 from '~/components/Typography/H5';
-import Strong from '~/components/Typography/Strong';
-import Em from '~/components/Typography/Em';
-import Paragraph from '~/components/Typography/Paragraph';
-import { Ul, Ol } from '~/components/Typography/List';
-import Blockquote from '~/components/Typography/Blockquote';
+import H1 from '@boilerplate/ui-kit/src/Typography/H1';
+import H2 from '@boilerplate/ui-kit/src/Typography/H2';
+import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import H4 from '@boilerplate/ui-kit/src/Typography/H4';
+import H5 from '@boilerplate/ui-kit/src/Typography/H5';
+import Strong from '@boilerplate/ui-kit/src/Typography/Strong';
+import Em from '@boilerplate/ui-kit/src/Typography/Em';
+import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
+import { Ul, Ol } from '@boilerplate/ui-kit/src/Typography/List';
+import Blockquote from '@boilerplate/ui-kit/src/Typography/Blockquote';
 import SyntaxHighlighter from '~/components/SyntaxHighlighter';
 
 interface Props {

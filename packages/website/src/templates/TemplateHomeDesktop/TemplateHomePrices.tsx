@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import SafeFrame from '~/components/SafeFrame';
-import H2 from '~/components/Typography/H2';
+import H2 from '@boilerplate/ui-kit/src/Typography/H2';
 
 const PriceBox = styled.div`
   background-color: #5f5f5f;

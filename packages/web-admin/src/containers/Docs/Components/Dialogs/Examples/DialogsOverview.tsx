@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 import Card from '~/components/Card';
 import Modal from '~/components/Modal';
 

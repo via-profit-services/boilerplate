@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 
-import NoSSR from '~/components/NoSSR';
+import NoSSR from '../NoSSR';
 
 export interface TextFieldErrorTextProps extends React.HTMLAttributes<HTMLDivElement> {
   readonly showEmptyIfNoError?: boolean;

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import ReactModal from 'react-modal';
 import { FormattedMessage } from 'react-intl';
 
-import Button from '~/components/Button';
+import Button from '../../Button';
 
 export interface ModalConfirmBoxProps extends ReactModal.Props {
   readonly title: string;

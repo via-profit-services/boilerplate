@@ -2,9 +2,9 @@
 // import styled from '@emotion/styled';
 // import Color from 'color';
 
-// import ErrorBoundary from '~/components/ErrorBoundary';
-// import H3 from '~/components/Typography/H3';
-// import Button from '~/components/Button';
+// import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+// import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+// import Button from '@boilerplate/ui-kit/src/Button';
 // import Popper from '~/components/Popper';
 
 // const Section = styled.section`

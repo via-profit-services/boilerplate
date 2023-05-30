@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { UseFormHandleSubmit, UseFormReturn, FormProvider } from 'react-hook-form';
 
-import Button from '~/components/Button';
+import Button from '@boilerplate/ui-kit/src/Button';
 import { Tab, Tabs } from '~/components/Tabs';
 import TabCommon from './TabCommon';
 import { FormSchema } from './useFormSchema';

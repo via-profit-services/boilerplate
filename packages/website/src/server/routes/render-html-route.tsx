@@ -29,7 +29,7 @@ import relayFetch from '~/server/relay-fetch';
 import ReduxProvider from '~/providers/ReduxProvider';
 import RelayProvider from '~/providers/RelayProvider';
 import query, { PageQuery } from '~/relay/artifacts/PageQuery.graphql';
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import { getCookies } from '~/server/utils/parseCookies';
 import reduxDefaultState from '~/redux/reduxDefaultState';
 import { getDeviceModeByRequest } from '~/server/utils/getDeviceMode';

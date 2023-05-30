@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, useFragment } from 'react-relay';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import PaymentsBlock from '~/components/PaymentsBlock';
 import fragmentSpec, {
   TemplateHomePaymentsFragment$key,

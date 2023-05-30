@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ErrorBoundary from '~/components/ErrorBoundary';
+import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
 import SafeFrame from '~/components/SafeFrame';
-import Paragraph from '~/components/Typography/Paragraph';
-import H2 from '~/components/Typography/H2';
+import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
+import H2 from '@boilerplate/ui-kit/src/Typography/H2';
 
 const Icon = styled.div<{ color?: string }>`
   background-color: ${p => p.color || p.theme.colors.backgroundPrimary};

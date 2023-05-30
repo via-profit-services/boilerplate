@@ -4,7 +4,7 @@ import { graphql, useFragment } from 'react-relay';
 import fragmentSpec, {
   TemplateSecondHeading$key,
 } from '~/relay/artifacts/TemplateSecondHeading.graphql';
-import H1 from '~/components/Typography/H1';
+import H1 from '@boilerplate/ui-kit/src/Typography/H1';
 import ContentBlockPlainText from '~/components/ContentBlock/ContentBlockPlainText';
 
 interface TemplateSecondHeadingProps {
