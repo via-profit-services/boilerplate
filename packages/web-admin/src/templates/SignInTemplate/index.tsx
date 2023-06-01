@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { Global, css, ThemeProvider } from '@emotion/react';
+import { Global, css } from '@emotion/react';
+import ThemeProvider from '@boilerplate/ui-kit/src/ThemeProvider';
 import { IntlProvider } from 'react-intl';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { ThemeProvider, Theme } from '@emotion/react';
+import ThemeProvider, { Theme } from '@boilerplate/ui-kit/src/ThemeProvider';
 import { Outlet } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { Helmet } from 'react-helmet';

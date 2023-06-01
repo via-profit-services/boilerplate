@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
+import ModalDrawer, { ModalDrawerProps } from '@boilerplate/ui-kit/src/Modal/ModalDrawer';
 
 import UserEditForm, { UserEditFormProps } from '~/components/UserEditForm';
-import ModalDrawer, { ModalDrawerProps } from '~/components/Modal/ModalDrawer';
 import LoadingIndicator from '~/components/LoadingIndicator';
 
 export interface UserEditDrawerProps

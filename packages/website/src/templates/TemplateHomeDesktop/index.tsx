@@ -8,7 +8,6 @@ import TemplateHomeSlider from './TemplateHomeSlider';
 import TemplateHomePayments from './TemplateHomePayments';
 import TemplateHomeInfo from './TemplateHomeInfo';
 import TemplateHomePrices from './TemplateHomePrices';
-import TemplateHomeComponents from './TemplateHomeComponents';
 import TemplateHomeHeading from './TemplateHomeHeading';
 import fragment, {
   TemplateHomeDesktopFragment$key,
@@ -50,8 +49,6 @@ const TemplateHomeDesktopFragment: React.FC<Props> = props => {
       />
       <Container>
         <Header />
-        {/* <Example /> */}
-        <TemplateHomeComponents />
         <TemplateHomeSlider fragmentRef={template} />
         <TemplateHomeHeading fragmentRef={template} />
         <TemplateHomePayments fragmentRef={template} />

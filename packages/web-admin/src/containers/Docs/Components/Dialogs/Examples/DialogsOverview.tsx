@@ -1,8 +1,8 @@
 import * as React from 'react';
-
+import Modal from '@boilerplate/ui-kit/src/Modal';
 import Button from '@boilerplate/ui-kit/src/Button';
+
 import Card from '~/components/Card';
-import Modal from '~/components/Modal';
 
 const DialogsOverview: React.FC = () => {
   const [messageboxOpen, setMessageboxOpen] = React.useState(false);
@@ -13,19 +13,19 @@ const DialogsOverview: React.FC = () => {
   return (
     <>
       <Card color="background">
-        <Button type="button" variant="contained" onClick={() => setMessageboxOpen(true)}>
+        <Button type="button" onClick={() => setMessageboxOpen(true)}>
           Open message box
         </Button>
 
-        <Button type="button" variant="contained" onClick={() => setConfirmboxOpen(true)}>
+        <Button type="button" onClick={() => setConfirmboxOpen(true)}>
           Open confirmation dialog
         </Button>
 
-        <Button type="button" variant="contained" onClick={() => setBasicDrawerOpen(true)}>
+        <Button type="button" onClick={() => setBasicDrawerOpen(true)}>
           Open basic Drawer
         </Button>
 
-        <Button type="button" variant="contained" onClick={() => setLongDrawerOpen(true)}>
+        <Button type="button" onClick={() => setLongDrawerOpen(true)}>
           Open long Drawer
         </Button>
       </Card>
@@ -53,17 +53,17 @@ const DialogsOverview: React.FC = () => {
         title="Long drawer"
         toolbar={
           <>
-            <Button type="button" variant="contained" onClick={() => setLongDrawerOpen(false)}>
+            <Button type="button" onClick={() => setLongDrawerOpen(false)}>
               Close
             </Button>
             <div style={{ width: '10px' }} />
-            <Button type="button" variant="contained" onClick={() => console.debug('click')}>
+            <Button type="button" onClick={() => console.debug('click')}>
               Just click
             </Button>
           </>
         }
         footer={
-          <Button type="button" variant="contained" onClick={() => setLongDrawerOpen(false)}>
+          <Button type="button" onClick={() => setLongDrawerOpen(false)}>
             Close
           </Button>
         }

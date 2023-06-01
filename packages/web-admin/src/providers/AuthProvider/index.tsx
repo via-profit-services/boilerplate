@@ -1,9 +1,8 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl';
-import { ThemeProvider } from '@emotion/react';
+import ThemeProvider from '@boilerplate/ui-kit/src/ThemeProvider';
 
 import AuthorizationInner from './AuthorizationInner';
-import standardTheme from '~/themes/standardLight';
 import ru from '~/translations/ru-RU.json';
 
 export interface AuthorizationProviderProps {
@@ -15,7 +14,7 @@ const AuthorizationProvider: React.FC<AuthorizationProviderProps> = props => {
 
   return (
     <>
-      <ThemeProvider theme={standardTheme}>
+      <ThemeProvider>
         <IntlProvider locale="ru" messages={ru} onError={() => undefined}>
           <AuthorizationInner>{children}</AuthorizationInner>
         </IntlProvider>

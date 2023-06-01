@@ -8,7 +8,7 @@ import {
   MockupSafeFrame,
   MockupImageElement,
 } from '~/components/Mockup';
-import ModalDrawer from '~/components/Modal/ModalDrawer';
+import ModalDrawer from '@boilerplate/ui-kit/src/Modal/ModalDrawer';
 import fragmentSpec, {
   SectionTwoTemplateMockupHomeFragment$key,
 } from '~/relay/artifacts/SectionTwoTemplateMockupHomeFragment.graphql';

@@ -2,11 +2,11 @@
 import React from 'react';
 import { useLazyLoadQuery, graphql } from 'react-relay';
 import loadable from '@loadable/component';
-import { ThemeProvider, Theme } from '@emotion/react';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { useLocation } from 'react-router-dom';
+import ThemeProvider, { Theme } from '@boilerplate/ui-kit/src/ThemeProvider';
 
 import query, { PageQuery } from '~/relay/artifacts/PageQuery.graphql';
 import LoadingIndicator from '~/components/LoadingIndicator';

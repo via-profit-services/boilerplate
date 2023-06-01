@@ -1,9 +1,7 @@
-import '@emotion/react';
-
-declare module '@emotion/react' {
+declare module '@boilerplate/ui-kit' {
   export interface Theme {
     isDark: boolean;
-    fontSize: Record<'small' | 'normal' | 'medium' | 'large', number>;
+    fontSize: Record<"small" | "normal" | "medium" | "large", number>;
     zIndex: {
       header: number;
       mainDrawer: number;

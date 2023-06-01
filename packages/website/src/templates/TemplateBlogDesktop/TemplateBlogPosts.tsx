@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, useFragment, usePaginationFragment } from 'react-relay';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import Button from '@boilerplate/ui-kit/src/Button';
 
 import { PageQuery } from '~/relay/artifacts/PageQuery.graphql';
 import fragmentSpec, {
@@ -34,9 +35,9 @@ const DisplayPostList: React.FC<DisplayPostListProps> = (props: DisplayPostListP
 
   return (
     <>
-      <button type="button" onClick={() => loadNext(5)} disabled={!hasNext || isLoadingNext}>
+      <Button type="button" onClick={() => loadNext(5)} disabled={!hasNext || isLoadingNext}>
         Load more 5
-      </button>
+      </Button>
       <List>
         {edges.map(({ node }) => (
           <li key={node.id}>
@@ -49,9 +50,9 @@ const DisplayPostList: React.FC<DisplayPostListProps> = (props: DisplayPostListP
           </li>
         ))}
       </List>
-      <button type="button" onClick={() => loadNext(5)} disabled={!hasNext || isLoadingNext}>
+      <Button type="button" onClick={() => loadNext(5)} disabled={!hasNext || isLoadingNext}>
         Load more 5
-      </button>
+      </Button>
     </>
   );
 };

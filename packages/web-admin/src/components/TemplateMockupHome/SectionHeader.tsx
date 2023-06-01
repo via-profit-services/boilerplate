@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import ModalDrawer from '@boilerplate/ui-kit/src/Modal/ModalDrawer';
 
 import { MockupTextElement, MockupSafeFrame, MockupSelectionBox } from '~/components/Mockup';
-import ModalDrawer from '~/components/Modal/ModalDrawer';
 
 const Container = styled(MockupSafeFrame)`
   display: flex;

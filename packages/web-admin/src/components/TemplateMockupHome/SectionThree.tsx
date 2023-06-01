@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import ModalDrawer from '@boilerplate/ui-kit/src/Modal/ModalDrawer';
 
 import {
   MockupSelectionBox,
@@ -8,7 +9,6 @@ import {
   MockupImageElement,
 } from '~/components/Mockup';
 import MiddleDecorations from './MiddleDecorators';
-import ModalDrawer from '~/components/Modal/ModalDrawer';
 
 const TitleInner = styled(MockupSafeFrame)`
   display: flex;
