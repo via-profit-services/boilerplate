@@ -4,6 +4,10 @@
 
 > Boilerplate system containing in its distribution a GraphQL backend server, a Content Management System on RelayJS and a website on RelayJS with support for Server Side Render.
 
+## TODO
+
+- [ ] The «Eject» script must have
+- [ ] The «RenamePackage» script must have
 
 ## Prepare to start
 
