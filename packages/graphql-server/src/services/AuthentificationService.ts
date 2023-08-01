@@ -261,6 +261,10 @@ class AuthentificationService implements AuthentificationServiceInterface {
         this.#jwt.accessTokenExpiresIn * 1000,
       );
       await this.#redis.del(`tokens:${tokenID}`);
+      await this.#knex('tokens')
+        .del()
+        .where('id', '=', tokenID)
+        .andWhere('associated', '=', tokenID);
     } catch (err) {
       throw new Error(`Revoke token error. ${err}`);
     }
