@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
-import TextField from '@boilerplate/ui-kit/src/TextField';
+import TextField from '@via-profit/ui-kit/TextField';
 import { pagesListVariablesActions } from '~/redux/slicers/pagesList';
 
 const ToolbarContainer = styled.div`
   padding: 1em;
-  background-color: ${({ theme }) => theme.colors.background.area};
+  background-color: ${({ theme }) => theme.color.surface.toString()};
 `;
 
 const selector = createSelector(

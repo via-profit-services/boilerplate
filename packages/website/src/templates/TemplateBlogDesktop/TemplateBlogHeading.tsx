@@ -4,7 +4,7 @@ import { graphql, useFragment } from 'react-relay';
 import fragmentSpec, {
   TemplateBlogHeading$key,
 } from '~/relay/artifacts/TemplateBlogHeading.graphql';
-import H1 from '@boilerplate/ui-kit/src/Typography/H1';
+import H1 from '@via-profit/ui-kit/Typography/H1';
 import ContentBlockPlainText from '~/components/ContentBlock/ContentBlockPlainText';
 
 interface TemplateBlogHeadingProps {

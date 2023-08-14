@@ -4,7 +4,7 @@ import { graphql, useFragment } from 'react-relay';
 import fragmentSpec, {
   ContentBlockImageFragment$key,
 } from '~/relay/artifacts/ContentBlockImageFragment.graphql';
-import Image from '@boilerplate/ui-kit/src/Image';
+import Image from '@via-profit/ui-kit/Image';
 
 export interface ContentBlockImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   readonly fragmentRef: ContentBlockImageFragment$key | null;

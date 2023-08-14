@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { uiActions } from '~/redux/slicers/ui';
-import Button from '@boilerplate/ui-kit/src/Button';
+import Button from '@via-profit/ui-kit/Button';
 
 const Container = styled.div`
   display: flex;
@@ -28,32 +28,16 @@ const HeaderToolbar: React.FC = () => {
 
   return (
     <Container>
-      <Button
-        variant="contained"
-        color={fontSize === 'small' ? 'accent' : 'default'}
-        onClick={setFontSize('small')}
-      >
+      <Button color={fontSize === 'small' ? 'accent' : 'default'} onClick={setFontSize('small')}>
         small
       </Button>
-      <Button
-        variant="contained"
-        color={fontSize === 'normal' ? 'accent' : 'default'}
-        onClick={setFontSize('normal')}
-      >
+      <Button color={fontSize === 'normal' ? 'accent' : 'default'} onClick={setFontSize('normal')}>
         normal
       </Button>
-      <Button
-        variant="contained"
-        color={fontSize === 'medium' ? 'accent' : 'default'}
-        onClick={setFontSize('medium')}
-      >
+      <Button color={fontSize === 'medium' ? 'accent' : 'default'} onClick={setFontSize('medium')}>
         medium
       </Button>
-      <Button
-        variant="contained"
-        color={fontSize === 'large' ? 'accent' : 'default'}
-        onClick={setFontSize('large')}
-      >
+      <Button color={fontSize === 'large' ? 'accent' : 'default'} onClick={setFontSize('large')}>
         large
       </Button>
     </Container>

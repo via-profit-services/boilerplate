@@ -11,7 +11,7 @@ import AuthProvider from '~/providers/AuthProvider';
 import RelayProvider from '~/providers/RelayProvider';
 import ReduxProvider from '~/providers/ReduxProvider';
 import readPreloadedState from '~/utils/readPreloadedState';
-import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 import reduxDefaultState from '~/redux/reduxDefaultState';
 
 const bootstrap = async () => {

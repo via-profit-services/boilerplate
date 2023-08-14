@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import ModalDrawer, { ModalDrawerProps } from '@boilerplate/ui-kit/src/Modal/ModalDrawer';
+import ModalDrawer, { ModalDrawerProps } from '@via-profit/ui-kit/Modal/ModalDrawer';
 
 import UserEditForm, { UserEditFormProps } from '~/components/UserEditForm';
 import LoadingIndicator from '~/components/LoadingIndicator';

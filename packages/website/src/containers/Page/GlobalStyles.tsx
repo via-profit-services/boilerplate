@@ -29,8 +29,8 @@ const WebPageGlobalStyles: React.FC<Props> = props => {
           margin: 0;
           overflow-wrap: break-word;
           height: 100%;
-          background-color: ${theme.colors.backgroundPrimary};
-          color: ${theme.colors.textPrimary};
+          background-color: ${theme.color.backgroundPrimary.toString()};
+          color: ${theme.color.textPrimary.toString()};
         }
         #app {
           min-height: 100%;

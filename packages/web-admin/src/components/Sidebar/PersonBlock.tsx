@@ -1,11 +1,10 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { graphql, useSubscription } from 'react-relay';
+import { graphql } from 'react-relay';
 
 import LogoutButton from '~/components/Sidebar/LogoutButton';
 import { AccountRole } from '~/relay/artifacts/PersonBlockFragment.graphql';
-import subscription from '~/relay/artifacts/PersonBlockSubscription.graphql';
 
 graphql`
   fragment PersonBlockFragment on Query {
@@ -59,7 +58,6 @@ const TopPanel = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 ${({ theme }) => theme.grid.frameGutter}px;
   padding-top: 0.6rem;
   padding-bottom: 4rem;
   ${({ theme }) => (theme.isDark ? darkStyle : lightStyle)}
@@ -69,9 +67,8 @@ const BottomPanel = styled.div`
   display: flex;
   align-items: center;
   flex-flow: column;
-  padding: 0 ${({ theme }) => theme.grid.frameGutter}px;
   padding-top: 4rem;
-  padding-bottom: 1.25rem; ;
+  padding-bottom: 1.25rem;
 `;
 
 // const Logo = styled(LogoInline)`

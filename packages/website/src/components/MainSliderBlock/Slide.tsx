@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { graphql, useFragment } from 'react-relay';
 
-import Image from '@boilerplate/ui-kit/src/Image';
+import Image from '@via-profit/ui-kit/Image';
 import fragmentSpec, { SlideFragment$key } from '~/relay/artifacts/SlideFragment.graphql';
 
 export interface SlideProps {

@@ -29,7 +29,7 @@ import relayFetch from '~/server/relay-fetch';
 import ReduxProvider from '~/providers/ReduxProvider';
 import RelayProvider from '~/providers/RelayProvider';
 import query, { PageQuery } from '~/relay/artifacts/PageQuery.graphql';
-import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 import { getCookies } from '~/server/utils/parseCookies';
 import reduxDefaultState from '~/redux/reduxDefaultState';
 import { getDeviceModeByRequest } from '~/server/utils/getDeviceMode';
@@ -134,8 +134,6 @@ const renderHTML = async (props: Props): Promise<RenderHTMLPayload> => {
     path: String(url),
     isDesktop,
     isBlog,
-    firstPost: 10,
-    afterPost: null,
   })
     .toPromise()
     .then(resp => {

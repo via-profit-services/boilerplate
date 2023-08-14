@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 
-import ButtonBase from '@boilerplate/ui-kit/src/Button/ButtonBase';
+import ButtonBase from '@via-profit/ui-kit/Button/ButtonBase';
 
 export interface TabProps extends React.HTMLAttributes<HTMLButtonElement> {
   readonly active?: boolean;
@@ -12,7 +12,7 @@ const TabContainer = styled(ButtonBase)<{ $isActive?: boolean }>`
   font-size: 0.9em;
   padding: 0.6em 1em;
   font-weight: 400;
-  color: ${props => props.theme.colors.text.default};
+  color: ${props => props.theme.color.textPrimary.toString()};
   cursor: pointer;
   background-color: ${props => (props.$isActive ? 'rgb(247, 184, 0)' : 'transparent')};
 `;

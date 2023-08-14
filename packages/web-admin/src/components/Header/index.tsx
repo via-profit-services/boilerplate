@@ -6,8 +6,7 @@ import HeaderToolbar from '~/components/Header/HeaderToolbar';
 
 const HeaderContainer = styled.header`
   z-index: ${({ theme }) => theme.zIndex.header};
-  background: ${({ theme }) => theme.colors.background.panel};
-  box-shadow: ${({ theme }) => theme.shadows.elevation1};
+  background: ${({ theme }) => theme.color.surface.toString()};
   position: fixed;
   height: 3rem;
   overflow-y: hidden;
@@ -16,7 +15,6 @@ const HeaderContainer = styled.header`
   right: 0;
   display: flex;
   align-items: center;
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
   margin: 0 auto;
 `;
 

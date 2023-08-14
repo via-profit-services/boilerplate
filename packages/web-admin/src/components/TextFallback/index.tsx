@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import H1 from '@boilerplate/ui-kit/src/Typography/H1';
-import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
+import H1 from '@via-profit/ui-kit/Typography/H1';
+import Paragraph from '@via-profit/ui-kit/Typography/Paragraph';
 
 const loremIpsum = [
   'Magna nisi ex Lorem laboris cillum laborum do ullamco deserunt cupidatat cillum sit voluptate.',

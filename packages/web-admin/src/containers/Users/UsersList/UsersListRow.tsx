@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { graphql, useFragment } from 'react-relay';
 
-import Base from '@boilerplate/ui-kit/src/Typography/Base';
-import Button from '@boilerplate/ui-kit/src/Button';
+import Base from '@via-profit/ui-kit/Typography/Base';
+import Button from '@via-profit/ui-kit/Button';
 import fragment, { UsersListRowFragment$key } from '~/relay/artifacts/UsersListRowFragment.graphql';
 
 type Props = {
@@ -42,9 +42,7 @@ const UsersListRow: React.FC<Props> = props => {
       <RowContainer ref={innerRef}>
         <Base>{name}</Base>
         <Link to={`/users/edit-user/${id}`}>Edit</Link>
-        <Button variant="contained" onClick={() => onEditUserID(id)}>
-          Edit in drawer
-        </Button>
+        <Button onClick={() => onEditUserID(id)}>Edit in drawer</Button>
       </RowContainer>
     </div>
   );

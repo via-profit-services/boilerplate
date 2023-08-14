@@ -4,16 +4,16 @@ import styled from '@emotion/styled';
 import Markdown, { MarkdownToJSX } from 'markdown-to-jsx';
 
 import OpenInNewIcon from '~/components/Icons/OpenOutline';
-import H1 from '@boilerplate/ui-kit/src/Typography/H1';
-import H2 from '@boilerplate/ui-kit/src/Typography/H2';
-import H3 from '@boilerplate/ui-kit/src/Typography/H3';
-import H4 from '@boilerplate/ui-kit/src/Typography/H4';
-import H5 from '@boilerplate/ui-kit/src/Typography/H5';
-import Strong from '@boilerplate/ui-kit/src/Typography/Strong';
-import Em from '@boilerplate/ui-kit/src/Typography/Em';
-import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
-import { Ul, Ol } from '@boilerplate/ui-kit/src/Typography/List';
-import Blockquote from '@boilerplate/ui-kit/src/Typography/Blockquote';
+import H1 from '@via-profit/ui-kit/Typography/H1';
+import H2 from '@via-profit/ui-kit/Typography/H2';
+import H3 from '@via-profit/ui-kit/Typography/H3';
+import H4 from '@via-profit/ui-kit/Typography/H4';
+import H5 from '@via-profit/ui-kit/Typography/H5';
+import Strong from '@via-profit/ui-kit/Typography/Strong';
+import Em from '@via-profit/ui-kit/Typography/Em';
+import Paragraph from '@via-profit/ui-kit/Typography/Paragraph';
+import { Ul, Ol } from '@via-profit/ui-kit/Typography/List';
+import Blockquote from '@via-profit/ui-kit/Typography/Blockquote';
 import SyntaxHighlighter from '~/components/SyntaxHighlighter';
 
 interface Props {
@@ -36,11 +36,11 @@ const ExternalLinkIcon = styled(OpenInNewIcon)`
 `;
 
 const MarkdownEm = styled(Em)`
-  color: ${({ theme }) => theme.colors.text.default};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
 `;
 
 const CodeInline = styled.code`
-  background: ${({ theme }) => theme.colors.background.default};
+  background: ${({ theme }) => theme.color.surface.toString()};
   color: red;
   padding: 0em 0.4em;
   border-radius: 4px;

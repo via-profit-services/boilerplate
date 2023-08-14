@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, useFragment, usePaginationFragment } from 'react-relay';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import Button from '@boilerplate/ui-kit/src/Button';
+import Button from '@via-profit/ui-kit/Button';
 
 import { PageQuery } from '~/relay/artifacts/PageQuery.graphql';
 import fragmentSpec, {

@@ -24,8 +24,7 @@
   "workspaces": [
     "packages/website",
     "packages/graphql-server",
-    "packages/web-admin",
-    "packages/ui-kit"
+    "packages/web-admin"
   ],
   "devDependencies": {
     "concurrently": "^8.0.1"

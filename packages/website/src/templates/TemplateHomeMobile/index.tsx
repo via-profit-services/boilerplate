@@ -4,15 +4,15 @@ import { Global, css, useTheme } from '@emotion/react';
 import { graphql, useFragment } from 'react-relay';
 
 import Header from '~/components/Header';
-import H1 from '@boilerplate/ui-kit/src/Typography/H1';
-import H3 from '@boilerplate/ui-kit/src/Typography/H3';
-import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
+import H1 from '@via-profit/ui-kit/Typography/H1';
+import H3 from '@via-profit/ui-kit/Typography/H3';
+import Paragraph from '@via-profit/ui-kit/Typography/Paragraph';
 import fragment, {
   TemplateHomeMobileFragment$key,
 } from '~/relay/artifacts/TemplateHomeMobileFragment.graphql';
 import ContentBlock from '~/components/ContentBlock';
 import SafeFrame from '~/components/SafeFrame';
-import H2 from '@boilerplate/ui-kit/src/Typography/H2';
+import H2 from '@via-profit/ui-kit/Typography/H2';
 
 interface Props {
   readonly fragmentRef: TemplateHomeMobileFragment$key;
@@ -29,8 +29,7 @@ const PageTitle = styled(H1)`
 `;
 
 const PaymentContainer = styled.div`
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
   padding-top: 2em;
   padding-bottom: 2em;
 `;
@@ -43,7 +42,7 @@ const PaymentIcons = styled.div`
 `;
 
 const Icon = styled.div<{ color?: string }>`
-  background-color: ${p => p.color || p.theme.colors.backgroundPrimary};
+  background-color: ${p => p.color || p.theme.color.backgroundPrimary.toString()};
   border-radius: 100%;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   width: 1em;
@@ -74,13 +73,12 @@ const PaymentTextBlock = styled.div`
 const PaymentImage = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.1);
   border-radius: ${({ theme }) => theme.shape.radiusFactor * 2}em;
 `;
 
 const InfoContainer = styled.div`
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
   background-color: #ff841f;
   color: #fff;
   padding-top: 2em;
@@ -113,8 +111,7 @@ const InfoElemText = styled(Paragraph)`
 const InfoImage = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  border-radius: ${({ theme }) => theme.shape.radiusFactor * 2}em;
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
 `;
 
 const InfoTitle = styled(H2)`
@@ -123,9 +120,8 @@ const InfoTitle = styled(H2)`
 `;
 
 const PricesContainer = styled.div`
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  color: ${({ theme }) => theme.colors.textPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
   padding-top: 2em;
   padding-bottom: 2em;
 `;
@@ -189,8 +185,8 @@ const TemplateHomeMobileFragment: React.FC<Props> = props => {
         styles={css`
           body {
             margin: 0;
-            background-color: ${theme.colors.backgroundPrimary};
-            color: ${theme.colors.textPrimary};
+            background-color: ${theme.color.backgroundPrimary.toString()};
+            color: ${theme.color.textPrimary.toString()};
           }
         `}
       />

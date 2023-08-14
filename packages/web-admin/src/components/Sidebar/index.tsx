@@ -18,8 +18,6 @@ const Aside = styled.aside`
   height: 100vh;
   top: 0;
   left: 0;
-  background: ${({ theme }) => theme.colors.background.drawer};
-  box-shadow: ${({ theme }) => theme.shadows.elevation2};
   z-index: ${({ theme }) => theme.zIndex.mainDrawer};
 `;
 
@@ -50,16 +48,6 @@ const Sidebar: React.ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = (p
       <Nav>
         <SidebarItem label="Dashboard" location="/dashboard" icon={<ShopMarkerIcon />} />
         <SidebarItem label="Users list" location="/users/list" icon={<ShopMarkerIcon />} />
-        <SidebarItem
-          label="Docs Buttons"
-          location="/docs/components/buttons"
-          icon={<ShopMarkerIcon />}
-        />
-        <SidebarItem
-          label="Docs Dialogs"
-          location="/docs/components/dialogs"
-          icon={<ShopMarkerIcon />}
-        />
         <SidebarItem label="Pages list" location="/pages/list" icon={<ShopMarkerIcon />} />
       </Nav>
       <FooterBlock />

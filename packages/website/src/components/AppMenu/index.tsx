@@ -11,7 +11,7 @@ const MenuContainer = styled.div`
 const MenuLink = styled(Link)`
   padding: 0.4em;
   display: inline-block;
-  color: ${({ theme }) => theme.colors.textPrimary};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
   text-decoration: none;
 `;
 

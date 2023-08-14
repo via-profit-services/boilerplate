@@ -58,6 +58,7 @@
         "@loadable/component": "^5.15.3",
         "@loadable/server": "^5.15.3",
         "@reduxjs/toolkit": "^1.9.5",
+        "@via-profit/ui-kit": "^0.1.0-rc.17",
         "concurrently": "^8.0.1",
         "dotenv": "^16.0.3",
         "downshift": "^7.0.4",

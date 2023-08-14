@@ -7,9 +7,9 @@ import { graphql, useMutation } from 'react-relay';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import TextField from '@boilerplate/ui-kit/src/TextField';
-import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
-import Button from '@boilerplate/ui-kit/src/Button';
+import TextField from '@via-profit/ui-kit/TextField';
+import Paragraph from '@via-profit/ui-kit/Typography/Paragraph';
+import Button from '@via-profit/ui-kit/Button';
 import Logo from '~/components/Logo';
 import useFormSchema, { FormSchema } from '~/components/AuthForm/useFormSchema';
 import mutation, {
@@ -172,7 +172,6 @@ const AuthForm: React.FC = () => {
       </FormContent>
       <FormFooter>
         <Button
-          variant="contained"
           color="default"
           disabled={inProgress}
           type="submit"

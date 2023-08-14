@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import ThemeProvider, { Theme } from '@boilerplate/ui-kit/src/ThemeProvider';
+import ThemeProvider, { UIThemeOverrides, createTheme } from '@via-profit/ui-kit/ThemeProvider';
 import { Outlet } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { Helmet } from 'react-helmet';
@@ -48,7 +48,7 @@ const localeMap: Record<LocaleName, Record<string, string>> = {
   'ru-RU': translationsruRU,
 };
 
-const themesMap: Record<ThemeName, Theme> = {
+const themesMap: Record<ThemeName, UIThemeOverrides> = {
   standardLight: themeStandardLight,
   standardDark: themeStandardDark,
 };
@@ -66,7 +66,7 @@ const AdminPanelTemplate: React.FC = () => {
   const messages = localeMap[state.locale] || localeMap['ru-RU'];
   const locale = state.locale in localeMap ? state.locale : 'ru-RU';
   const theme = React.useMemo(
-    () => themesMap[state.theme] || themesMap.standardLight,
+    () => createTheme(themesMap[state.theme] || themesMap.standardLight),
     [state.theme],
   );
 

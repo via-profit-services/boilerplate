@@ -16,7 +16,7 @@ export interface PageRowProps {
 const PageContainer = styled.div`
   padding: 1em 1.2em;
   border-bottom: 1px solid #d3d2d2;
-  background-color: ${({ theme }) => theme.colors.background.area};
+  background-color: ${({ theme }) => theme.color.surface.toString()};
 `;
 
 const PageRow: React.FC<PageRowProps> = props => {

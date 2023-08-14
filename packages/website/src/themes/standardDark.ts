@@ -1,17 +1,15 @@
-import { Theme } from '@emotion/react';
+import type { UIThemeOverrides } from '@via-profit/ui-kit/ThemeProvider';
 
 import standardLight from './standardLight';
 
-const standardDark: Theme = {
+const standardDark: UIThemeOverrides = {
   ...standardLight,
   isDark: true,
-  colors: {
-    ...standardLight.colors,
-    backgroundPrimary: '#1e1e2e',
-    backgroundSecondary: '#28293c',
-    backgroundGrey: '#2c2d3a',
-    textPrimary: '#c4c4d8',
-    textSecondary: '#9e9e9e',
+  color: {
+    ...standardLight.color,
+    backgroundPrimary: '#1a1825',
+    textPrimary: '#c7c2e7',
+    surface: '#1a1825',
   },
 };
 

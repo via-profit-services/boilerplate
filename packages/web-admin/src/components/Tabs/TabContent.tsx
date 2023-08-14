@@ -7,8 +7,7 @@ export interface TabContentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabContentContainer = styled.div`
-  background: ${({ theme }) => theme.colors.background.area};
-  box-shadow: ${({ theme }) => theme.shadows.elevation0};
+  background: ${({ theme }) => theme.color.surface.toString()};
   border-radius: 0 0 0.6em 0.6em;
   padding: 1em;
   overflow-y: auto;

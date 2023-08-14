@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { usersListVariablesActions } from '~/redux/slicers/usersList';
-import Button from '@boilerplate/ui-kit/src/Button';
+import Button from '@via-profit/ui-kit/Button';
 
 const ResetButton: React.FC = () => {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { useLocation } from 'react-router-dom';
-import ThemeProvider, { Theme } from '@boilerplate/ui-kit/src/ThemeProvider';
+import ThemeProvider, { UIThemeOverrides, createTheme } from '@via-profit/ui-kit/ThemeProvider';
 
 import query, { PageQuery } from '~/relay/artifacts/PageQuery.graphql';
 import LoadingIndicator from '~/components/LoadingIndicator';
@@ -51,7 +51,7 @@ const localeMap: Record<ReduxStore['ui']['locale'], Record<string, string>> = {
   'ru-RU': translationsruRU,
 };
 
-const themesMap: Record<ReduxStore['ui']['theme'], Theme> = {
+const themesMap: Record<ReduxStore['ui']['theme'], UIThemeOverrides> = {
   standardLight: themeStandardLight,
   standardDark: themeStandardDark,
 };
@@ -81,7 +81,7 @@ const Page: React.FC = () => {
   const { template, ...fragmentRef } = pages.resolve;
 
   const messages = React.useMemo(() => localeMap[locale], [locale]);
-  const theme = React.useMemo(() => themesMap[themeName], [themeName]);
+  const theme = React.useMemo(() => createTheme(themesMap[themeName]), [themeName]);
 
   React.useEffect(() => {
     if (locationRef.current !== pathname) {

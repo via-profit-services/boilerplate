@@ -8,8 +8,7 @@ const Item = styled(Link)`
   align-items: center;
   justify-content: space-between;
   text-decoration: none;
-  padding: 1em ${({ theme }) => theme.grid.frameGutter}px;
-  color: ${({ theme }) => theme.colors.text.default};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
   transition: all 120ms ease-out 0s;
   border: 2px solid transparent;
   outline: none;

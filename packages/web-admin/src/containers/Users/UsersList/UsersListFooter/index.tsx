@@ -6,9 +6,7 @@ import OrderByButton from './OrderByButton';
 import ResetButton from './ResetButton';
 
 const Footer = styled.footer`
-  background: ${({ theme }) => theme.colors.background.panel};
-  box-shadow: ${({ theme }) => theme.shadows.elevation1};
-  border-top: ${({ theme }) => theme.borders.standard1};
+  background: ${({ theme }) => theme.color.surface.toString()};
   height: 4.4rem;
   display: flex;
   align-items: center;

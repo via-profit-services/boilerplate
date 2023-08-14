@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, useFragment } from 'react-relay';
 
-import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 import MainSliderBlock from '~/components/MainSliderBlock';
 import fragmentSpec, {
   TemplateHomeSliderFragment$key,

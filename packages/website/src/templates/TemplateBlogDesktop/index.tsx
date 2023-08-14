@@ -46,8 +46,8 @@ const TemplateBlogDesktopFragment: React.FC<Props> = props => {
         styles={css`
           body {
             margin: 0;
-            background-color: ${theme.colors.backgroundPrimary};
-            color: ${theme.colors.textPrimary};
+            background-color: ${theme.color.backgroundPrimary.toString()};
+            color: ${theme.color.textPrimary.toString()};
           }
         `}
       />

@@ -7,8 +7,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Container = styled.div`
-  background: ${props => props.theme.colors.background.area};
-  box-shadow: ${props => props.theme.shadows.elevation0};
+  background: ${props => props.theme.color.surface.toString()};
   border-radius: 1em;
   margin-bottom: 1em;
 `;

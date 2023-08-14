@@ -4,9 +4,7 @@ import styled from '@emotion/styled';
 import ThemeModeSwitcher from '~/components/Sidebar/ThemeModeSwitcher';
 
 const Container = styled.div`
-  background-color: ${({ theme }) => theme.colors.background.panel};
-  border-top: ${({ theme }) => theme.borders.standard1};
-  padding: 0 ${({ theme }) => theme.grid.frameGutter}px;
+  background-color: ${({ theme }) => theme.color.surface.toString()};
   padding-top: 1rem;
   padding-bottom: 1rem;
 `;

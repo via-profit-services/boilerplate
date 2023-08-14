@@ -4,8 +4,8 @@ import { graphql, useFragment } from 'react-relay';
 
 import ContentBlock from '~/components/ContentBlock';
 import SafeFrame from '~/components/SafeFrame';
-import H1 from '@boilerplate/ui-kit/src/Typography/H1';
-import H3 from '@boilerplate/ui-kit/src/Typography/H3';
+import H1 from '@via-profit/ui-kit/Typography/H1';
+import H3 from '@via-profit/ui-kit/Typography/H3';
 
 import fragmentSpec, {
   PaymentsBlockFragment$key,
@@ -16,8 +16,7 @@ const PageTitle = styled(H1)`
 `;
 
 const PaymentContainer = styled.div`
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
   padding-top: 2em;
   padding-bottom: 2em;
 `;
@@ -30,7 +29,7 @@ const PaymentIcons = styled.div`
 `;
 
 const Icon = styled.div<{ color?: string }>`
-  background-color: ${p => p.color || p.theme.colors.backgroundPrimary};
+  background-color: ${p => p.color || p.theme.color.backgroundPrimary.toString()};
   border-radius: 100%;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   width: 1em;
@@ -61,7 +60,7 @@ const PaymentTextBlock = styled.div`
 const PaymentImage = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.1);
   border-radius: ${({ theme }) => theme.shape.radiusFactor * 2}em;
 `;

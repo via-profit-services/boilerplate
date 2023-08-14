@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 import { uiActions } from '~/redux/slicers/ui';
 
 const Container = styled.div`
-  background: ${({ theme }) => theme.colors.background.default};
+  background: ${({ theme }) => theme.color.surface.toString()};
   border-radius: 2em;
   display: flex;
   align-items: center;
@@ -35,12 +35,11 @@ const Button = styled.button<{ $isActive: boolean }>`
   &:hover {
     opacity: 0.8;
   }
-  color: ${({ theme }) => theme.colors.text.default};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
   ${props =>
     props.$isActive &&
     css`
-      background: ${props.theme.colors.background.area};
-      box-shadow: ${props.theme.shadows.elevation0};
+      background: ${props.theme.color.surface.toString()};
       opacity: 1;
       cursor: default;
     `}

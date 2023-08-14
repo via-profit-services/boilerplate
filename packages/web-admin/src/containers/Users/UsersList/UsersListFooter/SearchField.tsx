@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
-import TextField from '@boilerplate/ui-kit/src/TextField';
+import TextField from '@via-profit/ui-kit/TextField';
 import { usersListVariablesActions } from '~/redux/slicers/usersList';
 
 const selector = createSelector(

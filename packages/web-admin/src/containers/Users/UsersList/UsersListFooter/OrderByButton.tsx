@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 
 import { usersListVariablesActions } from '~/redux/slicers/usersList';
-import Button from '@boilerplate/ui-kit/src/Button';
+import Button from '@via-profit/ui-kit/Button';
 
 const selector = createSelector(
   (store: ReduxStore) => store.usersListVariables.orderBy,
@@ -17,7 +17,6 @@ const OrderByButton: React.FC = () => {
   return (
     <>
       <Button
-        variant="contained"
         type="button"
         disabled={orderBy?.[0].field === 'NAME' && orderBy?.[0].direction === 'ASC'}
         onClick={() => {
@@ -36,7 +35,6 @@ const OrderByButton: React.FC = () => {
         Order by name asc
       </Button>
       <Button
-        variant="contained"
         type="button"
         disabled={orderBy?.[0].field === 'NAME' && orderBy?.[0].direction === 'DESC'}
         onClick={() => {

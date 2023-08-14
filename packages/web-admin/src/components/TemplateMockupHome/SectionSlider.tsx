@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import ModalDrawer from '@boilerplate/ui-kit/src/Modal/ModalDrawer';
+import ModalDrawer from '@via-profit/ui-kit/Modal/ModalDrawer';
 
 import {
   MockupSelectionBox,

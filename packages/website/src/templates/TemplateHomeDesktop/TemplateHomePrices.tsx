@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 import SafeFrame from '~/components/SafeFrame';
-import H2 from '@boilerplate/ui-kit/src/Typography/H2';
+import H2 from '@via-profit/ui-kit/Typography/H2';
 
 const PriceBox = styled.div`
   background-color: #5f5f5f;
@@ -16,9 +16,8 @@ const PriceBox = styled.div`
 `;
 
 const PricesContainer = styled.div`
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  color: ${({ theme }) => theme.colors.textPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
   padding-top: 2em;
   padding-bottom: 2em;
 `;

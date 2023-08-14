@@ -4,7 +4,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 
 import Meta from '~/components/Meta';
-import Button from '@boilerplate/ui-kit/src/Button';
+import Button from '@via-profit/ui-kit/Button';
 import ContentArea from '~/components/ContentArea';
 // import LexicalComponent from './LexicalEditor';
 
@@ -40,7 +40,6 @@ const Dashboard: React.FC = () => {
 
         <Button
           type="button"
-          variant="contained"
           onClick={() => {
             const title = new Date().toLocaleString('ru-RU', {
               hour: '2-digit',

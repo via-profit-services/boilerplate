@@ -45,6 +45,7 @@
         "@loadable/server": "^5.15.3",
         "@popperjs/core": "^2.11.7",
         "@reduxjs/toolkit": "^1.9.5",
+        "@via-profit/ui-kit": "^0.1.0-rc.17",
         "color": "^4.2.3",
         "dotenv": "^16.0.3",
         "graphql-ws": "^5.12.1",

@@ -8,16 +8,14 @@ import HeaderToolbar from '~/components/Header/HeaderToolbar';
 export type HeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
 const Container = styled.header`
-  z-index: ${({ theme }) => theme.zIndex.header};
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  color: ${({ theme }) => theme.colors.textPrimary};
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
+  color: ${({ theme }) => theme.color.textPrimary.toString()};
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   position: sticky;
   height: 3rem;
   top: 0;
   display: flex;
   align-items: center;
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
   margin: 0 auto;
   width: 100%;
 `;

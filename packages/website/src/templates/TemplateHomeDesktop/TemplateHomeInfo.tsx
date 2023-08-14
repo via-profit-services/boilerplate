@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import ErrorBoundary from '@boilerplate/ui-kit/src/ErrorBoundary';
+import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 import SafeFrame from '~/components/SafeFrame';
-import Paragraph from '@boilerplate/ui-kit/src/Typography/Paragraph';
-import H2 from '@boilerplate/ui-kit/src/Typography/H2';
+import Paragraph from '@via-profit/ui-kit/Typography/Paragraph';
+import H2 from '@via-profit/ui-kit/Typography/H2';
 
 const Icon = styled.div<{ color?: string }>`
-  background-color: ${p => p.color || p.theme.colors.backgroundPrimary};
+  background-color: ${p => p.color || p.theme.color.backgroundPrimary.toString()};
   border-radius: 100%;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   width: 1em;
@@ -17,7 +17,6 @@ const Icon = styled.div<{ color?: string }>`
 `;
 
 const InfoContainer = styled.div`
-  padding: 0 ${props => props.theme.grid.frameGutter}px;
   background-color: #ff841f;
   color: #fff;
   padding-top: 2em;
@@ -50,8 +49,7 @@ const InfoElemText = styled(Paragraph)`
 const InfoImage = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${({ theme }) => theme.colors.backgroundPrimary};
-  border-radius: ${({ theme }) => theme.shape.radiusFactor * 2}em;
+  background-color: ${({ theme }) => theme.color.backgroundPrimary.toString()};
 `;
 
 const InfoTitle = styled(H2)`
