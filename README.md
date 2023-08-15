@@ -2,23 +2,43 @@
 
 # GraphQL/Relay Boilerplate
 
-> Boilerplate system containing in its distribution a GraphQL backend server, a Content Management System on RelayJS and a website on RelayJS with support for Server Side Render.
+> Шаблонная система, содержащая в своем дистрибутиве сервер GraphQL, систему управления контентом на RelayJS и веб-сайт на RelayJS с поддержкой рендеринга на стороне сервера (SSR).
 
-## TODO
 
-- [ ] The «Eject» script must have
-- [ ] The «RenamePackage» script must have
+## Что содержит бойлерплейт?
 
-## Prepare to start
+Этот бойлерплейт является монорепой и содержит в себе три репозитория, котореы могут быть выделены в отдельные репы в любой момент.
 
-1. Create the PostgreSQL database like this:
+ - **graphql-server** - Репозиторий GraphQL сервера, в основе которого [@via-profit-services/core](https://github.com/via-profit-services/core). Сервер реализован на NodeJS. В качестве базы данных предпочтение отдано [PostgreSQL](https://www.postgresql.org). Для кэша используется [Redis](https://redis.io)
+
+ - **website** - Репозиторий с заготовкой для разработки полноценного веб-сайта на [RelayJS](https://relay.dev). Возможна разработка как одностроничного (SPA) сайта, так и многостраничного сайта. В сборку заложена поддержка шаблонов.
+
+ - **web-admin** - Репозиторий с заготовкой для разработки CRM-системы или полноценного веб-сайта на [RelayJS](https://relay.dev).В сборку заложена поддержка шаблонов для веб-сайта.
+
+## Для чего?
+
+Этот бойлерплейт создан для:
+
+ 1. Для возможности быстро начать разработку сайта или CRM-системы не расходуя время на подготовку репозитория, списка пакетов, модулей и построения архитектуры будущего приложения.
+ 
+ 2. Для возможности фронтендеров прикоснуться к бэкэнду на GraphQL не изучая его предварительно.
+
+ 3. Для того, чтобы было
+
+
+## Как с этим работать?
+
+Soon
+
+## Настройка окружения проекта graphql-server для локального использования
+
+1. Создайте и/или настройте базу данных PostgreSQL:
 
 ```bash
 $ sudo -u postgres psql # To go to psql shell
 ```
 
-
-_Example of PostgreSQL database configuration_:
+_Пример конфигурации базы данных_:
 
 ```sql
 create database boilerplate; -- Create database
@@ -26,21 +46,21 @@ create user boilerplate with password 'admin'; -- Create user
 alter database boilerplate owner to boilerplate; -- Grant all privileges
 ```
 
-2. Copy the `.env.example` files to `.env` for each project:
+2. Скопируйте `.env.example` файлы в файлы с именем`.env` для каждого проекта:
 
 ```bash
 $ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/web-admin/.env.example ./packages/web-admin/.env && cp ./packages/graphql-server/.env.example ./packages/graphql-server/.env && cp ./packages/graphql-server/.knex/.env.example ./packages/graphql-server/.knex/.env
 ```
 
-Configure the `.env` files - fill in the correct data.
+Заполните файлы `.env` в соответствии с вашими данными.
 
-3. Setting up the JWT Keys.
+3. Создайте JWT ключи.
 
-For JWT to work, it is necessary to generate SSH keys using an algorithm, for example, **RS256**.
+Чтобы JWT работал, необходимо сгенерировать SSH-ключи с использованием алгоритма, например, **RS256**.
 
-**Note:** _When requesting passphrase, just press Enter to leave this parameter empty. The same must be done when confirming passphrase._
+**Замечание:** _При запросе парольной фразы просто нажмите Enter, чтобы оставить этот параметр пустым. То же самое необходимо сделать при подтверждении парольной фразы._
 
-At the root of the project (at the same level as package.json) create a keys directory and create keys in it by executing the commands:
+В корне проекта (на том же уровне, что и `package.json`) создайте каталог ключей и создайте в нем ключи, выполнив команды:
 
 ```bash
 $ mkdir -p ./packages/graphql-server/.keys
@@ -50,30 +70,28 @@ $ mv ./jwtRS256.key ./packages/graphql-server/.keys/
 $ mv ./jwtRS256.key.pub ./packages/graphql-server/.keys/
 ```
 
-4. Build migrations.
+4. Скомпилируйте миграции.
 
 ```bash
 $ npm run build:migrations
 ```
 
-5. Apply migrations.
+5. Примените миграции.
 
 ```bash
 $ npm run migrate:latest
 ```
 
-6. Configure Relay artifacts
+6. Сгенерируйте Relay артифакты и запустите все проекты
 
-Start the all projects.
-
-**Note:** _You see the errors after run `npm run start`. Just call the `npm run prepare:relay` command once_
+**Note:** _Вы увидите ошибки после запуска `npm run start`. Просто вызовите команду `npm run prepare:relay` один раз_
 
 ```bash
 $ npm run start
 $ npm run prepare:relay
 ```
 
-7. **(optional)** Apply the seeds.
+7. **(необязательно)** Примените сиды.
 
 ```bash
 $ npm run seed:run
