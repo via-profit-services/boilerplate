@@ -5,6 +5,7 @@ import Me from '~/schema/unions/Me';
 
 const me: GraphQLFieldConfig<unknown, Context> = {
   type: new GraphQLNonNull(Me),
+  description: 'Data of the your authorized user',
   resolve: async (_parent, _args, context) => {
     const { dataloader, token } = context;
 

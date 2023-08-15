@@ -20,8 +20,14 @@ import config from '~/config';
 import LoggerService from '~/services/LoggerService';
 import FilesService from '~/services/FilesService';
 import persistedQueriesMap from '~/relay/persisted-queries.json';
-import { PERSISTED_QUERY_KEY } from './utils/constants';
+import { PERSISTED_QUERY_KEY } from '~/utils/constants';
 
+/**
+ * Bootstrap - Start of this programю
+ * In this method, we define the application configuration,
+ * connect all the necessary middlewares, event listeners,
+ * but do not start the server
+ */
 const bootstrap = () => {
   const loggerService = new LoggerService(config.logs);
   const server = http.createServer();
@@ -30,11 +36,16 @@ const bootstrap = () => {
   loggerService.log('info', 'bootstrap', 'Clear files cache');
   FilesService.clearExpiredCache(config.files.cachePath, 0);
 
+  // Timeout after which cache files will be deleted
   const filesInterval = setInterval(() => {
     loggerService.log('info', 'bootstrap', 'Clear files expired cache');
     FilesService.clearExpiredCache(config.files.cachePath, 86400 * 1000 * 30);
   }, 86400 * 1000);
 
+  /**
+   * Middlewares initialization
+   * This middlewares - is a @via-profit-services/core middlewares
+   */
   const usersMiddleware = users({ jwt: config.jwt });
   const clientsMiddleware = clients();
   const dealsMiddleware = deals();
@@ -48,6 +59,8 @@ const bootstrap = () => {
   const { knexMiddleware, knexInstance } = knex(config);
   const { redisInstance, redisMiddleware } = redis({ ...config, server, loggerService });
 
+  // Init the @via-profit-services/core HTTP factory
+  // for HTTP server event listeners
   const graphqlHTTP = graphqlHTTPFactory({
     schema,
     persistedQueriesMap,
@@ -69,6 +82,7 @@ const bootstrap = () => {
     ],
   });
 
+  // Affect HTTP incomming requests
   server.on('request', async (req, res) => {
     await routes({
       req,
@@ -80,6 +94,7 @@ const bootstrap = () => {
     });
   });
 
+  // When server will be stopped
   server.on('close', () => {
     clearInterval(filesInterval);
     knexInstance.destroy();

@@ -5,6 +5,7 @@ import { FileType } from 'files';
 import { AccountStatus, AccountRole } from 'users';
 import UserUpdateResponse from '~/schema/unions/UserUpdateResponse';
 import UserUpdateInput from '~/schema/inputs/UserUpdateInput';
+import SubscriptionTrigger from '~/schema/subscriptions/SubscriptionTrigger';
 
 interface Args {
   readonly id: string;
@@ -41,6 +42,7 @@ const update: GraphQLFieldConfig<unknown, Context, Args> = {
     const { services, emitter, dataloader, pubsub } = context;
     const logTag = 'users';
 
+    // Input data validation
     if (typeof files !== 'undefined' && typeof filesInfo === 'undefined') {
       return {
         __typename: 'UserUpdateError',
@@ -72,6 +74,7 @@ const update: GraphQLFieldConfig<unknown, Context, Args> = {
     const originalUserData = await dataloader.users.load(id);
     dataloader.users.clear(id);
 
+    // Check user exists
     if (!originalUserData) {
       return {
         __typename: 'UserUpdateError',
@@ -80,6 +83,7 @@ const update: GraphQLFieldConfig<unknown, Context, Args> = {
       };
     }
 
+    // Update action
     if (typeof userData === 'object' && Object.keys(userData).length) {
       try {
         await services.users.updateUser(id, userData);
@@ -94,6 +98,7 @@ const update: GraphQLFieldConfig<unknown, Context, Args> = {
       }
     }
 
+    // Replace user avatar
     if (typeof avatar !== 'undefined' && avatar !== null) {
       if (originalUserData.avatar) {
         try {
@@ -159,7 +164,7 @@ const update: GraphQLFieldConfig<unknown, Context, Args> = {
     const updatedUser = await dataloader.users.load(id);
 
     // Fire subscriptions
-    pubsub.publish('user-was-updated', {
+    pubsub.publish(SubscriptionTrigger.USER_WAS_UPDATED, {
       userWasUpdated: updatedUser,
     });
 

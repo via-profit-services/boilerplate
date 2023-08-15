@@ -1,8 +1,10 @@
 import bootstrap from '~/app';
 
+// Configure the app
 const { server, config, loggerService } = bootstrap();
 const { port, host, endpoint, subscriptions } = config;
 
+// Start the server
 server.listen(port, host, () => {
   loggerService.log(
     'info',

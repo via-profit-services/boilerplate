@@ -10,6 +10,7 @@ const node: GraphQLFieldConfig<unknown, Context, Args> = {
     id: { type: new GraphQLNonNull(GraphQLID) },
   },
   type: NodeInterfaceType,
+  description: 'GraphQL node spec',
   resolve: async (_parent, args, context) => {
     const { id } = args;
     const { dataloader, knex } = context;

@@ -9,12 +9,14 @@ import { PrivilegeName } from 'users';
 
 dotenv.config();
 
+// Permissions resolver. Is user already authorized
 const isAuthorized: permissions.PermissionResolver = props => {
   const { context } = props;
 
   return context.token.id !== ACCESS_TOKEN_EMPTY_ID || 'Unauthorized.';
 };
 
+// Permissions resolver. Is user not authorized
 const isNotAuthorized: permissions.PermissionResolver = props => {
   const { context } = props;
 
@@ -23,6 +25,7 @@ const isNotAuthorized: permissions.PermissionResolver = props => {
     : 'The «Authorized» header should NOT be passed for this method';
 };
 
+// Permissions resolver. has user specified privilege or not
 const hasPrivilege: (privileges: PrivilegeName[]) => permissions.PermissionResolver =
   privileges => props => {
     const { context } = props;
@@ -31,7 +34,7 @@ const hasPrivilege: (privileges: PrivilegeName[]) => permissions.PermissionResol
     return token.privileges.some(p => privileges.includes(p));
   };
 
-// .env required variables
+// «.env» required variables
 const envNames = [
   'DEBUG',
   'GRAPHQL_PORT',
@@ -57,7 +60,11 @@ const envNames = [
   'LOG_DIR',
 ];
 
-// Checks for variables in .env
+/**
+ * Checks for variables in «.env»
+ * If one or more variables does not
+ * contain in «.env», file abort process
+ */
 envNames.forEach(envName => {
   if (process.env[envName] === undefined) {
     console.error('\x1b[31m%s\x1b[0m', 'Configuration error');
@@ -70,7 +77,10 @@ envNames.forEach(envName => {
   }
 });
 
-// Check keys
+/**
+ * Check JSON Web Token keys already exists
+ * and abort process if not
+ */
 [process.env.JWT_PRIVATE_KEY_PATH, process.env.JWT_PUBLIC_KEY_PATH].forEach(keyPath => {
   if (!fs.existsSync(path.resolve(keyPath))) {
     console.error('\x1b[31m%s\x1b[0m', `JWT public key does not found in ${keyPath}`);
@@ -79,6 +89,10 @@ envNames.forEach(envName => {
   }
 });
 
+/**
+ * Compile common «config» constant.
+ * This data will be passed into the routes
+ */
 const config: ApplicationConfig = {
   logs: {
     logDir: path.resolve(process.env.LOG_DIR),

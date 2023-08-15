@@ -1,5 +1,8 @@
 const version = '1.0.0-rc.31';
 
+/**
+ * @see: https://github.com/graphql-kit/graphql-voyager
+ */
 const renderVoyagerPage = (props: { endpoint: string }) => `
 <!DOCTYPE html>
 <html>
