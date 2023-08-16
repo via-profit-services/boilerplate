@@ -101,28 +101,27 @@ try {
   colored(colorsMap.FgRed, 'Failed to copy files to remote server');
 }
 
-const ecosystemJS = `
-module.exports = {
-  apps : [
-    {
-      name: "boilerplate-server",
-      script: "./index.js",
-      cwd: ".",
-      instances: "max",
-      exec_mode: "cluster",
-    }
-]
-}
-
-`;
 execSync(
   `
 ssh -T ${user}@${host}<<EOT
 WORK_DIR="${destinationDistDir}";
-cd $WORK_DIR;
-echo "${ecosystemJS}" > ./ecosystem.config.js
-#pm2 restart boilerplate
+cd "${destinationDistDir}";
 
+cat <<END > "${destinationDistDir}/ecosystem.config.js"
+module.exports = {
+  apps : [
+    {
+      name: "boilerplate-server",
+      script: "${execScript}",
+      cwd: ".",
+      instances: "max",
+      exec_mode: "cluster",
+    }
+  ]
+}
+END
+
+pm2 restart ecosystem.config.js
 EOT`,
 );
 

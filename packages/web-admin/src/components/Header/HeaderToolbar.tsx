@@ -28,16 +28,16 @@ const HeaderToolbar: React.FC = () => {
 
   return (
     <Container>
-      <Button color={fontSize === 'small' ? 'accent' : 'default'} onClick={setFontSize('small')}>
+      <Button color={fontSize === 'small' ? 'red' : 'default'} onClick={setFontSize('small')}>
         small
       </Button>
-      <Button color={fontSize === 'normal' ? 'accent' : 'default'} onClick={setFontSize('normal')}>
+      <Button color={fontSize === 'normal' ? 'red' : 'default'} onClick={setFontSize('normal')}>
         normal
       </Button>
-      <Button color={fontSize === 'medium' ? 'accent' : 'default'} onClick={setFontSize('medium')}>
+      <Button color={fontSize === 'medium' ? 'red' : 'default'} onClick={setFontSize('medium')}>
         medium
       </Button>
-      <Button color={fontSize === 'large' ? 'accent' : 'default'} onClick={setFontSize('large')}>
+      <Button color={fontSize === 'large' ? 'red' : 'default'} onClick={setFontSize('large')}>
         large
       </Button>
     </Container>
