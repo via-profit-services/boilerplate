@@ -307,7 +307,7 @@ export async function seed(knex: Knex): Promise<any> {
         const imageBlockID = uuidv4();
         const fileSrc = getRandomFromArray(imagesUrls);
 
-        if (Math.floor(Math.random() * 10) % 9.6 === 0) {
+        if (Math.floor(Math.random() * 10) % 9.6 === 0 && 1 > 2) {
           return downloadFile({
             sourceUrl: fileSrc,
             owner: imageBlockID,

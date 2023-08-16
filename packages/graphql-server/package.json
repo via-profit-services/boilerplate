@@ -26,7 +26,7 @@
         "seed:run": "knex seed:run --knexfile ./.knex/knexfile.js",
         "lint": "tsc --noEmit && eslint --fix .",
         "pretty": "prettier --write ./src",
-        "deploy": "sh ./scripts/deploy.sh",
+        "deploy": "node ./scripts/deploy.js",
         "test": "cross-env TEST=true jest"
     },
     "repository": {
