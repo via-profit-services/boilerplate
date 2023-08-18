@@ -9,11 +9,11 @@
 
 Этот бойлерплейт является монорепой и содержит в себе три репозитория, котореы могут быть выделены в отдельные репы в любой момент.
 
- - **graphql-server** - Репозиторий GraphQL сервера, в основе которого [@via-profit-services/core](https://github.com/via-profit-services/core). Сервер реализован на NodeJS. В качестве базы данных предпочтение отдано [PostgreSQL](https://www.postgresql.org). Для кэша используется [Redis](https://redis.io)
+ - **graphql** - Репозиторий GraphQL сервера, в основе которого [@via-profit-services/core](https://github.com/via-profit-services/core). Сервер реализован на NodeJS. В качестве базы данных предпочтение отдано [PostgreSQL](https://www.postgresql.org). Для кэша используется [Redis](https://redis.io)
 
  - **website** - Репозиторий с заготовкой для разработки полноценного веб-сайта на [RelayJS](https://relay.dev). Возможна разработка как одностроничного (SPA) сайта, так и многостраничного сайта. В сборку заложена поддержка шаблонов.
 
- - **web-admin** - Репозиторий с заготовкой для разработки CRM-системы или полноценного веб-сайта на [RelayJS](https://relay.dev).В сборку заложена поддержка шаблонов для веб-сайта.
+ - **admin** - Репозиторий с заготовкой для разработки CRM-системы или полноценного веб-сайта на [RelayJS](https://relay.dev).В сборку заложена поддержка шаблонов для веб-сайта.
 
 ## Для чего?
 
@@ -30,7 +30,7 @@
 
 Soon
 
-## Настройка окружения проекта graphql-server для локального использования
+## Настройка окружения проекта graphql для локального использования
 
 1. Создайте и/или настройте базу данных PostgreSQL:
 
@@ -49,7 +49,7 @@ alter database boilerplate owner to boilerplate; -- Grant all privileges
 2. Скопируйте `.env.example` файлы в файлы с именем`.env` для каждого проекта:
 
 ```bash
-$ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/web-admin/.env.example ./packages/web-admin/.env && cp ./packages/graphql-server/.env.example ./packages/graphql-server/.env && cp ./packages/graphql-server/.knex/.env.example ./packages/graphql-server/.knex/.env
+$ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/admin/.env.example ./packages/admin/.env && cp ./packages/graphql/.env.example ./packages/graphql/.env && cp ./packages/graphql/.knex/.env.example ./packages/graphql/.knex/.env
 ```
 
 Заполните файлы `.env` в соответствии с вашими данными.
@@ -63,11 +63,11 @@ $ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/we
 В корне проекта (на том же уровне, что и `package.json`) создайте каталог ключей и создайте в нем ключи, выполнив команды:
 
 ```bash
-$ mkdir -p ./packages/graphql-server/.keys
+$ mkdir -p ./packages/graphql/.keys
 $ ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key  # Don't add passphrase, just press Enter
 $ openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
-$ mv ./jwtRS256.key ./packages/graphql-server/.keys/
-$ mv ./jwtRS256.key.pub ./packages/graphql-server/.keys/
+$ mv ./jwtRS256.key ./packages/graphql/.keys/
+$ mv ./jwtRS256.key.pub ./packages/graphql/.keys/
 ```
 
 4. Скомпилируйте миграции.

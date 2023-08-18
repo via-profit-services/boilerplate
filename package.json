@@ -5,29 +5,31 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --raw 'npm run start:graphql-server' 'npm run start:website' 'npm run start:web-admin'",
-    "start:graphql-server": "npm run start --workspace packages/graphql-server",
+    "start": "concurrently --raw 'npm run start:graphql' 'npm run start:website' 'npm run start:admin'",
+    "start:graphql": "npm run start --workspace packages/graphql",
     "start:website": "npm run start --workspace packages/website",
-    "start:web-admin": "npm run start --workspace packages/web-admin",
-    "start:dist": "concurrently --raw 'npm run start:dist --workspace packages/graphql-server' 'npm run start:dist --workspace packages/website' 'npm run start:dist --workspace packages/web-admin'",
-    "build:dist": "concurrently --raw 'npm run build:dist --workspace packages/graphql-server' 'npm run build:dist --workspace packages/website' 'npm run build:dist --workspace packages/web-admin'",
-    "migrate:latest": "npm run migrate:latest --workspace packages/graphql-server",
-    "migrate:up": "npm run migrate:up --workspace packages/graphql-server",
-    "migrate:down": "npm run migrate:down --workspace packages/graphql-server",
-    "migrate:make": "npm run migrate:make --workspace packages/graphql-server",
-    "migrate:list": "npm run migrate:list --workspace packages/graphql-server",
-    "migrate:check": "npm run migrate:check --workspace packages/graphql-server",
-    "build:migrations": "npm run build:migrations --workspace packages/graphql-server",
-    "seed:run": "npm run seed:run --workspace packages/graphql-server",
-    "prepare:relay": "npm run download-schema --workspace packages/website && npm run download-schema --workspace packages/web-admin && npm run relay --workspace packages/website && npm run relay --workspace packages/web-admin",
-    "relay": "npm run relay --workspace packages/website && npm run relay --workspace packages/web-admin"
+    "start:admin": "npm run start --workspace packages/admin",
+    "start:dist": "concurrently --raw 'npm run start:dist --workspace packages/graphql' 'npm run start:dist --workspace packages/website' 'npm run start:dist --workspace packages/admin'",
+    "i18n": "concurrently --raw 'npm run i18n --workspace packages/admin' 'npm run i18n --workspace packages/website'",
+    "download-schema": "concurrently --raw 'npm run download-schema --workspace packages/admin' 'npm run download-schema --workspace packages/website'",
+    "build:dist": "concurrently --raw 'npm run build:dist --workspace packages/graphql' 'npm run build:dist --workspace packages/website' 'npm run build:dist --workspace packages/admin'",
+    "migrate:latest": "npm run migrate:latest --workspace packages/graphql",
+    "migrate:up": "npm run migrate:up --workspace packages/graphql",
+    "migrate:down": "npm run migrate:down --workspace packages/graphql",
+    "migrate:make": "npm run migrate:make --workspace packages/graphql",
+    "migrate:list": "npm run migrate:list --workspace packages/graphql",
+    "migrate:check": "npm run migrate:check --workspace packages/graphql",
+    "build:migrations": "npm run build:migrations --workspace packages/graphql",
+    "seed:run": "npm run seed:run --workspace packages/graphql",
+    "prepare:relay": "npm run download-schema --workspace packages/website && npm run download-schema --workspace packages/admin && npm run relay --workspace packages/website && npm run relay --workspace packages/admin",
+    "relay": "npm run relay --workspace packages/website && npm run relay --workspace packages/admin"
   },
   "author": "",
   "license": "ISC",
   "workspaces": [
     "packages/website",
-    "packages/graphql-server",
-    "packages/web-admin"
+    "packages/graphql",
+    "packages/admin"
   ],
   "devDependencies": {
     "concurrently": "^8.0.1"

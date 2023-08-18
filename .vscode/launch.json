@@ -29,11 +29,11 @@
       "type": "chrome",
       "request": "launch",
       "port": 9228,
-      "webRoot": "${workspaceFolder}/packages/web-admin",
+      "webRoot": "${workspaceFolder}/packages/admin",
       "sourceMaps": true,
       "url": "http://localhost:9000",
       "sourceMapPathOverrides": {
-        "webpack://@boilerplate/web-admin/*": "${webRoot}/*",
+        "webpack://@boilerplate/admin/*": "${webRoot}/*",
       },
     },
     {
@@ -41,10 +41,10 @@
       "type": "chrome",
       "request": "attach",
       "port": 9228,
-      "webRoot": "${workspaceFolder}/packages/web-admin",
+      "webRoot": "${workspaceFolder}/packages/admin",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
-        "webpack://@boilerplate/web-admin/*": "${webRoot}/*",
+        "webpack://@boilerplate/admin/*": "${webRoot}/*",
       },
     },
     {
@@ -54,9 +54,9 @@
       "port": 9229,
       "sourceMaps": true,
       "restart": true,
-      "localRoot": "${workspaceRoot}/packages/graphql-server/src/index.ts",
-      "remoteRoot": "${workspaceRoot}/packages/graphql-server/build/index.js",
-      "cwd": "${workspaceRoot}/packages/graphql-server"
+      "localRoot": "${workspaceRoot}/packages/graphql/src/index.ts",
+      "remoteRoot": "${workspaceRoot}/packages/graphql/build/index.js",
+      "cwd": "${workspaceRoot}/packages/graphql"
     }
   ]
 }
