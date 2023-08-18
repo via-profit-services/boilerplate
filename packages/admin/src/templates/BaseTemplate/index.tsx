@@ -7,8 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import ThemeProvider from '~/providers/ThemeProvider';
 import LocaleProvider from '~/providers/LocaleProvider';
-import Header from '~/components/Header';
-import MainSidebar from '~/components/MainSidebar';
 import GlobalStyles from './GlobalStyles';
 
 const Wrapper = styled.div`
@@ -16,21 +14,22 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+  min-height: 100vh;
 `;
 
-const Main = styled.div`
-  flex: 1;
-`;
+export type BaseTemplateProps = {
+  readonly children?: React.ReactNode | readonly React.ReactNode[];
+};
 
-const Content = styled.div`
-  overflow: auto;
-  position: relative;
-  top: 3rem;
-  height: calc(100vh - 3rem);
-`;
+/**
+ * Basic template.\
+ * If you pass the children property, then the children will be placed in the body of the template.\
+ * Otherwise, there will be an `<Outlet>` component of `react-router-dom` renderer in the template body.
+ */
+const BaseTemplate: React.FC<BaseTemplateProps> = props => {
+  const { children } = props;
 
-const AdminPanelTemplate: React.FC = () => (
-  <>
+  return (
     <LocaleProvider>
       <Helmet defaultTitle=" ">
         <meta charSet="utf-8" />
@@ -38,19 +37,11 @@ const AdminPanelTemplate: React.FC = () => (
       </Helmet>
       <ThemeProvider>
         <GlobalStyles />
-        <Wrapper>
-          <MainSidebar />
-          <Main>
-            <Header />
-            <Content>
-              <Outlet />
-            </Content>
-          </Main>
-        </Wrapper>
+        <Wrapper>{typeof children !== 'undefined' ? children : <Outlet />}</Wrapper>
         <ToastContainer />
       </ThemeProvider>
     </LocaleProvider>
-  </>
-);
+  );
+};
 
-export default AdminPanelTemplate;
+export default BaseTemplate;
