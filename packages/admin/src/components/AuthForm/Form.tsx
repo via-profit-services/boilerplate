@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import TextField from '@via-profit/ui-kit/TextField';
-import Paragraph from '@via-profit/ui-kit/Typography/Paragraph';
 import Button from '@via-profit/ui-kit/Button';
 import Logo from '~/components/Logo';
 import useFormSchema, { FormSchema } from '~/components/AuthForm/useFormSchema';
@@ -49,6 +48,7 @@ const SubmitButton = styled(Button)`
 
 const FormFooter = styled.div`
   padding: 1em;
+  font-size: 0.8em;
   text-align: center;
   color: ${({ theme }) => theme.color.textSecondary.toString()};
 `;
@@ -60,6 +60,7 @@ const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLFormElement, FormProps
   const passwordInputRef = React.useRef<HTMLInputElement | null>(null);
   const dispatch = useDispatch();
   const intl = useIntl();
+  const loginInputRef = React.useRef<HTMLInputElement | null>(null);
   const [createToken, inProgress] = useMutation<FormCreateTokenMutation>(mutation);
   const { schema, defaultValues } = useFormSchema();
   const { handleSubmit, control, setValue } = useForm<FormSchema>({
@@ -84,6 +85,12 @@ const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLFormElement, FormProps
     }),
     [intl],
   );
+
+  React.useEffect(() => {
+    if (loginInputRef.current) {
+      loginInputRef.current.focus();
+    }
+  }, []);
 
   const onSubmit = handleSubmit(variables => {
     createToken({
@@ -134,6 +141,7 @@ const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLFormElement, FormProps
             <StyledField
               {...field}
               fullWidth
+              inputRef={loginInputRef}
               autoComplete="username"
               readOnly={inProgress}
               error={!!fieldState.error}
@@ -164,7 +172,8 @@ const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLFormElement, FormProps
         <SubmitButton
           overrides={{
             TextWrapper: React.forwardRef(function TextWrapper(props, ref) {
-              const { children, ...restProps } = props;
+              const { children, iconOnly, ...restProps } = props;
+
               return (
                 <span {...restProps} ref={ref}>
                   {children}
@@ -183,7 +192,11 @@ const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLFormElement, FormProps
           <FormattedMessage defaultMessage="Войти" />
         </SubmitButton>
       </FormContent>
-      <FormFooter>Lorem ipsum dolor</FormFooter>
+      <FormFooter>
+        {intl.formatMessage({
+          defaultMessage: 'Все права защищены',
+        })}
+      </FormFooter>
     </Form>
   );
 };

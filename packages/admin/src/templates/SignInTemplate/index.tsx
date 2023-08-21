@@ -9,16 +9,16 @@ const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({theme}) => theme.color.surface.darken(10).toString()};
-`
+  background-color: ${({ theme }) => theme.color.surface.darken(10).toString()};
+`;
 
 /**
  * Sign in template.
  */
 const SignInTemplate: React.FC = () => (
   <BaseTemplate>
-  <FormContainer>
-    <AuthForm />
+    <FormContainer>
+      <AuthForm />
     </FormContainer>
   </BaseTemplate>
 );

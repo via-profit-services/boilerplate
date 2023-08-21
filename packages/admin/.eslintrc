@@ -141,7 +141,9 @@
       {
         "md": "always",
         "json": "always",
-        "graphql": "always"
+        "graphql": "always",
+        "png": "always",
+        "jpeg": "always"
       }
     ],
     "comma-dangle": [

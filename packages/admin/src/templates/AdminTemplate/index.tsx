@@ -6,13 +6,6 @@ import Header from '~/components/Header';
 import MainSidebar from '~/components/MainSidebar';
 import BaseTemplate from '~/templates/BaseTemplate';
 
-const Wrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
-`;
-
 const Main = styled.div`
   flex: 1;
 `;

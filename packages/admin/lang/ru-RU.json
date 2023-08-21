@@ -20,8 +20,8 @@
   "8B5OJY": {
     "defaultMessage": "Неверный логин или пароль"
   },
-  "BgypuO": {
-    "defaultMessage": "Авторизация"
+  "J76yQ6": {
+    "defaultMessage": "Все права защищены"
   },
   "JM0OrP": {
     "defaultMessage": "Имя пользователя"
@@ -68,6 +68,9 @@
   "lnCJFM": {
     "defaultMessage": "Сбросить"
   },
+  "meIUt1": {
+    "defaultMessage": "Вы действительно хотите выйти из системы?{br}Для возобновления работы вам потребуется ввести{br}логин и пароль от учётной записи"
+  },
   "oU4rxk": {
     "defaultMessage": "Войти"
   },
@@ -76,6 +79,9 @@
   },
   "pxwXj+": {
     "defaultMessage": "Все"
+  },
+  "ryv8HP": {
+    "defaultMessage": "Выход из системы"
   },
   "xxYKd9": {
     "defaultMessage": "Самозанятый"

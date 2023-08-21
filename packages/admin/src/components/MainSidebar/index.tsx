@@ -58,7 +58,7 @@ const MainSidebar: React.ForwardRefRenderFunction<HTMLDivElement, MainSidebarPro
           isActive={pathname === '/'}
           label={<FormattedMessage defaultMessage="Рабочий стол" />}
         />
-        <MainSidebarItem
+        {/* <MainSidebarItem
           icon={<ShopMarkerIcon />}
           isActive={matchPath('/pages/*', pathname) !== null}
           label={<FormattedMessage defaultMessage="Разделы сайта" />}
@@ -68,7 +68,7 @@ const MainSidebar: React.ForwardRefRenderFunction<HTMLDivElement, MainSidebarPro
             isActive={matchPath('/pages/list/*', pathname) !== null}
             label={<FormattedMessage defaultMessage="Все" />}
           />
-        </MainSidebarItem>
+        </MainSidebarItem> */}
 
         <MainSidebarItem
           icon={<ShopMarkerIcon />}
@@ -92,13 +92,13 @@ const MainSidebar: React.ForwardRefRenderFunction<HTMLDivElement, MainSidebarPro
           />
         </MainSidebarItem>
 
-        <MainSidebarItem
+        {/* <MainSidebarItem
           location="/orders/list"
           icon={<ShopMarkerIcon />}
           isActive={matchPath('/orders/*', pathname) !== null}
           label={<FormattedMessage defaultMessage="Заявки" />}
-        />
-        <MainSidebarItem
+        /> */}
+        {/* <MainSidebarItem
           icon={<ShopMarkerIcon />}
           isActive={matchPath('/users/*', pathname) !== null}
           label={<FormattedMessage defaultMessage="Пользователи" />}
@@ -108,7 +108,7 @@ const MainSidebar: React.ForwardRefRenderFunction<HTMLDivElement, MainSidebarPro
             location="/users/list"
             isActive={matchPath('/users/list/*', pathname) !== null}
           />
-        </MainSidebarItem>
+        </MainSidebarItem> */}
       </Nav>
       <SidebarFooter>
         <ThemeModeSwitcher />

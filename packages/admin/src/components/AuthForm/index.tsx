@@ -24,14 +24,12 @@ const StyledForm = styled(Form)`
 const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLDivElement, AuthFormProps> = (
   props,
   ref,
-) => {
-  return (
-    <FormContainer {...props} ref={ref}>
-      <StyledForm />
-      <WelcomeBlock />
-    </FormContainer>
-  );
-};
+) => (
+  <FormContainer {...props} ref={ref}>
+    <StyledForm />
+    <WelcomeBlock />
+  </FormContainer>
+);
 
 const AuthForm = React.forwardRef(AuthFormWithRef);
 
