@@ -21,7 +21,7 @@
     "migrate:check": "npm run migrate:check --workspace packages/graphql",
     "build:migrations": "npm run build:migrations --workspace packages/graphql",
     "seed:run": "npm run seed:run --workspace packages/graphql",
-    "prepare:relay": "npm run download-schema --workspace packages/website && npm run download-schema --workspace packages/admin && npm run relay --workspace packages/website && npm run relay --workspace packages/admin",
+    "prepare:relay": "node ./scripts/prepare-relay.js",
     "relay": "npm run relay --workspace packages/website && npm run relay --workspace packages/admin"
   },
   "author": "",
