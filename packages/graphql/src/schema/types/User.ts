@@ -127,6 +127,7 @@ const User = new GraphQLObjectType<Parent, Context>({
         },
       },
       notifications: {
+        description: 'Returns a list of notifications for the current user',
         type: new GraphQLNonNull(NotificationConnection),
         args: {
           first: { type: GraphQLInt },
