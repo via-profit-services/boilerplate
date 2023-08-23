@@ -1,9 +1,8 @@
 import { GraphQLFieldConfig, GraphQLNonNull } from 'graphql';
 import { Context } from '@via-profit-services/core';
-// import { withFilter } from 'graphql-subscriptions';
 
 import User from '~/schema/types/User';
-import SubscriptionTrigger from './SubscriptionTrigger';
+import SubscriptionTrigger from '~/schema/subscriptions/SubscriptionTrigger';
 
 const userWasUpdated: GraphQLFieldConfig<unknown, Context> = {
   type: new GraphQLNonNull(User),

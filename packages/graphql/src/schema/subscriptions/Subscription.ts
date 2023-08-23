@@ -1,14 +1,18 @@
 import { GraphQLObjectType } from 'graphql';
 import { Context } from '@via-profit-services/core';
 
-// import tokenWasRevoked from '~/schema/subscriptions/tokenWasRevoked';
 import userWasUpdated from '~/schema/subscriptions/userWasUpdated';
+import notificationWasCreated from '~/schema/subscriptions/notificationWasCreated';
+import notificationWasUpdated from '~/schema/subscriptions/notificationWasUpdated';
+import notificationCounterWasUpdated from '~/schema/subscriptions/notificationCounterWasUpdated';
 
 const Subscription = new GraphQLObjectType<unknown, Context>({
   name: 'Subscription',
   fields: () => ({
-    // tokenWasRevoked,
     userWasUpdated,
+    notificationWasCreated,
+    notificationWasUpdated,
+    notificationCounterWasUpdated,
   }),
 });
 

@@ -17,6 +17,7 @@ declare module '@via-profit-services/core' {
   import type { MenuItem, Menu, MenuService } from 'webmenu';
   import type { FilesTableRecord, FilesService } from 'files';
   import type { BlogPost, BlogService } from 'blog';
+  import type { Notification, NotificationsService } from 'notifications';
 
   interface ServicesCollection {
     authentification: AuthentificationService;
@@ -27,6 +28,7 @@ declare module '@via-profit-services/core' {
     webpages: PagesService;
     webmenu: MenuService;
     blog: BlogService;
+    notifications: NotificationsService;
   }
 
   interface DataLoaderCollection {
@@ -44,6 +46,12 @@ declare module '@via-profit-services/core' {
     contentBlocks: DataLoader<string, ContentBlock>;
     templates: DataLoader<string, Template>;
     blog: DataLoader<string, BlogPost>;
+    notifications: DataLoader<string, Notification>;
+
+    /**
+     * Will be returns counter of unread notifications by resipient ID
+     */
+    notificationsCounter: DataLoader<string, number>;
   }
 
   interface Context {

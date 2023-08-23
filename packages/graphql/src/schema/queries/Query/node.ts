@@ -42,16 +42,34 @@ const node: GraphQLFieldConfig<unknown, Context, Args> = {
     let node = null;
 
     switch (typeName) {
+      case 'User':
+        node = await context.dataloader.users.load(id);
+        break;
+
+      case 'Account':
+        node = await context.dataloader.accounts.load(id);
+        break;
+
+      case 'File':
+        node = await context.dataloader.files.load(id);
+        break;
+
       case 'Page':
         node = await context.dataloader.webpages.load(id);
         break;
+
       case 'BlogPost':
         node = await context.dataloader.blog.load(id);
         break;
+
       case 'ContentBlockPlainText':
       case 'ContentBlockImage':
       case 'ContentBlockLexical':
         node = await context.dataloader.contentBlocks.load(id);
+        break;
+
+      case 'Notification':
+        node = await context.dataloader.notifications.load(id);
         break;
 
       default:

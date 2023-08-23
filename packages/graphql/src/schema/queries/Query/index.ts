@@ -9,6 +9,7 @@ import BlogQuery from '~/schema/queries/BlogQuery';
 import me from '~/schema/queries/Query/me';
 import node from '~/schema/queries/Query/node';
 import version from '~/schema/queries/Query/version';
+import NotificationsQuery from '~/schema/queries/NotificationsQuery';
 // import DealsQuery from '~/schema/queries/DealsQuery';
 // import FunnelsQuery from '~/schema/queries/FunnelsQuery';
 
@@ -46,6 +47,11 @@ const Query = new GraphQLObjectType({
       type: new GraphQLNonNull(BlogQuery),
       resolve: () => ({}),
       description: 'Queries of simple blog',
+    },
+    notifications: {
+      type: new GraphQLNonNull(NotificationsQuery),
+      resolve: () => ({}),
+      description: 'Queries of users notifications',
     },
     version,
     me,

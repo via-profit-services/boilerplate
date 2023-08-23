@@ -15,6 +15,7 @@ import logger from '~/middlewares/logger';
 import webpages from '~/middlewares/webpages';
 import webmenu from '~/middlewares/webmenu';
 import blog from '~/middlewares/blog';
+import notifications from '~/middlewares/notifications';
 import schema from '~/schema';
 import config from '~/config';
 import LoggerService from '~/services/LoggerService';
@@ -55,6 +56,7 @@ const bootstrap = () => {
   const permissionsMiddleware = permissions.factory(config.permissions);
   const filesMiddleware = files(config.files);
   const blogMiddleware = blog();
+  const notificationsMiddleware = notifications();
   const subscriptionsMiddleware = subscriptions({ ...config, server, loggerService });
   const { knexMiddleware, knexInstance } = knex(config);
   const { redisInstance, redisMiddleware } = redis({ ...config, server, loggerService });
@@ -67,8 +69,22 @@ const bootstrap = () => {
     debug: config.debug,
     persistedQueryKey: PERSISTED_QUERY_KEY,
     middleware: [
-      loggerMiddleware, // must be first at all
+      /**
+       * IMPORTANT! This middleware must be first at all
+       * for can logging all events
+       */
+      loggerMiddleware,
+
+      /**
+       * Database ORM
+       * Connect it as early as possible
+       */
       knexMiddleware,
+
+      /**
+       * Redis database
+       * Connect it as early as possible
+       */
       redisMiddleware,
       subscriptionsMiddleware,
       usersMiddleware,
@@ -78,7 +94,13 @@ const bootstrap = () => {
       webmenuMiddleware,
       filesMiddleware,
       blogMiddleware,
-      permissionsMiddleware, // must be last at all
+      notificationsMiddleware,
+
+      /**
+       * IMPORTANT! This middleware must be last at all
+       * because it modify the schema and resolvers
+       */
+      permissionsMiddleware,
     ],
   });
 

@@ -22,3 +22,7 @@ declare module '*.json' {
   const content: Record<string, unknown>;
   export default content;
 }
+
+declare type Mutable<T> = {
+  -readonly [P in keyof T]: T[P];
+};

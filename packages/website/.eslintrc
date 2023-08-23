@@ -129,13 +129,7 @@
         "allowKeywords": true
       }
     ],
-    "arrow-body-style": [
-      "error",
-      "as-needed",
-      {
-        "requireReturnForObjectLiteral": false
-      }
-    ],
+    "arrow-body-style": "off",
     "valid-typeof": [
       "error",
       {

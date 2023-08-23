@@ -123,13 +123,7 @@
     "guard-for-in": "error",
     "eqeqeq": ["error", "always", { "null": "ignore" }],
     "dot-notation": ["warn", { "allowKeywords": true }],
-    "arrow-body-style": [
-      "error",
-      "as-needed",
-      {
-        "requireReturnForObjectLiteral": false
-      }
-    ],
+    "arrow-body-style": "off",
     "valid-typeof": ["error", { "requireStringLiterals": true }],
 
     // quotes: ['warn', 'single'],
