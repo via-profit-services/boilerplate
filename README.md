@@ -50,7 +50,15 @@
 
 ## Настройка окружения проекта graphql для локального использования
 
-1. Создайте и/или настройте базу данных PostgreSQL:
+1. Слейте репозиторий и установите зависимости:
+
+```bash
+$ git clone git@github.com:via-profit-services/boilerplate.git
+$ cd boilerplate
+$ npm install
+```
+
+2. Создайте и/или настройте базу данных PostgreSQL:
 
 ```bash
 $ sudo -u postgres psql # To go to psql shell
@@ -64,15 +72,22 @@ create user boilerplate with password 'admin'; -- Create user
 alter database boilerplate owner to boilerplate; -- Grant all privileges
 ```
 
-2. Скопируйте `.env.example` файлы в файлы с именем`.env` для каждого проекта:
+3. Скопируйте `.env.example` файлы в файлы с именем`.env` для каждого проекта:
 
 ```bash
 $ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/admin/.env.example ./packages/admin/.env && cp ./packages/graphql/.env.example ./packages/graphql/.env && cp ./packages/graphql/.knex/.env.example ./packages/graphql/.knex/.env
 ```
 
-Заполните файлы `.env` в соответствии с вашими данными.
+Заполните файлы `.env` в соответствии с вашими данными
 
-3. Создайте JWT ключи.
+Список файлов конфигураций  окружения:
+
+ - `packages/graphql/.env` - Настройки GraphQL сервера
+ - `packages/graphql/.knex/.env` - Настройки миграций
+ - `packages/admin/.env` - Настройки CRM
+ - `packages/website/.env` - настройки вебсайта
+
+4. Создайте JWT ключи.
 
 Чтобы JWT работал, необходимо сгенерировать SSH-ключи с использованием алгоритма, например, **RS256**.
 
@@ -83,36 +98,35 @@ $ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/ad
 ```bash
 $ mkdir -p ./packages/graphql/.keys
 $ ssh-keygen -t rsa -b 4096 -m PEM -f jwtRS256.key  # Don't add passphrase, just press Enter
-$ openssl rsa -in jwtRS256.key -pubout -outform PEM -out jwtRS256.key.pub
 $ mv ./jwtRS256.key ./packages/graphql/.keys/
 $ mv ./jwtRS256.key.pub ./packages/graphql/.keys/
 ```
 
-4. Скомпилируйте миграции.
+5. Скомпилируйте миграции.
 
 ```bash
 $ npm run build:migrations
 ```
 
-5. Примените миграции.
+6. Примените миграции.
 
 ```bash
 $ npm run migrate:latest
 ```
 
-6. Сгенерируйте Relay артефакты. Данная команда запусти GraphQL-сервер и сгенерирует Relay артефакты для всех проектов. Убедитесь, что `.env` файлы заполнены верно.
+7. Сгенерируйте Relay артефакты. Данная команда запусти GraphQL-сервер и сгенерирует Relay артефакты для всех проектов. Убедитесь, что `.env` файлы заполнены верно.
 
 ```bash
 $ npm run prepare:relay
 ```
 
-7. Запустите все проекты
+8. Запустите все проекты
 
 ```bash
 $ npm run start
 ```
 
-8. **(необязательно)** Примените сиды.
+9. **(необязательно)** Примените сиды.
 
 ```bash
 $ npm run seed:run

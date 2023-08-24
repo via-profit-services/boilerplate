@@ -8,6 +8,8 @@
 
 # relay artifacts
 /src/relay/artifacts/*
+/src/relay/schema.graphql
+/src/relay/persisted-queries.json
 !/src/relay/artifacts/.gitkeep
 
 .env
