@@ -50,6 +50,7 @@ const webpackBaseConfig: Configuration = {
     /pg-native/,
     /pg-query-stream/,
     /import-file/,
+    /supports-color/,
   ],
   node: {
     __dirname: true,

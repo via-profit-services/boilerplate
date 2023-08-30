@@ -17,7 +17,7 @@ import Logger from '~/services/LoggerService';
 
 class SchedulerService implements SchedulerServiceInterface {
   #knex: SchedulerServiceProps['knex'];
-  #intervalID: NodeJS.Timer = null;
+  #intervalID: NodeJS.Timeout = null;
   #interval = 60000;
   #emitter: EventEmitter;
   #logger: Logger;
