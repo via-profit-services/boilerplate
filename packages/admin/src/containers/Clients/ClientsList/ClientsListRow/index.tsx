@@ -79,4 +79,4 @@ graphql`
   }
 `;
 
-export default ClientsListRow;
+export default React.memo(ClientsListRow);

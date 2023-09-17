@@ -70,34 +70,37 @@ const ClientsListDisplay: React.FC<Props> = props => {
     [loadNext, hasNext, isLoadingNext, variables.first],
   );
 
-  return (
-    <AutoSizer>
-      {({ width, height }) => (
-        <VariableSizeList
-          ref={listRef}
-          innerRef={listInnerRef}
-          outerRef={ref => {
-            listOuterRef.current = ref;
-            dispatch(actionSetListOuterRef(ref));
-          }}
-          itemCount={edges.length}
-          width={width || '100%'}
-          height={height || '100%'}
-          itemSize={index => sizeMapRef.current.get(index) || defaultItemHeightRef.current}
-          estimatedItemSize={defaultItemHeightRef.current}
-          onScroll={onScroll}
-        >
-          {({ index, style }) => (
-            <ClientsListRow
-              style={style}
-              setRowHeight={setRowHeight}
-              clientFragmentRef={edges[index].node}
-              index={index}
-            />
-          )}
-        </VariableSizeList>
-      )}
-    </AutoSizer>
+  return React.useMemo(
+    () => (
+      <AutoSizer>
+        {({ width, height }) => (
+          <VariableSizeList
+            ref={listRef}
+            innerRef={listInnerRef}
+            outerRef={ref => {
+              listOuterRef.current = ref;
+              dispatch(actionSetListOuterRef(ref));
+            }}
+            itemCount={edges.length}
+            width={width || '100%'}
+            height={height || '100%'}
+            itemSize={index => sizeMapRef.current.get(index) || defaultItemHeightRef.current}
+            estimatedItemSize={defaultItemHeightRef.current}
+            onScroll={onScroll}
+          >
+            {({ index, style }) => (
+              <ClientsListRow
+                style={style}
+                setRowHeight={setRowHeight}
+                clientFragmentRef={edges[index].node}
+                index={index}
+              />
+            )}
+          </VariableSizeList>
+        )}
+      </AutoSizer>
+    ),
+    [dispatch, edges, onScroll, setRowHeight],
   );
 };
 

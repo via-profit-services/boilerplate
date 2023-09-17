@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useContext, actionSetEditClientID } from './useContext';
+import { useContext, actionSetEditClientID } from '../useContext';
 import ClientEditDrawer from '~/components/ClientEditDrawer';
 
-const ClientsListForms: React.FC = () => {
+const ClientEditForm: React.FC = () => {
   const { state, dispatch } = useContext();
   const { editClientID } = state;
   const editClientIDRef = React.useRef(editClientID);
@@ -20,13 +20,16 @@ const ClientsListForms: React.FC = () => {
     }
   }, [dispatch, editClientID]);
 
-  return (
-    <ClientEditDrawer
-      id={editClientID}
-      isNew={false}
-      onRequestClose={() => dispatch(actionSetEditClientID(null))}
-    />
+  return React.useMemo(
+    () => (
+      <ClientEditDrawer
+        id={editClientID}
+        isNew={false}
+        onRequestClose={() => dispatch(actionSetEditClientID(null))}
+      />
+    ),
+    [editClientID, dispatch],
   );
 };
 
-export default ClientsListForms;
+export default ClientEditForm;
