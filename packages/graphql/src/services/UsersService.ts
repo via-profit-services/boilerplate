@@ -1,6 +1,5 @@
 import type {
   UsersServiceProps,
-  UsersServiceInterface,
   AccountsTableModel,
   AccountsTableRecord,
   UsersTableModel,
@@ -16,7 +15,7 @@ import type {
 } from 'users';
 import { CursorConnection } from '@via-profit-services/core';
 
-class UsersService implements UsersServiceInterface {
+class UsersService {
   #knex: UsersServiceProps['knex'];
 
   public constructor(props: UsersServiceProps) {

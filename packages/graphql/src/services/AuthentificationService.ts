@@ -15,7 +15,6 @@ import type {
   AccessTokenPayload,
   TokenPackage,
   RefreshTokenPayload,
-  AuthentificationServiceInterface,
   GenerateTokenPayload,
   AuthentificationServiceProps,
   VerifyTokenProps,
@@ -26,7 +25,7 @@ import type {
   Account2RolesTableRecord,
 } from 'users';
 
-class AuthentificationService implements AuthentificationServiceInterface {
+class AuthentificationService {
   #knex: AuthentificationServiceProps['knex'];
   #redis: AuthentificationServiceProps['redis'];
   #jwt: AuthentificationServiceProps['jwt'];

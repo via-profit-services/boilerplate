@@ -336,21 +336,8 @@ declare module 'users' {
     readonly privileges: PrivilegeName[];
   }
 
-  export interface UsersServiceInterface {
-    updateAccount(id: string, data: Partial<AccountsTableModel>): Promise<void>;
-    createAccount(data: AccountsTableModel): Promise<string>;
-    deleteAccount(id: string): Promise<void>;
-    deleteAccounts(ids: string[]): Promise<void>;
-    checkLoginExists(login: string, skipId?: string): Promise<boolean>;
-    createUser(data: UsersTableModel): Promise<string>;
-    updateUser(id: string, data: Partial<UsersTableModel>): Promise<void>;
-    getUsersConnection(props: GetUsersConnectionProps): Promise<CursorConnection<User>>;
-    getAccountsConnection(props: GetAccountsConnectionProps): Promise<CursorConnection<Account>>;
-    deleteUsers(ids: readonly string[]): Promise<void>;
-    deleteUser(id: string): Promise<void>;
-  }
-
-  export interface AuthentificationServiceInterface {
+  export class AuthentificationService {
+    constructor(props: AuthentificationServiceProps);
     checkTokenRevoke(tokenPayload: AccessTokenPayload | RefreshTokenPayload): Promise<boolean>;
     refreshToken(tokenPayload: RefreshTokenPayload): Promise<false | string | TokenPackage>;
     revokeToken(tokenID: string): Promise<void>;
@@ -362,13 +349,6 @@ declare module 'users' {
         refresh: number;
       },
     ): TokenPackage;
-  }
-
-  export interface AuthentificationService extends AuthentificationServiceInterface {}
-  export interface UsersService extends UsersServiceInterface {}
-
-  class AuthentificationService {
-    constructor(props: AuthentificationServiceProps);
     static getDefaultTokenPayload(): AccessTokenPayload;
     static getPrivilegesList(): PrivilegeName[];
     static extractTokenFromSubscription(connectionParams: any): string | false;
@@ -383,8 +363,19 @@ declare module 'users' {
     static verifyToken(props: VerifyTokenProps): Promise<AccessTokenPayload | RefreshTokenPayload>;
   }
 
-  class UsersService {
+  export class UsersService {
     constructor(props: UsersServiceProps);
+    updateAccount(id: string, data: Partial<AccountsTableModel>): Promise<void>;
+    createAccount(data: AccountsTableModel): Promise<string>;
+    deleteAccount(id: string): Promise<void>;
+    deleteAccounts(ids: string[]): Promise<void>;
+    checkLoginExists(login: string, skipId?: string): Promise<boolean>;
+    createUser(data: UsersTableModel): Promise<string>;
+    updateUser(id: string, data: Partial<UsersTableModel>): Promise<void>;
+    getUsersConnection(props: GetUsersConnectionProps): Promise<CursorConnection<User>>;
+    getAccountsConnection(props: GetAccountsConnectionProps): Promise<CursorConnection<Account>>;
+    deleteUsers(ids: readonly string[]): Promise<void>;
+    deleteUser(id: string): Promise<void>;
   }
 
   export default GraphQLSchema;

@@ -9,7 +9,6 @@ import type {
   ImageTransform,
   MimeTypes,
   FilesServiceProps,
-  FilesServiceInterface,
   FilesConnectionCursor,
   GetFilesConnectionProps,
   FilesTableModel,
@@ -21,7 +20,7 @@ import type {
 import mimeTypesCollection from '~/utils/mime-types.json';
 import ImageMagickService from '~/services/ImageMagickService';
 
-class FilesService implements FilesServiceInterface {
+class FilesService {
   #knex: FilesServiceProps['knex'];
   #hostname: FilesServiceProps['hostname'];
   #staticPrefix: FilesServiceProps['staticPrefix'];

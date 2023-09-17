@@ -71,15 +71,13 @@ declare module '@via-profit-services/core' {
     on(event: 'knex-debug', listener: (message: string) => void): this;
     on(event: 'knex-error', listener: (err: Error) => void): this;
     on(event: 'redis-error', listener: (error: Error) => void): this;
-
-    once(event: 'log-warn', listener: (tag: string, message: string) => void): this;
     once(event: 'log-error', listener: (tag: string, message: string) => void): this;
-    once(event: 'log-debug', listener: (tag: string, message: string) => void): this;
+    once(event: 'log-warn', listener: (tag: string, message: string) => void): this;
     once(event: 'log-info', listener: (tag: string, message: string) => void): this;
+    once(event: 'log-debug', listener: (tag: string, message: string) => void): this;
     once(event: 'knex-debug', listener: (message: string) => void): this;
     once(event: 'knex-error', listener: (err: Error) => void): this;
     once(event: 'redis-error', listener: (error: Error) => void): this;
-
     addListener(event: 'log-error', listener: (tag: string, message: string) => void): this;
     addListener(event: 'log-warn', listener: (tag: string, message: string) => void): this;
     addListener(event: 'log-debug', listener: (tag: string, message: string) => void): this;
@@ -87,7 +85,6 @@ declare module '@via-profit-services/core' {
     addListener(event: 'knex-debug', listener: (message: string) => void): this;
     addListener(event: 'knex-error', listener: (err: Error) => void): this;
     addListener(event: 'redis-error', listener: (error: Error) => void): this;
-
     removeListener(event: 'log-error', listener: (tag: string, message: string) => void): this;
     removeListener(event: 'log-warn', listener: (tag: string, message: string) => void): this;
     removeListener(event: 'log-debug', listener: (tag: string, message: string) => void): this;
@@ -95,7 +92,6 @@ declare module '@via-profit-services/core' {
     removeListener(event: 'knex-debug', listener: (message: string) => void): this;
     removeListener(event: 'knex-error', listener: (err: Error) => void): this;
     removeListener(event: 'redis-error', listener: (error: Error) => void): this;
-
     prependListener(event: 'log-error', listener: (tag: string, message: string) => void): this;
     prependListener(event: 'log-warn', listener: (tag: string, message: string) => void): this;
     prependListener(event: 'log-debug', listener: (tag: string, message: string) => void): this;
@@ -103,7 +99,6 @@ declare module '@via-profit-services/core' {
     prependListener(event: 'knex-debug', listener: (message: string) => void): this;
     prependListener(event: 'knex-error', listener: (err: Error) => void): this;
     prependListener(event: 'redis-error', listener: (error: Error) => void): this;
-
     prependOnceListener(event: 'log-error', listener: (tag: string, message: string) => void): this;
     prependOnceListener(event: 'log-warn', listener: (tag: string, message: string) => void): this;
     prependOnceListener(event: 'log-debug', listener: (tag: string, message: string) => void): this;
@@ -111,7 +106,6 @@ declare module '@via-profit-services/core' {
     prependOnceListener(event: 'knex-debug', listener: (message: string) => void): this;
     prependOnceListener(event: 'knex-error', listener: (err: Error) => void): this;
     prependOnceListener(event: 'redis-error', listener: (error: Error) => void): this;
-
     emit(event: 'log-error', ...args: [tag: string, message: string]): boolean;
     emit(event: 'log-warn', ...args: [tag: string, message: string]): boolean;
     emit(event: 'log-debug', ...args: [tag: string, message: string]): boolean;
@@ -119,7 +113,6 @@ declare module '@via-profit-services/core' {
     emit(event: 'knex-debug', ...args: [message: string]): boolean;
     emit(event: 'knex-error', ...args: [err: Error]): boolean;
     emit(event: 'redis-error', ...args: [error: Error]): boolean;
-
     removeAllListeners(event: 'log-error'): this;
     removeAllListeners(event: 'log-warn'): this;
     removeAllListeners(event: 'log-debug'): this;
@@ -127,15 +120,13 @@ declare module '@via-profit-services/core' {
     removeAllListeners(event: 'knex-debug'): this;
     removeAllListeners(event: 'knex-error'): this;
     removeAllListeners(event: 'redis-error'): this;
-
-    listeners(event: 'log-error'): ((tag: string, message: string) => void)[];
-    listeners(event: 'log-warn'): ((tag: string, message: string) => void)[];
-    listeners(event: 'log-debug'): ((tag: string, message: string) => void)[];
-    listeners(event: 'log-info'): ((tag: string, message: string) => void)[];
-    listeners(event: 'knex-debug'): ((message: string) => void)[];
-    listeners(event: 'knex-error'): ((message: string) => void)[];
-    listeners(event: 'redis-error'): ((error: Error) => void)[];
-
+    listeners(event: 'log-error'): () => unknown[];
+    listeners(event: 'log-warn'): () => unknown[];
+    listeners(event: 'log-debug'): () => unknown[];
+    listeners(event: 'log-info'): () => unknown[];
+    listeners(event: 'knex-debug'): () => unknown[];
+    listeners(event: 'redis-error'): () => unknown[];
+    listeners(event: 'knex-error'): () => unknown[];
     listenerCount(event: 'log-error'): number;
     listenerCount(event: 'log-warn'): number;
     listenerCount(event: 'log-debug'): number;

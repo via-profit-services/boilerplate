@@ -186,19 +186,15 @@ declare module 'files' {
     }
   >;
 
-  export interface FilesServiceInterface {
+  export class FilesService {
+    constructor(props: FilesServiceProps);
+
     getFilesConnection(props: GetFilesConnectionProps): Promise<CursorConnection<FilesTableRecord>>;
     createFile(readableStream: stream.Readable, options: CreateFileProps): Promise<void>;
     updateFile(id: string, options: Partial<CreateFileProps>): Promise<void>;
     deleteFiles(ids: readonly string[]): Promise<void>;
     deleteFilesByOwners(ownerIDs: readonly string[]): Promise<void>;
     compileFileUrl(payload: FileTokenPayload): string;
-  }
-
-  export interface FilesService extends FilesServiceInterface {}
-
-  class FilesService {
-    constructor(props: FilesServiceProps);
 
     /**
      * Write readable stream to file
