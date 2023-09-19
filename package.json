@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --raw 'npm run start:graphql' 'npm run start:website' 'npm run start:admin'",
+    "start": "concurrently --raw \"npm run start:graphql\" \"npm run start:website\" \"npm run start:admin\"",
     "start:graphql": "npm run start --workspace packages/graphql",
     "start:website": "npm run start --workspace packages/website",
     "start:admin": "npm run start --workspace packages/admin",
-    "start:dist": "concurrently --raw 'npm run start:dist --workspace packages/graphql' 'npm run start:dist --workspace packages/website' 'npm run start:dist --workspace packages/admin'",
+    "start:dist": "concurrently --raw '\"npm run start:dist --workspace packages/graphql\"' '\"npm run start:dist --workspace packages/website\"' '\"npm run start:dist --workspace packages/admin\"'",
     "i18n": "concurrently --raw 'npm run i18n --workspace packages/admin' 'npm run i18n --workspace packages/website'",
     "download-schema": "concurrently --raw 'npm run download-schema --workspace packages/admin' 'npm run download-schema --workspace packages/website'",
     "build:dist": "concurrently --raw 'npm run build:dist --workspace packages/graphql' 'npm run build:dist --workspace packages/website' 'npm run build:dist --workspace packages/admin'",

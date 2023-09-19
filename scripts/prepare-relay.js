@@ -87,7 +87,7 @@ const waitForServer = async () => {
 const bootstrap = async () => {
 
   colored(colorsMap.FgMagenta, `Trying to start GraphQL server at ${serverAddress.toString()}`);
-  const serverProc = spawn('npm', ['run', 'start', '--workspace', 'packages/graphql'], { detached: true }); // start parallele
+  const serverProc = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'start', '--workspace', 'packages/graphql'], { detached: true }); // start parallele
 
   colored(colorsMap.FgMagenta, 'Checking GraphQL server status');
   colored(colorsMap.FgMagenta, '...');
@@ -117,7 +117,8 @@ const bootstrap = async () => {
     colored(colorsMap.FgRed, err);
   }
 
-  process.kill(-serverProc.pid);
+  // process.kill(-serverProc.pid);
+  process.kill(serverProc.pid);
 
   colored(colorsMap.FgGreen, 'Done. Complete for all');
   colored(colorsMap.FgGreen, '...');

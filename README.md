@@ -75,7 +75,10 @@ alter database boilerplate owner to boilerplate; -- Grant all privileges
 3. Скопируйте `.env.example` файлы в файлы с именем`.env` для каждого проекта:
 
 ```bash
-$ cp ./packages/website/.env.example ./packages/website/.env && cp ./packages/admin/.env.example ./packages/admin/.env && cp ./packages/graphql/.env.example ./packages/graphql/.env && cp ./packages/graphql/.knex/.env.example ./packages/graphql/.knex/.env
+$ cp ./packages/website/.env.example ./packages/website/.env
+$ cp ./packages/admin/.env.example ./packages/admin/.env
+$ cp ./packages/graphql/.env.example ./packages/graphql/.env
+$ cp ./packages/graphql/.knex/.env.example ./packages/graphql/.knex/.env
 ```
 
 Заполните файлы `.env` в соответствии с вашими данными
