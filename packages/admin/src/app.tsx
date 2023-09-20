@@ -5,13 +5,13 @@ import { CacheProvider as CSSCacheProvider } from '@emotion/react';
 import createCSSCache from '@emotion/cache';
 import ReactModal from 'react-modal';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 
 import routes from '~/routes';
 import AuthProvider from '~/providers/AuthProvider';
 import RelayProvider from '~/providers/RelayProvider';
 import ReduxProvider from '~/providers/ReduxProvider';
 import readPreloadedState from '~/utils/readPreloadedState';
-import ErrorBoundary from '@via-profit/ui-kit/ErrorBoundary';
 import reduxDefaultState from '~/redux/reduxDefaultState';
 
 const bootstrap = async () => {

@@ -12,7 +12,7 @@
   "author": "Via Profit",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently --raw \"relay-compiler --watch\" \"npm run start:client:dev\"",
+    "start": "concurrently --raw \"relay-compiler\" \"npm run start:client:dev\"",
     "start:dist": "npm run build:dist && node ./dist/index.js",
     "deploy": "sh ./scripts/deploy.sh",
     "relay": "relay-compiler",

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AuthorizationInner from './AuthorizationInner';
+import AuthorizationInner from '~/providers/AuthProvider/AuthorizationInner';
 
 export interface AuthorizationProviderProps {
   readonly children: React.ReactNode | React.ReactNode[];

@@ -1,12 +1,12 @@
-import fs = require('node:fs');
-import path = require('node:path');
-import dotenv = require('dotenv');
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import TerserPlugin = require('terser-webpack-plugin');
-import ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-import MiniCssExtractPlugin = require('mini-css-extract-plugin');
-import Mustache = require('mustache');
-import CompressionPlugin = require('compression-webpack-plugin');
+import fs from 'node:fs';
+import path from 'node:path';
+import dotenv from 'dotenv';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import Mustache from 'mustache';
+import CompressionPlugin from 'compression-webpack-plugin';
 import LoadablePlugin from '@loadable/webpack-plugin';
 import { Configuration, DefinePlugin, ProgressPlugin, HotModuleReplacementPlugin } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -56,8 +56,7 @@ const webpackProdConfig: Configuration = {
                 Boolean,
               ),
             },
-          },
-          'shebang-loader',
+          }
         ],
       },
       {
@@ -183,6 +182,7 @@ const webpackProdConfig: Configuration = {
         ]),
   ],
   resolve: {
+    preferRelative: true,
     extensions: ['.js', '.ts', '.tsx', '.css'],
     alias: {
       '~': path.resolve(__dirname, '..', 'src'),

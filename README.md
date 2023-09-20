@@ -123,7 +123,9 @@ $ npm run migrate:latest
 $ npm run prepare:relay
 ```
 
-8. Запустите все проекты
+**Windows:** По окончанию процесса, возможно, останется запущенный терминал. После сообщения типа `Now you can start your projects, just run «npm run start»` его следует закрыть.
+
+8. Запустите все проекты. Команда ниже запустит все три проекта за раз.
 
 ```bash
 $ npm run start

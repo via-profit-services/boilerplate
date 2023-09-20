@@ -18,7 +18,7 @@
     "redux": "4.2.0"
   },
   "scripts": {
-    "start": "concurrently --raw \"relay-compiler --watch\" \"npm run start:client:dev\"",
+    "start": "concurrently --raw \"relay-compiler\" \"npm run start:client:dev\"",
     "relay": "relay-compiler",
     "start:dist": "npm run build:dist && node ./dist/index.js",
     "deploy": "sh ./scripts/deploy.sh",
@@ -137,6 +137,7 @@
     "@zerollup/ts-transform-paths": "^1.7.18",
     "babel-loader": "^9.1.3",
     "babel-plugin-formatjs": "^10.5.5",
+    "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-relay": "^15.0.0",
     "compression-webpack-plugin": "^10.0.0",
     "cross-env": "^7.0.3",

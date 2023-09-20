@@ -1,6 +1,6 @@
-import path = require('node:path');
-import dotenv = require('dotenv');
-import MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path  from 'node:path';
+import dotenv  from 'dotenv';
+import MiniCssExtractPlugin  from 'mini-css-extract-plugin';
 import { Configuration, ProgressPlugin } from 'webpack';
 
 dotenv.config();
@@ -50,6 +50,7 @@ const webpackServerConfig: Configuration = {
     ],
   },
   resolve: {
+    preferRelative: true,
     extensions: ['.js', '.ts', '.tsx', '.css'],
     alias: {
       '~': path.resolve(__dirname, '..', 'src'),

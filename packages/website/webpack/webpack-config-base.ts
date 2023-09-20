@@ -106,6 +106,7 @@ const webpackBaseConfig: Configuration = {
   ],
 
   resolve: {
+    preferRelative: true,
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.css'],
     mainFields: ['browser', 'jsnext:main', 'main'],
     alias: {

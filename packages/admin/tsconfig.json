@@ -32,7 +32,11 @@
     "baseUrl": "./src",
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "#relay/*": ["relay/artifacts/*"],
+      "#components/*": ["components/*"],
+      "#containers/*": ["containers/*"],
+      "#providers/*": ["providers/*"],
     },
   },
   "include": ["src/**/*", "src/@types/*.d.ts"],

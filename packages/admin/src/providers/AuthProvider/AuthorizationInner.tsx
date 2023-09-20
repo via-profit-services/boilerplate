@@ -246,10 +246,10 @@ graphql`
   }
 `;
 
-graphql`
-  subscription AuthorizationInnerUserUpdatedSubscription {
-    userWasUpdated {
-      id
-    }
-  }
-`;
+// graphql`
+//   subscription AuthorizationInnerUserUpdatedSubscription {
+//     userWasUpdated {
+//       id
+//     }
+//   }
+// `;
