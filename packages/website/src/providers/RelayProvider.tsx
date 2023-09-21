@@ -46,6 +46,9 @@ const RelayProvider: React.FC<Props> = props => {
   if (!subscriptionClientRef.current && typeof window !== 'undefined') {
     console.debug('[Relay] Subscription client init');
     subscriptionClientRef.current = createClient({
+      retryWait: async attempt => {
+        await new Promise(resolve => setTimeout(resolve, Math.min(attempt * 1000, 5000)));
+      },
       retryAttempts: 30,
       url: subscriptionEndpointRef.current || 'unknown',
       connectionParams: () =>
@@ -54,37 +57,34 @@ const RelayProvider: React.FC<Props> = props => {
               Authorization: `Bearer ${accessTokenRef.current}`,
             }
           : {},
-      on:
-        process.env.NODE_ENV === 'development'
-          ? {
-              connected: () => console.log('%c%s', 'color:#009627', 'WebSocket connected'),
-              closed: () => console.log('%c%s', 'color:#ff4e4e', 'WebSocket closed'),
-              error: err => console.log('%c%s', 'color:#ff4e4e', 'WebSocket error', err),
-              message: message => {
-                if (typeof message === 'undefined') {
-                  return;
-                }
-                const isNextMessage = (m: Message): m is NextMessage => m.type === 'next';
+      on: {
+        connected: () => console.log('%c%s', 'color:#009627', 'WebSocket connected'),
+        closed: () => console.log('%c%s', 'color:#ff4e4e', 'WebSocket closed'),
+        error: err => console.log('%c%s', 'color:#ff4e4e', 'WebSocket error', err),
+        message: message => {
+          if (typeof message === 'undefined') {
+            return;
+          }
+          const isNextMessage = (m: Message): m is NextMessage => m.type === 'next';
 
-                if (isNextMessage(message)) {
-                  const { data } = message.payload;
-                  if (typeof data === 'object') {
-                    Object.entries(data as any).forEach(([trigger, payload]) => {
-                      console.groupCollapsed(
-                        '%c%s%c%s',
-                        'color:#009627;',
-                        '• ',
-                        'color:#009627;',
-                        `WebSocket message «${trigger}»`,
-                      );
-                      console.log(payload);
-                      console.groupEnd();
-                    });
-                  }
-                }
-              },
+          if (isNextMessage(message)) {
+            const { data } = message.payload;
+            if (typeof data === 'object') {
+              Object.entries(data as any).forEach(([trigger, payload]) => {
+                console.groupCollapsed(
+                  '%c%s%c%s',
+                  'color:#009627;',
+                  '• ',
+                  'color:#009627;',
+                  `WebSocket message «${trigger}»`,
+                );
+                console.log(payload);
+                console.groupEnd();
+              });
             }
-          : undefined,
+          }
+        },
+      },
     });
   }
 
