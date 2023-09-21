@@ -104,10 +104,14 @@ const AuthFormWithRef: React.ForwardRefRenderFunction<HTMLFormElement, FormProps
           // Reset password required
           setValue('password', '');
           passwordInputRef.current?.focus();
-          toast(intlMessages[authentification.create.name] || intlMessages.unknownError, {
-            type: 'error',
-            position: 'bottom-center',
-          });
+          toast(
+            intlMessages[authentification.create.name as keyof typeof intlMessages] ||
+              intlMessages.unknownError,
+            {
+              type: 'error',
+              position: 'bottom-center',
+            },
+          );
         }
 
         // Successfully created

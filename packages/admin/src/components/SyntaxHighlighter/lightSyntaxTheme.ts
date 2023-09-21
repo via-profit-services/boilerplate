@@ -1,4 +1,8 @@
-const syntaxTheme = {
+import type { SyntaxHighlighterProps } from 'react-syntax-highlighter';
+
+type NonUndefined<T> = T extends undefined ? never : T;
+
+const syntaxTheme: NonUndefined<SyntaxHighlighterProps['style']> = {
   'code[class*="language-"]': {
     display: 'block',
     overflow: 'auto',

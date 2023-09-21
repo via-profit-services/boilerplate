@@ -56,7 +56,7 @@ export const serializeToHtml = async (editorState: EditorState): Promise<string>
     }
   };
 
-  const renderNode = (node: LexicalNode) => {
+  const renderNode = (node: LexicalNode): string => {
     switch (node.getType()) {
       case 'root':
         return (node as RootNode)

@@ -103,8 +103,8 @@ const RelayProvider: React.FC<RelayProviderProps> = props => {
             }
           : {},
       on: {
-        connected: (socket: WebSocket) => {
-          subscriptionSocketRef.current = socket;
+        connected: socket => {
+          (subscriptionSocketRef.current as any) = socket;
           console.log('%c%s', 'color:#009627', 'WebSocket connected');
         },
         closed: () => console.log('%c%s', 'color:#ff4e4e', 'WebSocket closed'),
@@ -163,7 +163,7 @@ const RelayProvider: React.FC<RelayProviderProps> = props => {
         }
 
         const formData = new FormData();
-        const map = {};
+        const map: Record<string, [string]> = {};
 
         let filesFieldName = 'variables.f';
 
@@ -282,7 +282,7 @@ const RelayProvider: React.FC<RelayProviderProps> = props => {
         if (body.errors) {
           console.groupCollapsed('%c%s', `color:${color}`, 'Errors');
           if (Array.isArray(body.errors)) {
-            body.errors.forEach(error => {
+            body.errors.forEach((error: Error) => {
               console.log('%c%s', `color:${color}`, error.message);
               console.groupCollapsed('%c%s', `color:${color}`, 'Details');
               console.log(error);

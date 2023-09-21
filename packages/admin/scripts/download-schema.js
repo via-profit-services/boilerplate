@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 /* eslint-disable */
 const fs = require('node:fs');
 const path = require('node:path');
@@ -15,7 +17,7 @@ const downloadSchema = async () => {
       reject([{ msg: 'Check the «GRAPHQL_ENDPOINT» variable on process.env' }]);
     }
 
-    const url = new URL(process.env.GRAPHQL_ENDPOINT);
+    const url = new URL(process.env.GRAPHQL_ENDPOINT || 'http://unknown');
     const request = http.request({
       host: url.hostname,
       port: Number(url.port),

@@ -1,6 +1,9 @@
+import type { SyntaxHighlighterProps } from 'react-syntax-highlighter';
 import lightSyntaxTheme from './lightSyntaxTheme';
 
-const syntaxTheme = {
+type NonUndefined<T> = T extends undefined ? never : T;
+
+const syntaxTheme: NonUndefined<SyntaxHighlighterProps['style']> = {
   ...lightSyntaxTheme,
   'code[class*="language-"]': {
     display: 'block',

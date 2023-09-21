@@ -334,7 +334,7 @@ const LoxicalEditorComponent: React.FC = () => {
   const initialConfig = React.useRef({
     readOnly: false,
     namespace: 'dashboard',
-    onError: err => console.error(err),
+    onError: (err: Error) => console.error(err),
     theme: {
       text: {
         bold: 'editor-text-bold',
